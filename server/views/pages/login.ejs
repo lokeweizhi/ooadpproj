@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <% include ../partials/stylesheet %>
+</head>
+<body>
+    <% include ../partials/header %>
+<!--========================================================================================================================-->
+<br>
+<p></p>
+<div class="content login-box">
+    <div class="login-main">
+        <div class="container">
+            <% if (message.length > 0) { %>
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Oops!</strong> <%= message %>.
+                </div>
+            <% } %>
+        </div>
+        <div class="wrap">
+            <h1>LOGIN OR CREATE AN ACCOUNT</h1>
+            <div class="login-left">
+                <h3>NEW CUSTOMERS</h3>
+                <p>By creating an account, you are able to purchase and sell your textbooks.</p>
+                <a class="acount-btn" href="/signup">Create an Account</a>
+            </div>
+            <div class="login-right">
+                <h3>LOGIN</h3>
+                <p>If you have an account with us, please log in.</p>
+                <form class="form-signin" action="/login" method="post">
+                    <div>
+                        <span>Username<label>*</label></span>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                    </div>
+                    <div>
+                        <span>Password<label>*</label></span>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+                    </div>
+                    <br>
+                    <input type="submit" value="Login" />
+                </form>
+            </div>
+            <div class="clear"> </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--========================================================================================================================-->
+    <script>
+    var password = document.getElementById("password")
+    function passwordLength(){
+        if (password.value.length < 6) {
+            password.setCustomValidity("Password length must be 6 and above!")
+        } else {
+            password.setCustomValidity('');
+        }
+    }
+    password.onkeyup = passwordLength;
+    </script>
+
+    <% include ../partials/footer %>
+    <% include ../partials/javascript %>
+</body>
+</html>

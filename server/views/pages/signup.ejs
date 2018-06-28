@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <style>
+    .form-signin {
+        max-width: 75%;
+        padding: 15px;
+        margin: 0 auto;
+    }
+    container
+    {
+        margin: 0 auto;
+    }
+    .btn-primary {
+        margin-top: -35px;
+    }
+    </style>    
+    <% include ../partials/stylesheet %>
+</head>
+<body>
+    <% include ../partials/header %>
+    <!--===================================================================================-->
+    <div class="content login-box">
+        <div class="login-main">
+            <div class="container">
+                <!--Display warning text if neccessary-->
+                <% if (message.length > 0) { %>
+                    <div class="alert alert-warning alert-dismissible fade in" role="alert" style="margin-top: -40px">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Warning!</strong> <%= message %>.
+                    </div>
+                <% } %>
+                <!--//Display warning text if neccessary-->
+            </div>
+            <div class="wrap">
+                <h1>CREATE AN ACCOUNT</h1>
+                <div class="register-grids">
+                    <form action="/signup" method="post">
+                            <div class="register-top-grid">
+                                    <h3>PERSONAL INFORMATION</h3>
+                                    <div>
+                                        <span>First Name<label>*</label></span>
+                                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name" required=""> 
+                                    </div>
+                                    <div>
+                                        <span>Last Name<label>*</label></span>
+                                        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name" required="">
+                                    </div>
+                                    <div>
+                                        <span>Username<label>*</label></span>
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                                    </div>
+                                    <div>
+                                        <span>Email Address<label>*</label></span>
+                                        <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required=""> 
+                                    </div>
+                                    <div>
+                                        <span>Phone Number<label>*</label></span>
+                                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Phone Number" required=""> 
+                                    </div>
+                            </div>
+                            <div class="clear"> </div>
+                            <div class="register-bottom-grid">
+                                    <h3>LOGIN INFORMATION</h3>
+                                    <div>
+                                        <span>Password<label>*</label></span>
+                                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+                                    </div>
+                                    <div>
+                                        <span>Confirm Password<label>*</label></span>
+                                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" required="">
+                                    </div>
+                                    <div class="clear"> </div>
+                            </div>
+                            <div class="clear"> </div>
+                            <input type="submit" value="submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var password = document.getElementById("password"), confirmPassword = document.getElementById("confirmPassword");
+
+        function validatePassword(){
+            if (password.value != confirmPassword.value) {
+                confirmPassword.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirmPassword.setCustomValidity('');
+            }
+        }
+        function passwordLength(){
+            if (password.value.length < 6) {
+                password.setCustomValidity("Password length must be 6 and above!")
+            } else {
+                password.setCustomValidity('');
+            }
+        }
+        password.onchange = validatePassword;
+        confirmPassword.onkeyup = validatePassword;
+
+        password.onkeyup = passwordLength;
+    </script>
+        <% include ../partials/footer %>
+        <% include ../partials/javascript %>
+    </body>
+    </html>

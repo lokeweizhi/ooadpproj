@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= title %>
+    </title>
+    <% include ../partials/stylesheet %>
+    <% include ../partials/javascript %>
+    <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
+    <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
+    <link href="/stylesheets/profile.css" rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <% include ../partials/header %>
+    <div class="login-main">
+        <div class="container">
+                <div class="wrap">
+                    <h1><%=webTitle%></h1>
+                    <div class="col-lg-6">
+                        <br>
+                        <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createPost">
+                            Write a review
+                        </button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form action="/new" method="post">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Review</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <fieldset class="form-group">
+                                        <label for="inlineFormInputGroupUsername">REVIEW USERNAME<span id="impt">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span id="verified"></span>
+                                            <div class="input-group-text">@</div>
+                                            </div>
+                                            <input type="text" class="form-control" id="username" name="username" value="<%=user.username %>" readonly>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label for="inputbuyerseller">Buyer/Seller</label>
+                                        <input type="text" id="buyerOrSeller" name="buyerOrSeller" class="form-control" placeholder="Buyer/Seller" required="">
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label for="inputitle">Title</label>
+                                        <input type="text" id="title" name="title" class="form-control" placeholder="Title" required="">
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label for="inputContent">Give feedback</label>
+                                        <textarea id="Content" name="content" rows="8" cols="40" class="form-control" placeholder="Feedback Description" required=""></textarea>
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <span class="star-cb-group">
+                                            <input type="radio" id="rating-5" name="rating" value="5" checked="checked"/><label for="rating-5">5</label>
+                                            <input type="radio" id="rating-4" name="rating" value="4" /><label for="rating-4">4</label>
+                                            <input type="radio" id="rating-3" name="rating" value="3" /><label for="rating-3">3</label>
+                                            <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
+                                            <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
+                                            <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
+                                        </span>
+                                    </fieldset>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <br><br>
+    <% include ../partials/footer %>
+</body>
+
+</html>

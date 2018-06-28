@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <% include ../partials/stylesheet %>
+    <link href="/stylesheets/settings.css" rel='stylesheet' type='text/css' />
+    <script src="/javascripts/settings.js"></script>   
+    <style>
+    .img-thumbnai{
+        height: 40px;
+        width: 50px;
+    }
+    </style>
+</head>
+<body>
+    <% include ../partials/header %>
+    <div class="login-main">
+        <div class="container">
+            <div class="wrap">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1><%= webTitle %></h1>
+                    </div>        
+                </div>
+                <!--Tab-->
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><h3>Public</h3></a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-personal" aria-selected="false"><h3>Personal</h3></a>
+                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-changePassword" aria-selected="false"><h3>Change Password</h3></a>
+                </div>
+                <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <!--Public-->
+                        <div class="container">
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-5">
+                                        <!--Username-->
+                                        <br>
+                                        <label for="inlineFormInputGroupUsername">USERNAME<span id="impt">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <div class="input-group-text">@</div>
+                                            </div>
+                                            <input type="text" class="form-control" id="username" name="username" value="<%=user.username %>" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputAboutMe">ABOUT ME</label>
+                                        <textarea class="form-control" rows="5" id="aboutMe" name="aboutMe"><%= user.aboutMe%></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-5">
+                                        <label for="inputLocation">LOCATION</label>
+                                        <select class="form-control" id="location" name="location">
+                                            <!-- req.body.<name>-->
+                                            <option value="" selected disabled hidden>Choose here</option>
+                                            <option value="Singapore">Singapore</option>
+                                            <option value="Malaysia">Malaysia</option>
+                                            <option value="Indonesia">Indonesia</option>
+                                        </select>              
+                                    </div>
+                                </div>
+                                <br>
+                                <center><input type="submit" onclick=saveChanges() value="save changes"></center>
+                        </div>
+                    <!--//Public-->
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <!--Personal-->
+                        <div class="container">
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <br>
+                                    <label for="inputFirstName">FIRST NAME<span id="impt">*</span></label>
+                                    <input type="text" id="firstName" name="firstName" class="form-control" value=<%= user.firstName %> required="">
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-group col-md-5">
+                                    <br>
+                                    <label for="inputLastName">LAST NAME<span id="impt">*</span></label> 
+                                    <input type="text" id="lastName" name="lastName" class="form-control" value=<%= user.lastName %> required="">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <label for="inputEmail">EMAIL ADDRESS<span id="impt">*</span></label>
+                                    <input type="email" id="email" name="email" class="form-control" value=<%= user.email %> required="">                
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <label for="inputGender">GENDER</label>
+                                    <select class="form-control" id="gender" name="gender">
+                                        <!-- req.body.<name>-->
+                                        <option value="" selected disabled hidden>Choose here</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Others">Others</option>
+                                    </select>                
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <label for="inputPhoneNumber">PHONE NUMBER<span id="impt">*</span></label>
+                                    <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" value=<%=user.phoneNumber %> required="">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                <!--Modal-->
+                                <a data-toggle="modal" data-target="#sendDeactivationRequest" style="text-decoration: underline">Deactivate Account
+                                </a>
+                                    <div class="modal fade" id="sendDeactivationRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <form action="/settings" method="post" enctype="multipart/form-data">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        <h4>Send deactivation request to admin</h4>
+                                                    </div>
+                            
+                                                    <div class="modal-body">
+                                                        <textarea class="form-control" rows="5" id="deactivationRequest" name="deactivationRequest" required></textarea>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--//modal-->                        
+                            </div>
+                            <br>
+                            <input type="submit" onclick=saveChanges() value="save changes">   
+                        </div>
+                    <!--//Personal-->
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <!--Change Password-->
+                        <div class = "container">  
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <!--Password and Confirm Password-->
+                                    <br>
+                                    <label for="inputPassword">PASSWORD<span id="impt">*</span></label>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" value=<%=user.password %> required="">
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-group col-md-5">
+                                    <br>
+                                    <label for="inputConfirmPassword">CONFIRM PASSWORD<span id="impt">*</span></label> 
+                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" required="">
+                                    <br>
+                                </div>
+                            </div>
+                            <input type="submit" onclick=saveChanges() value="save changes">  
+                        </div>           
+                    <!--//Change Password-->
+                </div>
+                </div>
+            </div>
+        <!--//tab-->
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <script>
+    // var src = $('img')[1].src; // "http://localhost:3000/images/animal-avian-bald-eagle-1131774.jpg"
+    // var tarr = src.split('/');     
+    // var file = tarr[4]; //animal-avian-bald-eagle-1131774.jpg
+        function saveChanges() {
+            var url = "<%=hostPath%>/settings";
+            // firstName, lastName, email, phoneNumber, password, aboutMe, location
+            var newValues = {
+                // imageName: file,
+                firstName: $("#firstName").val(),
+                lastName: $("#lastName").val(),
+                email: $("#email").val(),
+                phoneNumber: $("#phoneNumber").val(),
+                password: $("#password").val(),
+                aboutMe: $("#aboutMe").val(),
+                location: $('#location :selected').text(),
+                // location: $('#location').val(),
+                gender: $('#gender').val()
+            }
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: JSON.stringify(newValues),
+                dataType: "json",
+                contentType: "application/json",
+                success: function(result){
+                    alert("Settings updated successfully");
+                    //reveal();
+                    //location.href = "<%=hostPath%>/settings";
+                    
+                },
+                error: function(result){
+                    alert("Error updating settings:"+result);
+                    discardChanges();
+                    
+                }
+            })
+        }
+        function discardChanges() {
+            location.href = "<%=hostPath%>/settings"
+        }
+        $(document).click(function(event){
+            saveChanges(event);
+        });
+    </script>
+    <script>
+    loca = "<%=user.location%>";
+    document.getElementById("location").value = loca
+    gen = "<%=user.gender%>";
+    document.getElementById("gender").value = gen
+    // $("#location").val(loca)
+    // $('[name=gender]').val(gen);
+    </script>
+        <% include ../partials/footer %>
+        <% include ../partials/javascript %>
+    </body>
+    </html>

@@ -1,0 +1,69 @@
+/* Sign in Page */
+#impt {
+color: #F06B6B;
+font-weight: bold;
+}
+label {
+font-size: 0.8em;
+font-weight: bold;
+}
+.btn-primary {
+background-color: #F06B6B !important;
+/* margin-top: -35px; */
+}
+label {
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+/* textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+  border-color: #A5A5A5;
+  box-shadow: 0 1px 1px rgba(240, 107, 107, 1) inset, 0 0 8px rgba(240, 107, 107, 1);
+  outline: 0 none;
+} */
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {   
+    border-color: #EEE;;
+    box-shadow: #EEE;
+    outline: 0 none;
+}
+
+/* For settings and profile */
+#imgContainer {
+    width: 100px; 
+}
+#imgContainer img {
+    display:block;
+    width: 100%;
+    height: auto;
+}
