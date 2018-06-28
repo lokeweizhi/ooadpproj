@@ -121,7 +121,6 @@ app.set('port', serverPort);
 
 var server = httpServer.listen(app.get('port'), function () {
     console.log('========================================================')
-    console.log("From: app.js")
     console.log('http server listening on port ' + server.address().port);
     console.log('========================================================')
 });
