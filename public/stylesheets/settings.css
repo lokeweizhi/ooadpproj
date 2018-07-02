@@ -28,14 +28,14 @@ input[type="submit"]:hover{
     background: #1C1C20;
     border-bottom: 4px solid #333;
 }
-/*.nav-item {
+#nav-home-tab, #nav-personal-tab, #nav-changePassword-tab {
     font-size: 0.875em;
     color: #1C1C20;
     font-weight: 700;
     font-size: 1em;
     padding-bottom: 0.5em;
     cursor: pointer;
-}*/
+}
 /* Style the active class, and buttons on mouse-over */
 #nav-tab > .active, .nav-item:hover {
     color: #E45D5D;

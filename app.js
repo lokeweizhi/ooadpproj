@@ -89,6 +89,7 @@ app.post('/signup', passport.authenticate('local-signup', {
 var settingsController = require('./server/controllers/settingsController');
 app.get("/settings", settingsController.hasAuthorization, settingsController.list); 
 app.post("/settings", settingsController.hasAuthorization, settingsController.update);
+app.post("/newDeactivationRequest", settingsController.hasAuthorization, settingsController.create);
 
 // Logout Page
 app.get('/logout', function (req, res) {
