@@ -45,7 +45,8 @@ exports.update = function(req,res) {
 exports.create = function (req, res) {
     var deactivationData = {
         username: req.user.username,
-        reasons: req.body.reasons
+        reasons: req.body.reasons,
+        user_id: req.user.id
     }
     DeactivationModel.create(deactivationData).then((newRequest, created) => {
         if (!newRequest) {
