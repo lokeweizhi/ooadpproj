@@ -41,9 +41,6 @@ const Users = sequelize.define('Users', {
     },
     imageName: {
         type: Sequelize.STRING
-    },
-    deactivationRequest: {
-        type: Sequelize.STRING
     }
 });
 
