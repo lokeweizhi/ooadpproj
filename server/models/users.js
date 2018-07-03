@@ -62,7 +62,6 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         location: "Singapore",
         gender: "Male",
         imageName: "default-avatar.png",
-        deactivationRequest: ""
     });
     Users.upsert({
         id: 2,
@@ -77,7 +76,6 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         location: "Singapore",
         gender: "Female",
         imageName: "default-avatar.png",
-        deactivationRequest: "I have an extra account."
     });
 });
 
