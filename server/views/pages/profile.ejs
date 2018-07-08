@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= title %>
+    </title>
+    <% include ../partials/stylesheet %>
+    <% include ../partials/javascript %>
+    <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
+    <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
+    <link href="/stylesheets/profile.css" rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <% include ../partials/header %>
+    <div class="login-main">
+        <div class="container">
+        <!-- <div class="wrap"> -->
+            <!-- <h1><%=webTitle%></h1> -->
+            <header class="headerImage">
+            </header>
+            <main>
+                <div class="row">
+                <div class="left col-lg-4">
+                    <div class="photo-left">
+                    <img class="photo" src="images/profileImages/<%= user.imageName %>"/>
+                    </div>
+                    <h4 class="name" id="username" name="username" style="color: #777;"><span id="verified"></span><%=user.username %></h4>
+                    <!-- <p class="info"><%=user.id %></p> -->
+                    <p class="info"><%=user.location %></p>
+                    <div class="stats row">
+                    <div class="stat col-xs-4" style="padding-right: 50px;">
+                        <p class="number-stat">3,619</p>
+                        <p class="desc-stat">Followers</p>
+                    </div>
+                    <div class="stat col-xs-4">
+                        <p class="number-stat">42</p>
+                        <p class="desc-stat">Following</p>
+                    </div>
+                    <div class="stat col-xs-4" style="padding-left: 50px;">
+                        <p class="number-stat">38</p>
+                        <p class="desc-stat">Listings</p>
+                    </div>
+                    </div>
+                    <p class="desc"><%=user.aboutMe %></p>
+                    <div class="social">
+                        <div class="average">
+                            <div class="stars-outer">
+                            <div class="stars-inner"></div>
+                            </div>
+                            <span id="averageRating"></span>
+                            <span class="number-rating"></span>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="right col-lg-8">
+                    <ul class="profileNav">
+                    <li>Listings</li>
+                    <li>Reviews</li>
+                    </ul>
+                    <!--<span class="follow">Follow</span>--> <!-- edit/follow -->
+                    <!--modal-->
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createImage" id="follow">
+                        Image Upload
+                    </button>
+                    <div class="modal fade" id="createImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <form action="/profile" method="post" enctype="multipart/form-data">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">Change avatar</h4>
+                                    </div>
+            
+                                    <div class="modal-body">
+                                        <label class="file" style="width: 100%">
+                                            <input type="file" id="image" name="image">
+                                            <span class="file-custom"></span>
+                                        </label>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" onclick=saveChanges()>Change Avatar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--//modal-->
+                    <div class="row gallery">
+                    <div class="col-md-4">
+                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774813-photo4.jpg"/>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo5.jpg"/>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774814-photo6.jpg"/>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774817-photo1.jpg"/>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774815-photo2.jpg"/>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="https://image.noelshack.com/fichiers/2017/38/2/1505774816-photo3.jpg"/>
+                    </div>
+                    </div>
+                </div>
+            </main>
+        <!-- </div> -->
+        </div>
+    </div>  
+            <div class="container">
+                <div class="wrap"></div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            
+                        </div>
+                    </div>          
+<!--====================================================================================================================================================================-->
+                    
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <div class="lead">
+                            <div class="list-group">
+                                <center><h3 style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;text-decoration: underline;">Reviews</h3></center>
+                                <% profile.forEach(function(review){ %>
+                                    <a href="#" class="list-group-item" data-id="<%= review.id%>">
+                                        <div class="reviews">
+                                            <form action="/profile" method="delete">
+                                                <h4 style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;text-decoration: underline;">
+                                                    <%= review.title %>
+                                                    <button class="btn btn-danger pull-right deleteBtn" type="button" data-id="<%= review.id%>">Delete</button>
+                                                </h4>
+                                                <p class="list-group-item-text">
+                                                    <%= review.content %>
+                                                </p>
+                                                <p class="list-group-item-text" id="usersRating">
+                                                    <%= review.rating %> / 5
+                                                </p>
+                                                <small class="text-muted">By:
+                                                    @<span class="by" ><%= review.by %></span>
+                                                </small>
+                                                <!-- <small class="text-muted">
+                                                    (@<span class="id" ><%= review.user_id %></span>)
+                                                </small> -->
+                                                <!-- <small class="text-muted">
+                                                    (<%= review.created %>) (<%= review.buyerOrSeller %>)
+                                                </small> -->
+                                                <!--<small><%= review.targetUsername %></small>--> <!--To be deleted, used for testing purposes-->
+                                            </form>
+                                        </div>
+                                    </a>
+                                    <% }); %> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <% include ../partials/footer %>
+        <script>
+        // for delete button
+        $('.deleteBtn').click(function() {
+            var profile_id = $(this).data('id');      
+            $.ajax({
+                    url: '<%-urlPath%>'+'/'+profile_id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        console.log(result.message);
+                        var itemToRemove = '.list-group-item[data-id='+ profile_id+']';
+                        $(itemToRemove).remove();
+                        calculateTotalRatings(); // to calculate the average rating
+                        verified(); // check whether if the user is still verified
+                    },
+                    error: function(result){
+                        alert("Unable to delete review.");
+                        console.log(result.message);
+                    } 
+                });  
+            });
+
+        // redirects to the next user
+        $('.by').click(function () {
+            var record_username = $(this).closest('.list-group-item').find('.by').text();
+            location.href = "<%-urlPath %>/"+record_username;
+        });
+        </script>
+        
+        <script> 
+        // calculate the total ratings
+        function calculateTotalRatings() {
+            var total = 0;
+            var avg = 0;
+            var usersRating = document.querySelectorAll("#usersRating");
+            for (var i=0; i<usersRating.length; i++) {
+                value = parseInt(document.querySelectorAll("#usersRating")[i].innerHTML);
+                total += value; 
+            }
+            if (usersRating.length === 0) {
+                avg = 0
+            }
+            else {
+                avg = (total / usersRating.length).toFixed(1);
+                document.getElementById("averageRating").innerHTML = avg;
+            }
+        }
+        calculateTotalRatings();        
+        </script>
+        <script src="/javascripts/profile.js"></script>   
+</body>
+
+</html>

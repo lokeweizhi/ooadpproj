@@ -91,6 +91,20 @@ app.get("/settings", settingsController.hasAuthorization, settingsController.lis
 app.post("/settings", settingsController.hasAuthorization, settingsController.update);
 app.post("/newDeactivationRequest", settingsController.hasAuthorization, settingsController.create);
 
+// Import profile controller
+var profileController = require('./server/controllers/profileController');
+// Setup routes for profile
+app.get('/profile', profileController.hasAuthorization, profileController.list);
+app.post('/profile',profileController.hasAuthorization, upload.single('image'), profileController.uploadImage);
+app.get("/profile/:username", profileController.browseProfiles); 
+app.delete('/profile/:profile_id', profileController.hasAuthorization, profileController.delete);
+
+// Import reviews controller
+var reviewsController = require('./server/controllers/reviewsController');
+// Setup routes for activity(reviews)
+app.get('/activity', reviewsController.show);
+app.post('/new', reviewsController.hasAuthorization, reviewsController.create);
+
 // Logout Page
 app.get('/logout', function (req, res) {
     req.logout();
