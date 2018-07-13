@@ -61,7 +61,6 @@
                     <li>Listings</li>
                     <li>Reviews</li>
                     </ul>
-                    <!--<span class="follow">Follow</span>--> <!-- edit/follow -->
                     <!--modal-->
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createImage" id="follow">
                         Image Upload
@@ -148,13 +147,6 @@
                                                 <small class="text-muted">By:
                                                     @<span class="by" ><%= review.by %></span>
                                                 </small>
-                                                <!-- <small class="text-muted">
-                                                    (@<span class="id" ><%= review.user_id %></span>)
-                                                </small> -->
-                                                <!-- <small class="text-muted">
-                                                    (<%= review.created %>) (<%= review.buyerOrSeller %>)
-                                                </small> -->
-                                                <!--<small><%= review.targetUsername %></small>--> <!--To be deleted, used for testing purposes-->
                                             </form>
                                         </div>
                                     </a>
@@ -181,6 +173,7 @@
                         $(itemToRemove).remove();
                         calculateTotalRatings(); // to calculate the average rating
                         verified(); // check whether if the user is still verified
+                        getRatings();
                     },
                     error: function(result){
                         alert("Unable to delete review.");
@@ -196,26 +189,6 @@
         });
         </script>
         
-        <script> 
-        // calculate the total ratings
-        function calculateTotalRatings() {
-            var total = 0;
-            var avg = 0;
-            var usersRating = document.querySelectorAll("#usersRating");
-            for (var i=0; i<usersRating.length; i++) {
-                value = parseInt(document.querySelectorAll("#usersRating")[i].innerHTML);
-                total += value; 
-            }
-            if (usersRating.length === 0) {
-                avg = 0
-            }
-            else {
-                avg = (total / usersRating.length).toFixed(1);
-                document.getElementById("averageRating").innerHTML = avg;
-            }
-        }
-        calculateTotalRatings();        
-        </script>
         <script src="/javascripts/profile.js"></script>   
 </body>
 

@@ -6,6 +6,7 @@ $('body').append(log);
     log.html(me.attr('value'));
   });
 var avg = 0;
+
 // calculate the total ratings
 function calculateTotalRatings() {
     var total = 0;
@@ -60,36 +61,36 @@ verified();
 avg = document.getElementById("averageRating").innerHTML
 const ratings = {
     average: avg
-  }
+}
 
-  // Total Stars
-  const starsTotal = 5;
+// Total Stars
+const starsTotal = 5;
 
-  // Run getRatings when DOM loads
-  document.addEventListener('DOMContentLoaded', getRatings);
+// Run getRatings when DOM loads
+document.addEventListener('DOMContentLoaded', getRatings);
 
-  // Form Elements
-  const productSelect = document.getElementById('product-select');
-  const ratingControl = document.getElementById('rating-control');
+// Form Elements
+const productSelect = document.getElementById('product-select');
+const ratingControl = document.getElementById('rating-control');
 
-  // Init product
-  let product;
+// Init product
+let product;
 
 
-  // Get ratings
-  function getRatings() {
-    for (let rating in ratings) {
-      // Get percentage
-      const starPercentage = (ratings[rating] / starsTotal) * 100;
+// Get ratings
+function getRatings() {
+for (let rating in ratings) {
+    // Get percentage
+    const starPercentage = (ratings[rating] / starsTotal) * 100;
 
-      // Round to nearest 10
-      const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+    // Round to nearest 10
+    const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
 
-      // Set width of stars-inner to percentage
-      document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
+    // Set width of stars-inner to percentage
+    document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
 
-      // Add number rating
-    //   document.querySelector(`.${rating} .number-rating`).innerHTML = ratings[rating];
-       document.querySelector(`.${rating} #averageRating`).innerHTML = ratings[rating]
-    }
-  }
+    // Add number rating
+//   document.querySelector(`.${rating} .number-rating`).innerHTML = ratings[rating];
+    document.querySelector(`.${rating} #averageRating`).innerHTML = ratings[rating]
+}
+}

@@ -2,6 +2,7 @@
 var LocalStrategy = require('passport-local').Strategy;
 // load up the user model
 var User = require('../models/users');
+var Reviews = require('../models/reviewsModel');
 
 module.exports = function (passport) {
     // passport init setup
@@ -85,6 +86,10 @@ module.exports = function (passport) {
                                 password: password,
                                 imageName: "default-avatar.png"
                             }
+                            var reviewsData = {
+                                username: username,
+                                averageRating: 0
+                            }
 
                             // save data
                             User.create(userData).then((newUser, created) => {
@@ -92,6 +97,14 @@ module.exports = function (passport) {
                                     return done(null, false);
                                 }
                                 if (newUser) {
+                                    return done(null, newUser);
+                                }
+                            })
+                            Reviews.create(reviewsData).then((newReviews, created) => {
+                                if (!newReviews) {
+                                    return done(null, false);
+                                }
+                                if (newReviews) {
                                     return done(null, newUser);
                                 }
                             })

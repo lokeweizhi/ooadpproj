@@ -1,5 +1,6 @@
 // get Profile model
 var Profile = require('../models/profileModel');
+var Reviews = require('../models/reviewsModel');
 var UsersModel = require('../models/users');
 
 var myDatabase = require('./database');
@@ -15,9 +16,46 @@ exports.show = function(req, res) {
 
 // Create Reviews
 exports.create = function (req, res) {
-    console.log("*********req.body.username:",req.body.username);
-    console.log("*********req.body.rating:",req.body.rating);
-    console.log("**********",isNaN(req.body.rating));
+    var totalRatingsPerUser=0;
+    var numOfRatings = 0;
+    var avg = -1;
+    Profile.findAll({where:{targetUsername: req.body.username}}).then(function(profile,callback){
+        var deferred = $.Deferred();
+        for (let i = 0; i < profile.length; i++) {
+            console.log(profile[i].rating);
+            totalRatingsPerUser += profile[i].rating;
+            numOfRatings += 1;
+        }
+        // profile.forEach(item=>{
+        //     console.log("rating:",item.rating);
+        //     totalRatingsPerUser += item.rating;
+        //     numOfRatings += 1;
+        // });
+        totalRatingsPerUser = totalRatingsPerUser + parseInt(req.body.rating);
+        numOfRatings = numOfRatings + 1;
+        avg = totalRatingsPerUser/numOfRatings;
+        deferred.resolve(avg);
+        return deferred.promise();
+        // console.log("**********",numOfRatings);
+        // console.log("total:",totalRatingsPerUser);
+        // console.log("Avg:", avg);
+    })
+    // async function getRatings(){
+    //     var listOfRatings = await Profile.findAll({where:{targetUsername: req.body.username}}).then(function(profile){
+    //         return profile;
+    //     });
+    //     for (let i = 0; i < listOfRatings.length; i++) {
+    //         console.log(listOfRatings[i].rating);
+    //         totalRatingsPerUser += listOfRatings[i].rating;
+    //         numOfRatings += 1;
+    //     }
+    //     totalRatingsPerUser = totalRatingsPerUser + parseInt(req.body.rating);
+    //     numOfRatings = numOfRatings + 1;
+    //     avg = totalRatingsPerUser/numOfRatings;
+
+    //     return avg;
+    // }
+    // getRatings().then(function(avg){console.log("")})
     var reviewData = {
         buyerOrSeller: req.body.buyerOrSeller,
         title: req.body.title,
@@ -28,14 +66,20 @@ exports.create = function (req, res) {
         user_id: req.user.id,
     }
 
+    var ratingsData = {
+        username: req.body.username,
+        averageRating: avg
+    }
     Profile.create(reviewData).then((newReview, created) => {
-        if (!newReview) {
-            return res.send(400, {
-                message: "error"
-            });
-        }
-
-        res.redirect('/profile/'+req.body.username);
+        Reviews.update(ratingsData, { where: { username: req.body.username } }).then((newRatings) => {
+            // if (!newReview && !newRatings || newRatings == 0) {
+            if (!newReview && !newRatings) {
+                return res.send(400, {
+                    message: "error"
+                });
+            }
+            res.redirect('/profile/'+req.body.username);
+        })
     })
 }
 

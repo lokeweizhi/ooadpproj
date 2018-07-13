@@ -1,0 +1,148 @@
+<!--start all header-->
+<div class="header">
+    <!--TOP HEADER-->
+    <div class="top-header">
+        <div class = "wrap">
+            <div class = "top-header-left"></div>
+
+            <div class = "top-header-center">
+                <!-- <div class = "top-header-center-alert-left">
+                    <h3>ANNOUNCEMENTS:</h3>
+                </div>
+                <div class = "top-header-center-alert-right">
+                    <div class="vticker">
+                        <ul>
+                            <li>There's currently no announcements.Thank you.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div> -->
+            </div>
+
+            <!-- <div class="top-header-right">
+                <ul>
+                    <li><a href="/login">Login</a><span> </span></li>
+                    <li>&nbsp &nbsp <a href="/signup">Sign Up</a></li>
+                </ul>
+            </div>     -->
+            <div class="top-header-right">
+                <% if (login) { %>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-envelope-o fa-lg" aria-hidden="true" style="color:white;"></i></a><span> </span></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-list fa-lg" aria-hidden="true" style="color:white;"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" style="color:black;" href="#"><i class="fa fa-dollar"></i>&nbsp&nbspSell item</a>
+                                <a class="dropdown-item" style="color:black;" href="/activity"><i class="fa fa-bell-o"></i>&nbsp&nbspActivity</a>
+                                <a class="dropdown-item" style="color:black;" href="#"><i class="fa fa-bookmark"></i>&nbsp&nbspBookmarks</a>
+                                <a class="dropdown-item" style="color:black;" href="#"><i class="fa fa-credit-card"></i>&nbsp&nbspE-wallet</a>
+                                <a class="dropdown-item" style="color:black;" href="#"><i class="fa fa-shopping-cart"></i>&nbsp&nbspMy Cart</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" style="color:black;" href="/settings"><i class="fa fa-cog"></i>&nbsp&nbspSettings</a>
+                                <a class="dropdown-item" style="color:black;" href="/profile"><i class="fa fa-user-circle-o"></i>&nbsp&nbspProfile</a>
+                            </div>
+                            <span> </span>
+                        </li>
+                        <li>&nbsp &nbsp<a href="/logout">Logout</a></li>
+                    </ul>
+            </div>
+            
+                <% } else {  %>
+            <div class="top-header-right" style="padding: 0.3em 0;">
+                    <ul>
+                        <li><a href="/login">Login</a><span> </span></li>
+                        <li>&nbsp &nbsp <a href="/signup">Sign Up</a></li>
+                    </ul>
+                <% } %>
+            </div>  
+                <div class="clear"> </div>
+            </div>
+            <div class="clear"> </div>
+        </div>
+    </div>
+    <!--//TOP HEADER-->
+
+    <!--MIDDLE HEADER-->
+    <div class="mid-header">
+        <div class="wrap">
+            <div class="mid-grid-left">
+                <a class="logo" href="/"><span><img src="../images/logo1.jpg" style="display: inline-block; margin-top: -0.50em; margin-bottom: 0.75em"></span></a>
+                <div class="clear"></div>
+            </div>
+            <div class="mid-grid-right">
+                <form>
+                    <input type="text" placeholder="What Are You Looking for?" style = "margin-left: -3.5em" />
+                </form>
+            </div> 
+        </div>
+    </div>
+    <!--//MIDDLE HEADER-->
+
+    <!--BOTTOM HEADER(NAVBAR FOR MOST CATEGORIES)-->
+    <div class="bottom-header">
+        <div class="wrap">
+            <!-- start header menu -->
+            <ul class="megamenu skyblue">
+                <!--drop-down-->
+                <li class="grid"><a class="color2" href="#">CATEGORIES</a>
+                    <div class="megapanel">
+                        <div class="row">
+                            <div class="col1">
+                                <div class="h_nav">
+                                    <h4>Art & Design</h4>
+                                    <ul>
+                                        <li><a href="#">View More</a></li>
+                                    </ul>	
+                                </div>
+                                <div class="h_nav">
+                                    <h4 class="top">Humanities</h4>
+                                    <ul>
+                                        <li><a href="#">View More</a></li>
+                                    </ul>	
+                                </div>
+                            </div>
+                            <div class="col1">
+                                <div class="h_nav">
+                                    <h4>Languages</h4>
+                                    <ul>
+                                        <li><a href="#">View More</a></li>
+                                    </ul>	
+                                </div>
+                                <div class="h_nav">
+                                    <h4 class="top">Mathematics</h4>
+                                    <ul>
+                                        <li><a href="#">View More</a></li>
+                                    </ul>	
+                                </div>
+                            </div>
+                            <div class="col1">
+                                <div class="h_nav">
+                                    <h4>Science</h4>
+                                    <ul>
+                                        <li><a href="#">View More</a></li>
+                                        </ul>	
+                                </div>
+                                <div class="h_nav">
+                                    <h4 class="top">Other SUbjects</h4>
+                                    <ul>
+                                        <li><a href="#">View More</a></li>
+                                    </ul>	
+                                </div>
+                            </div>
+                                            
+                        </div>
+                    </div>
+                </li>
+                <!--drop-down-->
+                <!--no drop-down-->
+                <li class="active grid"><a class="color4" href="#">TOP SELLERS</a></li>				
+                <!-- <li><a class="color5" href="#">PROMOTION</a></li> -->
+                <li><a class="color6" href="#">E-WALLET</a></li>
+                <!--no drop-down-->
+            </ul>
+        </div>
+    </div>
+</div>
+<!--//all header-->
