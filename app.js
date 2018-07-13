@@ -86,11 +86,12 @@ var activityRouter = require('./server/routes/activity');
 app.use('/',activityRouter);
 
 // Ewallet
-// Import ewallet controller
-var ewallet = require('./server/controllers/contacts');
-app.get("/ewallet", ewallet.hasAuthorization, ewallet.list);
-app.post("/ewallet", ewallet.hasAuthorization, ewallet.create);
-app.delete("/ewallet/:contacts_id", ewallet.hasAuthorization, ewallet.delete);
+var ewalletRouter = require('./server/routes/ewallet');
+app.use('/',ewalletRouter);
+
+// Offers
+var offersRouter = require('./server/routes/offers');
+app.use('/offers',offersRouter);
 
 //===========================================================================================================================================
 // catch 404 and forward to error handler

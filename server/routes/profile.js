@@ -14,7 +14,3 @@ profileRouter.get("/:username", profileController.browseProfiles);
 profileRouter.delete("/:profile_id",profileController.hasAuthorization, profileController.delete);
 
 module.exports = profileRouter;
-// app.get('/profile', profileController.hasAuthorization, profileController.list);
-// app.post('/profile',profileController.hasAuthorization, upload.single('image'), profileController.uploadImage);
-// app.get("/profile/:username", profileController.browseProfiles); 
-// app.delete('/profile/:profile_id', profileController.hasAuthorization, profileController.delete);
