@@ -20,7 +20,6 @@ exports.create = function (req, res) {
     var numOfRatings = 0;
     var avg = -1;
     Profile.findAll({where:{targetUsername: req.body.username}}).then(function(profile,callback){
-        var deferred = $.Deferred();
         for (let i = 0; i < profile.length; i++) {
             console.log(profile[i].rating);
             totalRatingsPerUser += profile[i].rating;
@@ -34,8 +33,6 @@ exports.create = function (req, res) {
         totalRatingsPerUser = totalRatingsPerUser + parseInt(req.body.rating);
         numOfRatings = numOfRatings + 1;
         avg = totalRatingsPerUser/numOfRatings;
-        deferred.resolve(avg);
-        return deferred.promise();
         // console.log("**********",numOfRatings);
         // console.log("total:",totalRatingsPerUser);
         // console.log("Avg:", avg);
