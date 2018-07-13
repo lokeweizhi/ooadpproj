@@ -6,14 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 // import multer
-var multer = require('multer');
-var upload = multer({ dest:'./public/uploads/', limits: {fileSize: 1500000, files:1} });
-
-// Import home controller
-var index = require('./server/controllers/index');
-// Import login controller
-var auth = require('./server/controllers/auth');
-
+// var multer = require('multer');
+// var upload = multer({ dest:'./public/uploads/', limits: {fileSize: 1500000, files:1} });
 
 // Modules to store session
 var myDatabase = require('./server/controllers/database');
@@ -69,56 +63,35 @@ app.use(flash());
 
 app.use(function(req,res,next){ res.locals.login = req.isAuthenticated(); res.locals.user = req.user; next(); });
 
+//====================================================================================================================================
 // Application Routes
-// Index Route
-app.get('/', index.show);
-app.get('/login', auth.signin);
-app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/settings',
-    failureRedirect: '/login',
-    failureFlash: true
-}));
-app.get('/signup', auth.signup);
-app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/settings',
-    failureRedirect: '/signup',
-    failureFlash: true
-}));
+// Index Route AKA Homepage
+var indexRouter = require('./server/routes/index');
+app.use('/',indexRouter);
 
-// Import settings controller
-var settingsController = require('./server/controllers/settingsController');
-app.get("/settings", settingsController.hasAuthorization, settingsController.list); 
-app.post("/settings", settingsController.hasAuthorization, settingsController.update);
-app.post("/newDeactivationRequest", settingsController.hasAuthorization, settingsController.create);
+// Authorization Route: Login/ Signup/ Logout
+var authRouter = require('./server/routes/auth');
+app.use('/',authRouter); 
 
-// Import profile controller
-var profileController = require('./server/controllers/profileController');
-// Setup routes for profile
-app.get('/profile', profileController.hasAuthorization, profileController.list);
-app.post('/profile',profileController.hasAuthorization, upload.single('image'), profileController.uploadImage);
-app.get("/profile/:username", profileController.browseProfiles); 
-app.delete('/profile/:profile_id', profileController.hasAuthorization, profileController.delete);
+// Settings
+var settingsRouter = require('./server/routes/settings');
+app.use('/',settingsRouter);
 
-// Import reviews controller
-var reviewsController = require('./server/controllers/reviewsController');
-// Setup routes for activity(reviews)
-app.get('/activity', reviewsController.show);
-app.post('/new', reviewsController.hasAuthorization, reviewsController.create);
+// Profile
+var profileRouter = require('./server/routes/profile');
+app.use('/profile',profileRouter);
 
-// Logout Page
-app.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
-});
+// Activity
+var activityRouter = require('./server/routes/activity');
+app.use('/',activityRouter);
 
-
+//===========================================================================================================================================
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
-
 
 // production error handler
 // no stacktraces leaked to user
