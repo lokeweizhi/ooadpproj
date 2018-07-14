@@ -74,6 +74,8 @@ var authRouter = require('./server/routes/auth');
 app.use('/',authRouter); 
 
 // Admin Page
+var adminRouter = require('./server/routes/admin');
+app.use('/',adminRouter);
 
 // Settings
 var settingsRouter = require('./server/routes/settings');

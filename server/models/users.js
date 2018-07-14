@@ -77,6 +77,48 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         gender: "Female",
         imageName: "default-avatar.png",
     });
+    Users.upsert({
+        id: 3,
+        accountType: 'User',
+        firstName: 'Johanna',
+        lastName: 'Jimeno',
+        username: 'JohannaJimeno',
+        email: 'Johanna@Adamire.com',
+        phoneNumber:'81234567',
+        password: '123456',
+        aboutMe: '-',
+        location: "Singapore",
+        gender: "Female",
+        imageName: "default-avatar.png"
+    });
+    Users.upsert({
+        id: 4,
+        accountType: 'User',
+        firstName: 'Benjamin',
+        lastName: 'Loke',
+        username: 'benjaminloke',
+        email: 'Benjamin@Adamire.com',
+        phoneNumber:'81234567',
+        password: '123456',
+        aboutMe: '-',
+        location: "Singapore",
+        gender: "Female",
+        imageName: "default-avatar.png"
+    });
+    Users.upsert({
+        id: 5,
+        accountType: 'User',
+        firstName: 'Shang Ji',
+        lastName: 'Lee',
+        username: 'leeshangji',
+        email: 'Shangji@Adamire.com',
+        phoneNumber:'81234567',
+        password: '123456',
+        aboutMe: '-',
+        location: "Singapore",
+        gender: "Female",
+        imageName: "default-avatar.png"
+    });
 });
 
 module.exports = sequelize.model('Users', Users);

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/javascripts/jquery.min.js'></script>
+    <script src='/javascripts/bootstrap.min.js'></script>
+</head>
+
+<body>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Edit Account</h4>
+    </div>
+    <div class="modal-body">
+        <fieldset class="form-group">
+            <label for="inputusername">username</label>
+            <input type="text" id="inputusername" name="username" class="form-control" placeholder="username" required="true" value="<%=item.username%>">
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="inputpassword">password</label>
+            <input type="password" id="inputpassword" name="password" class="form-control" placeholder="password" required="true" value="<%=item.password%>"> 
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="inputemail">email</label>
+            <input type="text" id="inputemail" name="email" class="form-control" placeholder="emial" required="true" value="<%=item.email%>">
+        </fieldset>
+        <fieldset class="form-group">
+            <!-- <label for="inputdateofbirth">dateofbirth</label> -->
+            <!--I removed item.dateofBirth cos it's not found in models/user-->
+            <!-- <input type="text" id="inputdateofbirth" name="dateofbirth" class="form-control" placeholder="dateofbirth" required="true" value="">  -->
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" onclick=saveChanges()>Save Changes</button>
+        <button type="button" class="btn btn-secondary" onclick=discardChanges()>Cancel</button>
+    </div>
+    <script>
+        function saveChanges() {
+            var url = "<%=hostPath%>/edit/<%=item.id%>";
+            var newValues = {
+                username: $("#inputusername").val(),
+                email: $("#inputemail").val(),
+                password: $("#inputpassword").val(),
+                // dateofbirth: $("#inputdateofbirth").val()
+            }
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: JSON.stringify(newValues),
+                dataType: "json",
+                contentType: "application/json",
+                success: function(result){
+                    alert("Account information updated successfully");
+                    location.href = "<%=hostPath%>"
+                },
+                error: function(result){
+                    alert("Error updating account information");
+                    discardChanges();
+                }
+            })
+        }
+
+        function discardChanges() {
+            location.href = "<%=hostPath%>"
+        }
+    </script>
+</body>
+
+</html>
