@@ -43,10 +43,12 @@ exports.create = function (req, res) {
         
     }).then(function (profile){
         console.log("!!!!!!!!ave:",ave);
+        console.log("!!!!!!!!numOfRatings:",numOfRatings);
         console.log("!!!!!!!!req.body.username:",req.body.username);
         var ratingsData = {
             username: req.body.username,
-            averageRating: ave
+            averageRating: ave,
+            reviewCount: numOfRatings
         };
         var reviewData = {
             buyerOrSeller: req.body.buyerOrSeller,

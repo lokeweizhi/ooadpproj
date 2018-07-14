@@ -13,7 +13,10 @@ const Reviews = sequelize.define('Reviews', {
         type: Sequelize.STRING
     },
     averageRating: { //totalRatings, perRatings, numCount
-        type: Sequelize.DECIMAL(10,2),
+        type: Sequelize.DECIMAL(10,1),
+    },
+    reviewCount: {
+        type: Sequelize.INTEGER
     }
 });
 
@@ -25,27 +28,32 @@ Reviews.sync({force: false, logging:console.log}).then(()=>{
     Reviews.upsert({
         id: 1,
         username: 'admin',
-        averageRating: 0
+        averageRating: 0,
+        reviewCount: 0
     });
     Reviews.upsert({
         id: 2,
         username: 'linpeishan',
-        averageRating: 0
+        averageRating: 0,
+        reviewCount: 0
     });
     Reviews.upsert({
         id: 3,
         username: 'JohannaJimeno',
-        averageRating: 0
+        averageRating: 0,
+        reviewCount: 0
     });
     Reviews.upsert({
         id: 4,
         username: 'benjaminloke',
-        averageRating: 0
+        averageRating: 0,
+        reviewCount:0
     });
     Reviews.upsert({
         id: 5,
         username: 'leeshangji',
-        averageRating: 0
+        averageRating: 0,
+        reviewCount: 0
     });
 });
 
