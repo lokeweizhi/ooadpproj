@@ -9,7 +9,7 @@ exports.show = function(req, res) {
 	// Render home screen
 	if (accountType == "Admin") {
 		res.render('adminIndex', {
-			title: 'Adamire - Home Page',
+			title: 'Adamire - Admin Dashboard',
 		});
 	}
 	else{
