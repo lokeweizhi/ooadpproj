@@ -54,7 +54,8 @@ exports.insert = function (req, res) {
     var listingData = {
         name: req.body.name,
         group: req.body.group,
-        hobby: req.body.hobby
+        hobby: req.body.hobby,
+        by: req.user.username
     }
     ListingModel.create(listingData).then((newRecord, created) => {
         if (!newRecord) {

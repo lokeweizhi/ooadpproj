@@ -5,7 +5,8 @@ var gravatar = require('gravatar');
 // set image file types
 var IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 
-// get Profile model
+// get models
+var ListingModel = require('../models/listingModel');
 var Profile = require('../models/profileModel');
 var UsersModel = require('../models/users');
 
@@ -13,14 +14,22 @@ var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
 
 exports.list = function(req, res){
-    Profile.findAll({where:{targetUsername: req.user.username}}).then(function(profile){
-        res.render("profile", {
-            title: 'Adamire - @'+ req.user.username,
-            webTitle: 'Profile:',
-            profile: profile,
-            urlPath: req.protocol + "://" + req.get("host") + req.url,
-            user: req.user,
-        });
+    Profile.findAll({
+        where:{targetUsername: req.user.username}
+    }).then(function(profile){
+        ListingModel.findAll({
+            attributes: ['id', 'name', 'group', 'hobby'],
+            where:{by: req.user.username}
+        }).then(function (listings) {
+            res.render("profile", {
+                title: 'Adamire - @'+ req.user.username,
+                webTitle: 'Profile:',
+                profile: profile,
+                itemList: listings,
+                urlPath: req.protocol + "://" + req.get("host") + req.url,
+                user: req.user
+            });
+        })
     }).catch((err)=> {
         return res.status(400).send({
             message: err

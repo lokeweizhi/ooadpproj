@@ -18,6 +18,9 @@ const ListingModel = sequelize.define('Listings', {
     hobby: {
         type: Sequelize.STRING,
         trim: true
+    },
+    by: { // sorry for hogging your page, but I rlly need to add this to display your listings for my profile page
+        type: Sequelize.STRING
     }
 });
 
@@ -28,19 +31,22 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         id:1,
         name: "Nike Flyknit Racer",
         group: 100,
-        hobby: "Used"
+        hobby: "Used",
+        by: "benjaminloke"
     });
     ListingModel.upsert({
         id:2,
         name: "Red Velvet Cookie Jar Mini Album",
         group: 32,
-        hobby: "New"
+        hobby: "New",
+        by: "benjaminloke"
     });
     ListingModel.upsert({
         id:3,
         name: "Red Velvet Ernest Photocard",
         group: 12,
-        hobby: "New"
+        hobby: "New",
+        by: "benjaminloke"
     });
 })
 
