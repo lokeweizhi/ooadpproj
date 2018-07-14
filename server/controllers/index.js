@@ -10,6 +10,7 @@ exports.show = function(req, res) {
 	if (accountType == "Admin") {
 		res.render('adminIndex', {
 			title: 'Adamire - Admin Dashboard',
+			webTitle: 'Dashboard: '
 		});
 	}
 	else{

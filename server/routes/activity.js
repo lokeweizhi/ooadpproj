@@ -6,6 +6,6 @@ var reviewsController = require('../controllers/reviewsController');
 
 // Setup routes for activity(reviews)
 activityRouter.get('/activity', reviewsController.show);
-activityRouter.post('/new', reviewsController.hasAuthorization, reviewsController.create);
+activityRouter.post('/newReview', reviewsController.hasAuthorization, reviewsController.create);
 
 module.exports = activityRouter;
