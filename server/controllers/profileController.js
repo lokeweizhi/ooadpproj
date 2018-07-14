@@ -109,8 +109,8 @@ exports.browseProfiles = function (req, res) {
             var username = profilesRecord.username
             Profile.findAll({where:{targetUsername: username}}).then(function(profile){
                 res.render('browseProfiles', {
-                    title: "Adamire - @"+profilesRecord.username,
-                    webTitle: "Does this thing works?!",
+                    title: "Adamire - @" + profilesRecord.username,
+                    webTitle: "User - " + profilesRecord.username,
                     item: profilesRecord,
                     profile: profile,
                     urlPath: req.protocol + "://" + req.get("host") + "/profile"

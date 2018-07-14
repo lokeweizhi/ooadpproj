@@ -8,9 +8,9 @@ var upload = multer({ dest:'./public/uploads/', limits: {fileSize: 1500000, file
 var profileController = require('../controllers/profileController');
 
 // Setup routes for profile
-profileRouter.get("/",profileController.hasAuthorization, profileController.list)
-profileRouter.post('/',profileController.hasAuthorization, upload.single('image'), profileController.uploadImage);
-profileRouter.get("/:username", profileController.browseProfiles);
-profileRouter.delete("/:profile_id",profileController.hasAuthorization, profileController.delete);
+profileRouter.get("/profile",profileController.hasAuthorization, profileController.list)
+profileRouter.post('/profile',profileController.hasAuthorization, upload.single('image'), profileController.uploadImage);
+profileRouter.get("/profile/:username", profileController.browseProfiles);
+profileRouter.delete("/profile/:profile_id",profileController.hasAuthorization, profileController.delete);
 
 module.exports = profileRouter;

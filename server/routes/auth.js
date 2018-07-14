@@ -11,7 +11,7 @@ var auth = require('../controllers/auth');
 
 authRouter.get('/login', auth.signin);
 authRouter.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/settings',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
 }));

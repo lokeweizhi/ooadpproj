@@ -83,7 +83,7 @@ app.use('/',settingsRouter);
 
 // Profile
 var profileRouter = require('./server/routes/profile');
-app.use('/profile',profileRouter);
+app.use('/',profileRouter);
 
 // Activity
 var activityRouter = require('./server/routes/activity');
