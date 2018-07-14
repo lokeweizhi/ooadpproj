@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <% include ../partials/stylesheet %>
+  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src='/javascripts/jquery.min.js'></script>
+  <script src='/javascripts/bootstrap.min.js'></script>
+</head>
+
+<body>
+    <% include ../partials/header %>
+  <div class="col-lg-5">
+    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createStudent">
+      New Listing
+    </button>
+  </div>
+  <div class="modal fade" id="createStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form action="/listingnew" method="post">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Create New Listing</h4>
+          </div>
+          <div class="modal-body">
+            <fieldset class="form-group">
+              <label for="inputName">Item Name</label>
+              <input type="text" id="inputName" name="name" class="form-control" placeholder="Name" required="true">
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="inputGroup">Price</label>
+              <input type="text" id="inputGroup" name="group" class="form-control" placeholder="0.00" required="true">
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="inputHobby">Condition</label>
+              <input type="text" id="inputHobby" name="hobby" class="form-control" placeholder="Condition" required="true">
+            </fieldset>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add Listing</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <table class="table">
+    <thread>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Condition</th>
+      </tr>
+      <% for(var i=0; i < itemList.length; i++){ %>
+
+        <tr class="col-sm-4" data-id="<%= itemList[i].id %>">
+          <td>
+            <%= itemList[i].name %>
+          </td>
+          <td>
+            <%= itemList[i].group %>
+          </td>
+          <td>
+            <%= itemList[i].hobby %>
+          </td>
+          <td>
+            <input type="button" class="editBtn" value="Edit">
+            <input type="button" class="deleteBtn"  value="Delete">
+          </td>
+        </tr>
+        <% } %>
+    </thread>
+  </table>
+
+  <script>
+    $('.editBtn').click(function () {
+      var record_num = $(this).closest("tr").data('id');
+      location.href = "<%-urlPath %>edit/"+record_num;
+    });
+
+    $('.deleteBtn').click(function () {
+      var record_num = $(this).closest("tr").data('id');
+      $.ajax({
+        url: '<%-urlPath%>/' + record_num,
+        type: 'DELETE',
+        success: function (result) {
+          console.log(result.message);
+          var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+          $(itemToRemove).remove();
+          redirectToListing();
+        },
+        error: function (result) {
+          alert("Unable to delete record.");
+          console.log(result.message);
+          redirectToListing();
+        }
+      });
+    });
+
+    function redirectToListing(){
+      location.href = "<%-urlPath %>"
+    }
+  </script>
+
+<% include ../partials/footer %>
+<% include ../partials/javascript %>
+</body>
+
+</html>

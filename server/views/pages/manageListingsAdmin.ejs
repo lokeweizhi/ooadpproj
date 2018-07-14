@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <% include ../partials/stylesheet %>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/javascripts/jquery.min.js'></script>
+    <script src='/javascripts/bootstrap.min.js'></script>
+</head>
+
+<body>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Edit Listing</h4>
+    </div>
+    <div class="modal-body">
+        <fieldset class="form-group">
+            <label for="inputName">Item Name</label>
+            <input type="text" id="inputName" name="studentName" class="form-control" placeholder="Student Name" required="true" value="<%=item.name%>">
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="inputGroup">Price</label>
+            <input type="text" id="inputGroup" name="group" class="form-control" placeholder="Group" required="true" value="<%=item.group%>">
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="inputHobby">Condition</label>
+            <input type="text" id="inputHobby" name="hobby" class="form-control" placeholder="Hobby" required="true" value="<%=item.hobby%>">
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" onclick=saveChanges()>Save Changes</button>
+        <button type="button" class="btn btn-secondary" onclick=discardChanges()>Cancel</button>
+    </div>
+    <script>
+        function saveChanges() {
+            var url = "<%=hostPath%>/edit/<%=item.id%>";
+            var newValues = {
+                studentId: $("#inputStudentID").val(),
+                name: $("#inputName").val(),
+                group: $("#inputGroup").val(),
+                hobby: $("#inputHobby").val()
+            }
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: JSON.stringify(newValues),
+                dataType: "json",
+                contentType: "application/json",
+                success: function(result){
+                    alert("Student record updated successfully");
+                    location.href = "<%=hostPath%>"
+                },
+                error: function(result){
+                    alert("Error updating student record");
+                    discardChanges();
+                }
+            })
+        }
+
+        function discardChanges() {
+            location.href = "<%=hostPath%>"
+        }
+    </script>
+
+<% include ../partials/footer %>
+<% include ../partials/javascript %>
+</body>
+
+</html>

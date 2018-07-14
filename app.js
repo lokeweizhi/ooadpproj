@@ -73,6 +73,8 @@ app.use('/',indexRouter);
 var authRouter = require('./server/routes/auth');
 app.use('/',authRouter); 
 
+// Admin Page
+
 // Settings
 var settingsRouter = require('./server/routes/settings');
 app.use('/',settingsRouter);
@@ -92,6 +94,11 @@ app.use('/',ewalletRouter);
 // Offers
 var offersRouter = require('./server/routes/offers');
 app.use('/offers',offersRouter);
+
+// Listings
+var listingRouter = require('./server/routes/listing');
+app.use('/',listingRouter);
+
 
 //===========================================================================================================================================
 // catch 404 and forward to error handler
