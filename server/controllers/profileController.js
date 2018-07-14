@@ -114,16 +114,26 @@ exports.browseProfiles = function (req, res) {
         res.redirect('/profile');
     }
     else{
-        UsersModel.find({where:{username: record_username}}).then(function(profilesRecord){
+        UsersModel.find({
+            where:{username: record_username
+            }}).then(function(profilesRecord){
             var username = profilesRecord.username
-            Profile.findAll({where:{targetUsername: username}}).then(function(profile){
-                res.render('browseProfiles', {
-                    title: "Adamire - @" + profilesRecord.username,
-                    webTitle: "User - " + profilesRecord.username,
-                    item: profilesRecord,
-                    profile: profile,
-                    urlPath: req.protocol + "://" + req.get("host") + "/profile"
-                });
+            Profile.findAll({
+                where:{targetUsername: username}
+            }).then(function(profile){
+                ListingModel.findAll({
+                    attributes: ['id', 'name', 'group', 'hobby'],
+                    where:{by: record_username}
+                }).then(function (listings) {
+                    res.render('browseProfiles', {
+                        title: "Adamire - @" + profilesRecord.username,
+                        webTitle: "User - " + profilesRecord.username,
+                        item: profilesRecord,
+                        profile: profile,
+                        itemList: listings,
+                        urlPath: req.protocol + "://" + req.get("host") + "/profile"
+                    });
+                })
             }) 
         }).catch((err) => {
             return res.status(400).send({
