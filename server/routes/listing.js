@@ -3,10 +3,10 @@ var listingRouter = express.Router();
 
 var auth = require('../controllers/auth');
 
-listingRouter.get("/listing", auth.list);
-listingRouter.get("/listingedit/:id", auth.editRecord);
-listingRouter.post("/listingnew", auth.insert);
-listingRouter.post("/listingedit/:id", auth.update);
-listingRouter.delete("/listing/:id", auth.delete);
+listingRouter.get("/listing", auth.isLoggedIn, auth.list);
+listingRouter.get("/listingedit/:id", auth.isLoggedIn, auth.editRecord);
+listingRouter.post("/listingnew", auth.isLoggedIn, auth.insert);
+listingRouter.post("/listingedit/:id", auth.isLoggedIn, auth.update);
+listingRouter.delete("/listing/:id", auth.isLoggedIn, auth.delete);
 
 module.exports = listingRouter;

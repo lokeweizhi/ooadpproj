@@ -10,7 +10,7 @@ var profileController = require('../controllers/profileController');
 // Setup routes for profile
 profileRouter.get("/profile",profileController.hasAuthorization, profileController.list)
 profileRouter.post('/profile',profileController.hasAuthorization, upload.single('image'), profileController.uploadImage);
-profileRouter.get("/profile/:username", profileController.browseProfiles);
+profileRouter.get("/profile/:username",profileController.hasAuthorization, profileController.browseProfiles);
 profileRouter.delete("/profile/:profile_id",profileController.hasAuthorization, profileController.delete);
 
 module.exports = profileRouter;

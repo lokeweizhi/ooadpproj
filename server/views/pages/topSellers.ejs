@@ -35,17 +35,21 @@
     <% include ../partials/javascript %>
     <script>
         // redirects to the next user
-        var currentUser = "<%=user.username %>";
-        console.log("currentUser: ",currentUser);
+        login = "<%=login %>"
+        console.log("login: ",login)
         $('.username').click(function () {
             var record_username = $(this).closest('.rowRecord').find('.username').text();
-            if (currentUser.ignoreCase == record_username.ignoreCase){ //**** not working
-                location.href = "profile"
+            if (login){
+                // username = user.username
+                location.href = "profile/"+record_username;
+                console.log("passed in login");
             }
             else{
                 location.href = "profile/"+record_username;
+                console.log("did not passed in login");
             }
         });
-        </script>
+
+    </script>
 </body>
 </html>

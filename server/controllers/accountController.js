@@ -97,3 +97,10 @@ exports.delete = function (req,res) {
         res.status(200).send({ message: "Delete Account:" +record_num });
     });
 }
+
+// Settings authorization middleware
+exports.hasAuthorization = function (req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.redirect('/login');
+};
