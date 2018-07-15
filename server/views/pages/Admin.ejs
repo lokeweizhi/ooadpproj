@@ -5,14 +5,16 @@
     <%= title %>
   </title>
   <% include ../partials/stylesheet %>
-  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-  <script src='/javascripts/jquery.min.js'></script>
-  <script src='/javascripts/bootstrap.min.js'></script>
+  <% include ../partials/javascript %>
+  <!-- <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'>
+  <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+  <!-- <script src='/javascripts/jquery.min.js'></script>
+  <script src='/javascripts/bootstrap.min.js'></script> -->
 </head>
 
 <body>
   <% include ../partials/header %>
+  <!--My code-->
   <div class="col-lg-5">
     <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createaccount">
       Create New Account
@@ -29,27 +31,39 @@
             <h4 class="modal-title" id="myModalLabel">Create New Account</h4>
           </div>
           <div class="modal-body">
-            <fieldset class="form-group">
+          <fieldset class="form-group">
+              <label for="inputFirstName">First Name</label>
+              <input type="text" id="inputFirstName" name="firstName" class="form-control" placeholder="first name" required="true">
+          </fieldset>
+          <fieldset>   
+              <label for="inputLastName">Last Name</label>
+              <input type="text" id="inputLastName" name="lastName" class="form-control" placeholder="last name" required="true">
+          </fieldset>
+          <fieldset class="form-group">
               <label for="inputusername">Username</label>
               <input type="text" id="inputusername" name="username" class="form-control" placeholder="username" required="true">
-            </fieldset>
-            <fieldset class="form-group">
+          </fieldset>
+          <fieldset class="form-group">
               <label for="inputpassword">Password</label>
-              <input type="text" id="inputpassword" name="password" class="form-control" placeholder="password" required="true">
-            </fieldset>
-            <fieldset class="form-group">
+              <input type="password" id="inputpassword" name="password" class="form-control" placeholder="password" required="true">
+          </fieldset>
+          <fieldset class="form-group">
               <label for="inputemail">Email</label>
               <input type="text" id="inputemail" name="email" class="form-control" placeholder="email" required="true">
-            </fieldset>
-            <fieldset class="form-group">
-              <!--What I did-->
-                <label for="inputFirstName">First Name</label>
-                <input type="text" id="inputFirstName" name="firstName" class="form-control" placeholder="first name" required="true">
-                <label for="inputLastName">Last Name</label>
-                <input type="text" id="inputLastName" name="lastName" class="form-control" placeholder="last name" required="true">
-              <!-- <label for="inputdateofbirth">Date Of Birth</label>
-              <input type="text" id="inputdateofbirth" name="dateofbirth" class="form-control" placeholder="date of birth" required="true"> -->
-            </fieldset>
+          </fieldset>
+          <fieldset class = "form-group">
+              <label for = "inputphoneNumber">Phone Number</label>
+              <input type =" text" id="inputphoneNumber" name="phoneNumber" class = "form-control" placeholder="PhoneNumber" required="true">
+          </fieldset>
+          <fieldset class = "form-group">
+              <label for = "inputlocation">Location</label>
+              <input type = "text" id="inputlocation" name="location" class="form-control" placeholder="location" required ="true">
+          </fieldset>
+          <fieldset class = "form-group">
+              <label for = "inputgender">Gender</label>
+              <input type ="text" id="inputgender" name ="gender" class="form-control" placeholder ="gender" required ="true">
+          </fieldset>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

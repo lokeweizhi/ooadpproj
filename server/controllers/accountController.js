@@ -13,7 +13,10 @@ exports.insert = function (req,res) {
         // dateofbirth: req.body.dateofbirth,
         // -- What I added:(delete if you dw the extra codes)
         firstName: req.body.firstName,
-        lastName: req.body.lastName 
+        lastName: req.body.lastName,
+        phoneNumber: req.body.phoneNumber,
+        location: req.body.location,
+        gender: req.body.gender
     }
     // AccountModel.create(accountData).then((newAccount, created) => {
     UsersModel.create(accountData).then((newAccount, created) => {
