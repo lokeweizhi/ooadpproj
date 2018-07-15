@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <% include ../partials/stylesheet %>
+    <link href="/stylesheets/settings.css" rel='stylesheet' type='text/css' />
+    <script src="/javascripts/settings.js"></script>   
+</head>
+<body>
+    <% include ../partials/header %>
+    <table class="table">
+        <thread>
+            <tr>
+            <th>Username</th>
+            <th>Average Rating</th>
+            <th>Number of reviews</th>
+            </tr>
+            <% for(var i=0; i < sellersList.length; i++){ %>
+            <tr class="rowRecord" data-id="<%= sellersList[i].id %>">
+                <td>
+                <%= sellersList[i].username %>
+                </td>
+                <td>
+                <%= sellersList[i].averageRating %>
+                </td>
+                <td>
+                <%= sellersList[i].reviewCount %>
+                </td>
+            </tr>
+            <% } %>
+        </thread>
+        </table>
+    <% include ../partials/footer %>
+    <% include ../partials/javascript %>
+</body>
+</html>

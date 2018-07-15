@@ -85,6 +85,10 @@ app.use('/',settingsRouter);
 var profileRouter = require('./server/routes/profile');
 app.use('/',profileRouter);
 
+// Top Sellers
+var topSellersRouter = require('./server/routes/topSellers');
+app.use("/",topSellersRouter);
+
 // Activity
 var activityRouter = require('./server/routes/activity');
 app.use('/',activityRouter);

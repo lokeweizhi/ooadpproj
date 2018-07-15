@@ -22,8 +22,8 @@ exports.create = function (req, res) {
         var jsonString = JSON.stringify(profile);
         console.log(jsonString);
         var obj = JSON.parse(jsonString);
-        totalRatings = 0; // set global
-        numOfRatings = 0; // set global
+        totalRatings = 0; 
+        numOfRatings = 0; 
 
         for (item in obj) {
             totalRatings += obj[item].rating;
@@ -61,7 +61,7 @@ exports.create = function (req, res) {
         };
         Profile.create(reviewData).then((newReview, created) => {
             Reviews.update(ratingsData, { where: { username: req.body.username } }).then((newRatings) => {
-                if (!newReview || !newRatings || newRatings == 0) {
+                if (!newReview || !newRatings || newRatings == 0) { // ***** what if i accidentally delete the record?
                     return res.send(400, {
                         message: "error"
                     });
