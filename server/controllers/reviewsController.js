@@ -60,14 +60,26 @@ exports.create = function (req, res) {
             user_id: req.user.id,
         };
         Profile.create(reviewData).then((newReview, created) => {
-            Reviews.update(ratingsData, { where: { username: req.body.username } }).then((newRatings) => {
-                if (!newReview || !newRatings || newRatings == 0) { // ***** what if i accidentally delete the record?
-                    return res.send(400, {
-                        message: "error"
-                    });
-                }
-                res.redirect('/profile/'+req.body.username);
-            })
+            if (numOfRatings==1){
+                Reviews.create(ratingsData, { where: { username: req.body.username } }).then((newRatings) => {
+                    if (!newReview || !newRatings) { // ***** what if i accidentally delete the record?
+                        return res.send(400, {
+                            message: "error"
+                        });
+                    }
+                    res.redirect('/profile/'+req.body.username);
+                })
+            }
+            else{
+                Reviews.update(ratingsData, { where: { username: req.body.username } }).then((newRatings) => {
+                    if (!newReview || !newRatings || newRatings == 0) { // ***** what if i accidentally delete the record?
+                        return res.send(400, {
+                            message: "error"
+                        });
+                    }
+                    res.redirect('/profile/'+req.body.username);
+                })
+            }
         })
     });
 }
