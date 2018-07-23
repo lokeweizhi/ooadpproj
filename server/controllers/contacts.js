@@ -3,27 +3,6 @@ var ContactModel = require('../models/contacts');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
 
-// List all the contacts in database
-exports.list = function (req, res) {
-    // ContactModel.findAll({
-    //     attributes: ['id', 'username']
-     ContactModel.findAll({
-        attributes: ['id', 'contactName', 'username'], 
-        where:{username: req.user.username}
-    }).then(function (contacts) {
-        res.render('ewallet', {
-            title: "Adamire - Ewallet",
-            itemList: contacts,
-            urlPath: req.protocol + "://" + req.get("host") + req.url,
-            user: req.user
-        });
-    }).catch((err) => {
-        return res.status(400).send({
-            message: err
-        });
-    });
-};
-
 // Create Contacts
 exports.create = function (req, res) {
     console.log("creating contacts")
