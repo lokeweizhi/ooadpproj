@@ -95,7 +95,8 @@ main {
   font-family: "Open Sans";
   font-weight: 600;
   font-size: 18pt;
-  color: #777;
+  /* color: #777; */
+  color: #333;
 }
 
 .info {
@@ -103,7 +104,8 @@ main {
   margin-bottom: 5px;
   font-family: 'Montserrat', sans-serif;
   font-size: 11pt;
-  color: #aaa;
+  /* color: #aaa; */
+  color: #1C1C20;
 }
 
 .stats { /*NOT IN USE*/
@@ -120,13 +122,15 @@ main {
   font-size: 14pt;
   font-weight: bold;
   font-family: 'Montserrat', sans-serif;
-  color: #aaa;
+  /* color: #aaa; */
+  color: #5bc0de
 }
 
 .desc-stat {
   margin-top: -15px;
   font-size: 10pt;
-  color: #bbb;
+  /* color: #bbb; */
+  color: #1C1C20;
   margin-bottom: -1%;  
 }
 
@@ -134,7 +138,7 @@ main {
   text-align: center;
   margin-top: 25px;
   margin: 25px 40px;
-  color: #999;
+  color: #1C1C20;
   font-size: 11pt;
   font-family: "Open Sans";
   padding-bottom: 25px;
@@ -178,7 +182,7 @@ main {
 
 .nav li:hover, .nav li:nth-child(1)  { 
   color: #999;
-  border-bottom: 2px solid #999;
+  /* border-bottom: 2px solid #999; */
 }
 
 @media (max-width:990px) {

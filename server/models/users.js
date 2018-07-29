@@ -72,10 +72,10 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         email: 'PeiShan@Adamire.com',
         phoneNumber:'81234567',
         password: '123456',
-        aboutMe: '-',
+        aboutMe: 'Hello, thank you for visiting this page.',
         location: "Singapore",
         gender: "Female",
-        imageName: "default-avatar.png",
+        imageName: "animal-avian-bald-eagle-1131774.jpg",
     });
     Users.upsert({
         id: 3,
@@ -86,10 +86,10 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         email: 'Johanna@Adamire.com',
         phoneNumber:'81234567',
         password: '123456',
-        aboutMe: '-',
+        aboutMe: 'Hello, thank you for visiting this page.',
         location: "Singapore",
         gender: "Female",
-        imageName: "default-avatar.png"
+        imageName: "yo.jpg"
     });
     Users.upsert({
         id: 4,
@@ -100,10 +100,10 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         email: 'Benjamin@Adamire.com',
         phoneNumber:'81234567',
         password: '123456',
-        aboutMe: '-',
+        aboutMe: 'Hello, thank you for visiting this page.',
         location: "Singapore",
         gender: "Female",
-        imageName: "default-avatar.png"
+        imageName: "human.png"
     });
     Users.upsert({
         id: 5,
@@ -114,10 +114,10 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         email: 'Shangji@Adamire.com',
         phoneNumber:'81234567',
         password: '123456',
-        aboutMe: '-',
+        aboutMe: 'Hello, thank you for visiting this page.',
         location: "Singapore",
         gender: "Female",
-        imageName: "default-avatar.png"
+        imageName: "human.png"
     });
 });
 

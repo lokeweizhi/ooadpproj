@@ -22,20 +22,27 @@ exports.list = function(req, res){
             attributes: ['id', 'averageRating', 'reviewCount'],
             where: {username: req.user.username}
         }).then(function(review){
-            ListingModel.findAll({
-                attributes: ['id', 'name', 'group', 'hobby'],
-                where:{by: req.user.username}
-            }).then(function (listings) {
-                res.render("profile", {
-                    title: 'Adamire - @'+ req.user.username,
-                    webTitle: 'Profile:',
-                    profile: profile,
-                    review: review,
-                    itemList: listings,
-                    urlPath: req.protocol + "://" + req.get("host") + req.url,
-                    user: req.user
-                });
+            ReviewsModel.findAll({
+                attributes: ['id', 'username' ,'imageName', 'averageRating', 'reviewCount']
+            }).then(function (totalReviews) {
+                console.log("***********************totalReview",totalReviews)
+                ListingModel.findAll({
+                    attributes: ['id', 'name', 'group', 'hobby'],
+                    where:{by: req.user.username}
+                }).then(function (listings) {
+                    res.render("profile", {
+                        title: 'Adamire - @'+ req.user.username,
+                        webTitle: 'Profile:',
+                        profile: profile,
+                        review: review,
+                        totalReviews: totalReviews,
+                        itemList: listings,
+                        urlPath: req.protocol + "://" + req.get("host") + req.url,
+                        user: req.user
+                    });
+                })
             })
+
         })
     }).catch((err)=> {
         return res.status(400).send({

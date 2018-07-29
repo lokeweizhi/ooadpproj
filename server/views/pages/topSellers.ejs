@@ -185,11 +185,15 @@
     <!-- Team -->
     <section id="team" class="pb-5">
         <div class="container">
-            <h5 class="section-title h1">-Top Seller-</h5>
+            <h5 class="section-title h1" id="myStaticTooltip" data-toggle="tooltip" data-placement="bottom" title="Sellers who receive 5 perfect ratings and have an average rating of 4.5. ">
+                Top Seller
+            </h5>
             <div class="row">
                 <div class="col-4"></div>
                 <div class="col-4">
-                    <p style="text-align: center;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis  dis parturient montes, nascetur ridiculus </p><br>
+                    <p style="text-align: center;margin-top:-10%">
+                        Congratulations for making it in this list! 
+                    </p><br>
                 </div>
                 <div class="col-4"></div>
             </div>
@@ -203,7 +207,7 @@
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <p class="text-left text-danger">#<%= i+1 %></p>
-                                        <p><img class=" img-fluid" src="https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg" alt="card image"></p>
+                                        <p><img class=" img-fluid" src="images/profileImages/<%= sellersList[i].imageName %>" alt="card image"></p>
                                         <h4 class="card-title">@<span class="username" style="cursor: pointer; font-weight: 700;font-size: 1em"><%= sellersList[i].username %></span></h4>
                                         <p class="card-text"><%= sellersList[i].reviewCount %> Positive Reviews</p>
                                         <br>
@@ -223,7 +227,7 @@
                                 <div class="card">
                                     <div class="card-body text-center mt-4">
                                         <!-- <h4 class="card-title">@<span class="username" style="cursor: pointer; font-weight: 700;font-size: 1em"><%= sellersList[i].username %></h4> -->
-                                        <p class="card-text">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                        <p class="card-text" style="color:white">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
                                         <!-- <ul class="list-inline">
                                             <li class="list-inline-item">
                                                 <a class="social-icon text-xs-center" target="_blank" href="#">
@@ -331,6 +335,15 @@
             //document.querySelector(`.${rating} #averageRating`).innerHTML = ratings[rating]
         }
         } 
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script>
+    $(function () {
+    $('#myStaticTooltip').tooltip('toggle')
+    $('#myStaticTooltip').on('hide.bs.tooltip', function () { return true;});
+    $('#myStaticTooltip').on('show.bs.tooltip', function () { return true;});
+    })
     </script>
 </body>
 </html>

@@ -12,6 +12,9 @@ const Reviews = sequelize.define('Reviews', {
     username: {
         type: Sequelize.STRING
     },
+    imageName: {
+        type: Sequelize.STRING
+    },
     averageRating: { //totalRatings, perRatings, numCount
         type: Sequelize.DECIMAL(10,1),
     },
@@ -28,30 +31,35 @@ Reviews.sync({force: false, logging:console.log}).then(()=>{
     Reviews.upsert({
         id: 1,
         username: 'admin',
+        imageName: "default-avatar.png",
         averageRating: 0,
         reviewCount: 0
     });
     Reviews.upsert({
         id: 2,
         username: 'linpeishan',
+        imageName: "animal-avian-bald-eagle-1131774.jpg",
         averageRating: 5,
-        reviewCount: 100
+        reviewCount: 5
     });
     Reviews.upsert({
         id: 3,
         username: 'JohannaJimeno',
+        imageName: "yo.jpg",
         averageRating: 0,
         reviewCount: 0
     });
     Reviews.upsert({
         id: 4,
         username: 'benjaminloke',
+        imageName: "human.png",
         averageRating: 0,
         reviewCount:0
     });
     Reviews.upsert({
         id: 5,
         username: 'leeshangji',
+        imageName: "human.png",
         averageRating: 0,
         reviewCount: 0
     });

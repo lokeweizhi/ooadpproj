@@ -11,6 +11,30 @@
     <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
     <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
     <link href="/stylesheets/profile.css" rel='stylesheet' type='text/css' />
+    <style>
+    .btn-primary, .btn-primary:focus {
+		background-color: #E45D5D;
+        border-color: #E45D5D;
+        border-bottom: 4px solid #B93838;
+		box-shadow: none;
+		outline: none;
+    }
+    .btn-primary:hover, .btn-default:hover{
+        background: #1C1C20;
+        border-bottom: 4px solid #333;
+        color:#fff
+    }
+    /*.nav-item > .active*/
+	.nav-link:hover,  {
+		color: #fff;
+		background-color: #E45D5D;
+        border-color: #E45D5D;
+        border-bottom: 4px solid #B93838;
+    }
+    /* .tabPill .active a:hover {
+        background-color: red;
+    } */
+    </style>
 </head>
 
 <body>
@@ -30,16 +54,22 @@
                                 Change Photo
                             </button>
                         </div>
-                        <h4 class="name" id="username" name="username" style="color: #777;"><span id="verified"></span><%=user.username %></h4>
-                        <p class="info">Student</p>
-                        <p class="info"><%=user.location %></p>
+                        <h4 class="name" id="username" name="username"><span id="verified"></span><%=user.username %></h4>
+
+                        <p class="badge badge-primary">Student(a tag)</p>
+                        <br>
+                        <br>
+                        <p class="info" style="font-style:italic;"><%=user.location %></p>
                         <!-- <div class="stats row"> -->
+                        <hr>
                         <div class="desc" style="margin-bottom:-3%; margin-top:5%;">
                         <div class="stat col-xs-4">
                             <p class="number-stat"><%= itemList.length %></p>
                             <p class="desc-stat"style="margin-bottom:-3%; margin-top:0%;">Listings</p>
                         </div>
                         </div>
+                        <hr>
+                        <br>
                         <p class="desc"><%=user.aboutMe %></p>
                         <div class="social">
                             <div class="average">
@@ -52,10 +82,20 @@
                         </div>
                     </div>
                     <div class="right col-lg-8">
-                        <ul class="nav">
+                        <!-- <ul class="nav">
                         <li class="listings">Listings</li>
                         <li class="reviews">Reviews</li>
+                        </ul> -->
+                        <!--Tab Pills-->
+                        <ul class="nav nav-pills mb-3 tabPill" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Listings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">rEVIEWS</a>
+                            </li>
                         </ul>
+                        <!--//tab pills-->
                         <div style="position: absolute; right: 3%;top: 20px;padding: 8px 15px;">
                             <!--Modal-->
                             <div class="modal fade" id="createImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -90,108 +130,118 @@
                             </div>
                             <!--// Modal-->
                         </div>
-                        <div class="row gallery" id="listingsContent">
-                            <div id="wrapper" class="animate">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <% for(var i=0; i < itemList.length; i++){ %>
-                                        <div class="col-md-4" data-id="<%= itemList[i].id %>">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title" >
-                                                        <center>
-                                                            <img src="https://media.karousell.com/media/photos/products/2017/11/11/o_level_tys_physics_1510369822_8dc76a17.jpg" alt="<%= itemList[i].name %>"/>
-                                                        </center>
-                                                    </h5>
-                                                    <h6 class="card-subtitle mb-2 text-secondary center itemName" style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;">
-                                                        <%= itemList[i].name %>
-                                                    </h6>
-                                                    <p class="card-text text-muted">
-                                                        <%if (user.location == "Singapore") {%>
-                                                            <p class="text-muted"  style="font-size: 0.875em;">SGD <strong><%= itemList[i].group %></strong></p>
-                                                        <!-- <br>
-                                                        <p>Condition: <strong><%= itemList[i].hobby %></strong></p> -->
-                                                        <% } else if (user.location == "Malaysia") { %>
-                                                            <p class="text-muted">RM <strong><%= itemList[i].group %></strong></p>
-                                                        <% } else if (user.location == "Indonesia") {%>
-                                                            <p class="text-muted">RP <strong><%= itemList[i].group %></strong></p>
-                                                        <% } else {%>
-                                                            <p class="text-muted">Price: <strong><%= itemList[i].group %></strong></p>
-                                                        <% } %>
-                                                    </p>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <div class="row gallery" id="listingsContent">
+                                    <div id="wrapper" class="animate">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <% for(var i=0; i < itemList.length; i++){ %>
+                                                <div class="col-md-4" data-id="<%= itemList[i].id %>">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title" >
+                                                                <center>
+                                                                    <img src="https://media.karousell.com/media/photos/products/2017/11/11/o_level_tys_physics_1510369822_8dc76a17.jpg" alt="<%= itemList[i].name %>"/>
+                                                                </center>
+                                                            </h5>
+                                                            <h6 class="card-subtitle mb-2 text-secondary center itemName" style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;">
+                                                                <%= itemList[i].name %>
+                                                            </h6>
+                                                            <p class="card-text text-muted">
+                                                                <%if (user.location == "Singapore") {%>
+                                                                    <p class="text-muted"  style="font-size: 0.875em;">SGD <strong><%= itemList[i].group %></strong></p>
+                                                                <!-- <br>
+                                                                <p>Condition: <strong><%= itemList[i].hobby %></strong></p> -->
+                                                                <% } else if (user.location == "Malaysia") { %>
+                                                                    <p class="text-muted">RM <strong><%= itemList[i].group %></strong></p>
+                                                                <% } else if (user.location == "Indonesia") {%>
+                                                                    <p class="text-muted">RP <strong><%= itemList[i].group %></strong></p>
+                                                                <% } else {%>
+                                                                    <p class="text-muted">Price: <strong><%= itemList[i].group %></strong></p>
+                                                                <% } %>
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <% } %>
                                             </div>
                                         </div>
-                                        <% } %>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         
-                        <div id="reviewsContent">
-                            <br>
-                            <div align="center">
-                                <small><strong style="font-weight: 700;font-size: 0.8em">Filter by:</strong></small>
-                                <button class="btn btn-primary filter-button" data-filter="all">All</button>
-                                <button class="btn btn-default filter-button" data-filter="buyer">Buyer</button>
-                                <button class="btn btn-default filter-button" data-filter="seller">Seller</button>
-                            </div>
-                            <br>
-                            <ul class="list-group">
-                            <!--To be deleted-->
-                            <% var totalCount = 0 %>
-                            <% var i=0 %>
-                            <% profile.forEach(function(review){ %>
-                                <% if (totalCount < 5) { %>
-                                    <% if (review.buyerOrSeller == "Seller") { %>
-                                        <li class="list-group-item filter seller">
-                                        <% totalCount += 1%>
-                                    <% } else if(review.buyerOrSeller == "Buyer") {%>
-                                        <li class="list-group-item filter buyer">
-                                        <% totalCount += 1%>
-                                    <% } %>
-                                <% } else {%>
-                                    <% if (review.buyerOrSeller == "Seller") { %>
-                                        <li class="list-group-item filter seller" id="more">
-                                        <% totalCount += 1%>
-                                    <% } else if(review.buyerOrSeller == "Buyer") {%>
-                                        <li class="list-group-item filter buyer" id="more">
-                                        <% totalCount += 1%>
-                                    <% } %>
-                                <% } %>
-                                            <div class="float-left" style="padding-right:5%">
-                                                <img style="width: 74px;height: 74px;border-radius: 100px; border: 1px solid black;" src="http://www.motormasters.info/wp-content/uploads/2015/02/dummy-profile-pic-male1.jpg"/>
-                                                <center>
-                                                    <small class="text-muted"><em><%= review.buyerOrSeller %></em></small>
-                                                </center>
-                                            </div>
-                                            <h4 style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;text-decoration: underline;">
-                                                <%= review.title %>
-                                                <div class="float-right">
-                                                    <p class="list-group-item-text" id="usersRating">
-                                                        <div class="userRating<%=i%>">
-                                                            <div class="stars-outer">
-                                                            <div class="stars-inner"></div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                <div id="reviewsContent">
+                                    <br>
+                                    <div align="center">
+                                        <small><strong style="font-weight: 700;font-size: 0.8em">Filter by:</strong></small>
+                                        <button class="btn btn-primary filter-button" data-filter="all">All</button>
+                                        <button class="btn btn-default filter-button" data-filter="buyer">Buyer</button>
+                                        <button class="btn btn-default filter-button" data-filter="seller">Seller</button>
+                                    </div>
+                                    <br>
+                                    <ul class="list-group">
+                                    <!--To be deleted-->
+                                    <% var totalCount = 0 %>
+                                    <% var i=0 %>
+                                    <% profile.forEach(function(review){ %>
+                                        <% if (totalCount < 5) { %>
+                                            <% if (review.buyerOrSeller == "Seller") { %>
+                                                <li class="list-group-item filter seller">
+                                                <% totalCount += 1%>
+                                            <% } else if(review.buyerOrSeller == "Buyer") {%>
+                                                <li class="list-group-item filter buyer">
+                                                <% totalCount += 1%>
+                                            <% } %>
+                                        <% } else {%>
+                                            <% if (review.buyerOrSeller == "Seller") { %>
+                                                <li class="list-group-item filter seller" id="more">
+                                                <% totalCount += 1%>
+                                            <% } else if(review.buyerOrSeller == "Buyer") {%>
+                                                <li class="list-group-item filter buyer" id="more">
+                                                <% totalCount += 1%>
+                                            <% } %>
+                                        <% } %>
+                                                    <% totalReviews.forEach(function(imageName){ %>
+                                                        <% if (imageName.username == review.by) { %>
+                                                            <div class="float-left" style="padding-right:5%">
+                                                                <img style="width: 74px;height: 74px;border-radius: 100px; border: 1px solid black;" src="images/profileImages/<%=imageName.imageName %>"/>
+                                                                <center>
+                                                                    <small class="text-muted"><em><%= review.buyerOrSeller %></em></small>
+                                                                </center>
                                                             </div>
-                                                            <span  class="userRating"><%= review.rating %></span>
-                                                            <span class="number-rating"></span>
+                                                        <%}%>
+                                                    <% }); %>
+                                                    <h4 style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;text-decoration: underline;">
+                                                        <%= review.title %>
+                                                        <div class="float-right">
+                                                            <p class="list-group-item-text" id="usersRating">
+                                                                <div class="userRating<%=i%>">
+                                                                    <div class="stars-outer">
+                                                                    <div class="stars-inner"></div>
+                                                                    </div>
+                                                                    <span  class="userRating"><%= review.rating %></span>
+                                                                    <span class="number-rating"></span>
+                                                                </div>
+                                                                <% i+=1 %>                                                  
+                                                            </p>
                                                         </div>
-                                                        <% i+=1 %>                                                  
-                                                    </p>
-                                                </div>
-                                            </h4>
-                                            <p class="text-muted"><%= review.content %></p>
-                                            <small class="text-muted">
-                                                <strong>-<span class="by" style="cursor: pointer;font-size: 0.85em;font-weight: 700;font-style: italic;" ><%= review.by %></strong>
-                                                <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= review.createdAt.getDate() + "/" + review.createdAt.getMonth() + "/" + review.createdAt.getFullYear() + ", " + review.createdAt.getHours() + ":" + review.createdAt.getMinutes()%></div>
-                                            </small>
-                                        </li>                                              
-                            <% }); %>     
-                            <!--//deleted-->
-                            </ul>
-                            <br>
-                            <center><div id="checkMoreExistence"></div></center>
-                            <br>
+                                                    </h4>
+                                                    <p class="text-muted"><%= review.content %></p>
+                                                    <small class="text-muted">
+                                                        <strong>-<span class="by" style="cursor: pointer;font-size: 0.85em;font-weight: 700;font-style: italic;" ><%= review.by %></strong>
+                                                        <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= review.createdAt.getDate() + "/" + review.createdAt.getMonth() + "/" + review.createdAt.getFullYear() + ", " + review.createdAt.getHours() + ":" + review.createdAt.getMinutes()%></div>
+                                                    </small>
+                                                </li>                                              
+                                    <% }); %>     
+                                    <!--//deleted-->
+                                    </ul>
+                                    <br>
+                                    <center><div id="checkMoreExistence"></div></center>
+                                    <br>
+                                </div>
+                            </div>
                         </div>
                 </main>
                 <!--//Current-->

@@ -1,20 +1,20 @@
 //======================================================================================================================================
 // navbar
-$("#reviewsContent").hide();
-$(document).ready(function(){
-    $(".reviews").click(function(){
-        $("#listingsContent").hide();
-        $("#reviewsContent").show();
-        $(".reviews").css({"color": "#999", "border-bottom": "2px solid #999"});
-        $(".listings").css({"color": "none", "border-bottom": "none"});
-    });
-    $(".listings").click(function(){
-        $("#reviewsContent").hide();
-        $("#listingsContent").show();
-        $(".listings").css({"color": "#999", "border-bottom": "2px solid #999"});
-        $(".reviews").css({"color": "none", "border-bottom": "none"});
-    });
-});
+// $("#reviewsContent").hide();
+// $(document).ready(function(){
+//     $(".reviews").click(function(){
+//         $("#listingsContent").hide();
+//         $("#reviewsContent").show();
+//         $(".reviews").css({"color": "#999", "border-bottom": "2px solid #999"});
+//         $(".listings").css({"color": "none", "border-bottom": "none"});
+//     });
+//     $(".listings").click(function(){
+//         $("#reviewsContent").hide();
+//         $("#listingsContent").show();
+//         $(".listings").css({"color": "#999", "border-bottom": "2px solid #999"});
+//         $(".reviews").css({"color": "none", "border-bottom": "none"});
+//     });
+// });
 
 // filtering
 var elementClicked;
