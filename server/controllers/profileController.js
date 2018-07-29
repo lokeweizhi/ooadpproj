@@ -9,6 +9,7 @@ var IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 var ListingModel = require('../models/listingModel');
 var Profile = require('../models/profileModel');
 var UsersModel = require('../models/users');
+var ReviewsModel = require('../models/reviewsModel');
 
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
@@ -17,18 +18,24 @@ exports.list = function(req, res){
     Profile.findAll({
         where:{targetUsername: req.user.username}
     }).then(function(profile){
-        ListingModel.findAll({
-            attributes: ['id', 'name', 'group', 'hobby'],
-            where:{by: req.user.username}
-        }).then(function (listings) {
-            res.render("profile", {
-                title: 'Adamire - @'+ req.user.username,
-                webTitle: 'Profile:',
-                profile: profile,
-                itemList: listings,
-                urlPath: req.protocol + "://" + req.get("host") + req.url,
-                user: req.user
-            });
+        ReviewsModel.find({
+            attributes: ['id', 'averageRating', 'reviewCount'],
+            where: {username: req.user.username}
+        }).then(function(review){
+            ListingModel.findAll({
+                attributes: ['id', 'name', 'group', 'hobby'],
+                where:{by: req.user.username}
+            }).then(function (listings) {
+                res.render("profile", {
+                    title: 'Adamire - @'+ req.user.username,
+                    webTitle: 'Profile:',
+                    profile: profile,
+                    review: review,
+                    itemList: listings,
+                    urlPath: req.protocol + "://" + req.get("host") + req.url,
+                    user: req.user
+                });
+            })
         })
     }).catch((err)=> {
         return res.status(400).send({

@@ -34,8 +34,8 @@ Reviews.sync({force: false, logging:console.log}).then(()=>{
     Reviews.upsert({
         id: 2,
         username: 'linpeishan',
-        averageRating: 0,
-        reviewCount: 0
+        averageRating: 5,
+        reviewCount: 100
     });
     Reviews.upsert({
         id: 3,

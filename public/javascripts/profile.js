@@ -1,96 +1,84 @@
-var logID = 'log',
-  log = $('<div id="'+logID+'"></div>');
-$('body').append(log);
-  $('[type*="radio"]').change(function () {
-    var me = $(this);
-    log.html(me.attr('value'));
-  });
-var avg = 0;
+//======================================================================================================================================
+// navbar
+$("#reviewsContent").hide();
+$(document).ready(function(){
+    $(".reviews").click(function(){
+        $("#listingsContent").hide();
+        $("#reviewsContent").show();
+        $(".reviews").css({"color": "#999", "border-bottom": "2px solid #999"});
+        $(".listings").css({"color": "none", "border-bottom": "none"});
+    });
+    $(".listings").click(function(){
+        $("#reviewsContent").hide();
+        $("#listingsContent").show();
+        $(".listings").css({"color": "#999", "border-bottom": "2px solid #999"});
+        $(".reviews").css({"color": "none", "border-bottom": "none"});
+    });
+});
 
-// calculate the total ratings
-function calculateTotalRatings() {
-    var total = 0;
-    var avg = 0;
-    var usersRating = document.querySelectorAll("#usersRating");
-    for (var i=0; i<usersRating.length; i++) {
-        value = parseInt(document.querySelectorAll("#usersRating")[i].innerHTML);
-        total += value; 
-    }
-    if (usersRating.length === 0) {
-        avg = 0
-    }
-    else {
-        avg = (total / usersRating.length).toFixed(1);
-        document.getElementById("averageRating").innerHTML = avg;
-    }
-}
-calculateTotalRatings();
-
-// check whether if it's a verified user
-function verified(){
-    var count = 0; // to count the num of '5/5' ratings. [condition: must hv 10 '5/5' ratings and an average of 4.5/5]
-    var usersRating = document.querySelectorAll("#usersRating");
-    for (var i=0; i<usersRating.length; i++) {
-        value = parseInt(document.querySelectorAll("#usersRating")[i].innerHTML);
-        if (value === 5){
-            console.log(value);
-            count += 1;
+// filtering
+var elementClicked;
+$(document).ready(function(){
+    $(".filter-button").click(function(){
+        var value = $(this).attr('data-filter');
+        
+        if(value == "all")
+        {
+            $('.filter').show('1000');
         }
+        else
+        {
+            $('.filter').not('.'+value).hide('3000');
+            $('.filter').filter('.'+value).show('3000');
+        }
+    });
+    
+});
+
+// check if element exists & create a 'See More' button! 
+if ($(".list-group > #more").length > 0){
+    //hide element content
+    $(".list-group > #more").hide();
+    // create a button
+    var button = document.createElement("button");
+    button.innerHTML = "View More";
+    var check = document.getElementById("checkMoreExistence")
+    check.appendChild(button)
+
+    // creating a function: display element content when the button is being clicked
+    button.addEventListener ("click", function() {
+        if (button.innerHTML == "View Less"){
+            button.innerHTML = "View More";
+            $(".list-group > #more").fadeOut();
+            
+        }else if(button.innerHTML == "View More"){
+            button.innerHTML = "View Less";
+            $(".list-group > #more").fadeIn(); 
+        }
+    });
+
+    // check the element for filter seller and  buyer
+}
+
+// upload image
+$(':input[type=file]').change( function(event) {
+var tmppath = URL.createObjectURL(event.target.files[0]);
+    //get parent using closest and then find img element
+    $(this).closest("div").find("img").attr('src',tmppath);
+});
+
+// trim length for listing title
+var length = parseInt(document.getElementsByClassName("itemName").length);
+for (i=0;i<length;i++)
+{
+    var title = document.getElementsByClassName("itemName")[i].innerHTML;
+    title = title.trim();
+    if (title.length > 20){
+        console.log("title.length:",title.length)
+        var shortText = jQuery.trim(title).substring(0, 18).trim(this) + "...";
+    }else{
+        shortText = title;
     }
-    var averageRating = document.getElementById("averageRating").innerHTML;
-    console.log("average rating:",averageRating);
-    if (count >= 10 && averageRating >= 4.5 ) {
-        console.log("YAYYYYY! YOU'RE VERIFIED!!! :D")
-        var i = document.createElement("i");
-        i.className = "fa fa-check";
-        i.style.cssText = "font-size:24px;color:blue";
-        var verified = document.getElementById("verified");
-        verified.appendChild(i);
-    } else if (document.getElementsByClassName("fa fa-check").length === 1) { // remove the rating if user drop their ratings
-        var check = document.getElementsByClassName("fa fa-check");
-        var verified = document.getElementById("verified");
-        verified.remove();
-    }
+    document.getElementsByClassName("itemName")[i].innerHTML = shortText;
 }
-
-verified();
-
-// display final avg stars
-
-// Initial Ratings
-avg = document.getElementById("averageRating").innerHTML
-const ratings = {
-    average: avg
-}
-
-// Total Stars
-const starsTotal = 5;
-
-// Run getRatings when DOM loads
-document.addEventListener('DOMContentLoaded', getRatings);
-
-// Form Elements
-const productSelect = document.getElementById('product-select');
-const ratingControl = document.getElementById('rating-control');
-
-// Init product
-let product;
-
-
-// Get ratings
-function getRatings() {
-for (let rating in ratings) {
-    // Get percentage
-    const starPercentage = (ratings[rating] / starsTotal) * 100;
-
-    // Round to nearest 10
-    const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-
-    // Set width of stars-inner to percentage
-    document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
-
-    // Add number rating
-//   document.querySelector(`.${rating} .number-rating`).innerHTML = ratings[rating];
-    document.querySelector(`.${rating} #averageRating`).innerHTML = ratings[rating]
-}
-}
+    
