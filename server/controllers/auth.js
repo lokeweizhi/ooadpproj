@@ -153,3 +153,19 @@ exports.listRecord = function (req, res) {
         });
     });
 };
+
+exports.dispform = function (req, res) {
+    ListingModel.findAll({
+        attributes: ['id', 'name', 'group', 'hobby']
+    }).then(function (listings) {
+        res.render('createlisting', {
+            title: "Listings",
+            itemList: listings,
+            urlPath: req.protocol + "://" + req.get("host") + req.url
+        });
+    }).catch((err) => {
+        return res.status(400).send({
+            message: err
+        });
+    });
+};
