@@ -59,11 +59,10 @@ $(document).ready(function(){
     });
 </script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        //disappears when you scroll up
-        $().UItoTop({ easingType: 'easeOutQuart' });
-            
-    });
+// Initialize tooltip component
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 </script>
 <!-- //move to top -->
 
