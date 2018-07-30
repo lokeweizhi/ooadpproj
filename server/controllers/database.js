@@ -21,10 +21,8 @@ sequelize.authenticate().then(() => {
     console.log('Database connection has been established successfully.');
     console.log('========================================================')
 }).catch(err => {
-    console.log('========================================================')
     console.log('From: server/controllers/database.js')
     console.error('Unable to connect to the database:', err);
-    console.log('========================================================')
 });
 
 sequelizeTransforms(sequelize);
