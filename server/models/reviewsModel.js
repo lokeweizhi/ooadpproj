@@ -25,9 +25,7 @@ const Reviews = sequelize.define('Reviews', {
 
 // force: true will drop the table if it already exists
 Reviews.sync({force: false, logging:console.log}).then(()=>{
-    console.log('========================================================')
     console.log("reviews table synced");
-    console.log('========================================================')
     Reviews.upsert({
         id: 1,
         username: 'admin',

@@ -10,6 +10,7 @@ var ListingModel = require('../models/listingModel');
 var Profile = require('../models/profileModel');
 var UsersModel = require('../models/users');
 var ReviewsModel = require('../models/reviewsModel');
+var ReportModel = require('../models/reportUserModel');
 
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
@@ -156,6 +157,23 @@ exports.browseProfiles = function (req, res) {
         });
     }
 };
+
+// Create and submit request to the admin
+exports.create = function (req, res) {
+    var reportData = {
+        username: req.body.username,
+        reasons: req.body.reasons,
+        by: req.user.username
+    }
+    ReportModel.create(reportData).then((newRequest, created) => {
+        if (!newRequest) {
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        res.redirect('/profile');
+    })
+}
 
 // Profile authorization middleware
 exports.hasAuthorization = function (req, res, next) {

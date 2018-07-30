@@ -46,9 +46,7 @@ const Users = sequelize.define('Users', {
 
 // force: true will drop the table if it already exists
 Users.sync({force: false, logging:console.log}).then(()=>{
-    console.log('========================================================')
     console.log("users table synced");
-    console.log('========================================================')
     Users.upsert({
         id: 1,
         accountType: 'Admin',

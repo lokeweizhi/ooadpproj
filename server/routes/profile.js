@@ -13,4 +13,6 @@ profileRouter.post('/profile',profileController.hasAuthorization, upload.single(
 profileRouter.get("/profile/:username",profileController.hasAuthorization, profileController.browseProfiles);
 profileRouter.delete("/profile/:profile_id",profileController.hasAuthorization, profileController.delete);
 
+profileRouter.post("/newReportRequest", profileController.hasAuthorization, profileController.create);
+
 module.exports = profileRouter;
