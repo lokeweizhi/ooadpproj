@@ -29,14 +29,14 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
     console.log("listings table synced");
     ListingModel.upsert({
         id:1,
-        name: "Nike Flyknit Racer",
+        name: "2017 N Level Practice Book",
         group: 100,
         hobby: "Used",
         by: "benjaminloke"
     });
     ListingModel.upsert({
         id:2,
-        name: "Red Velvet Cookie Jar Mini Album",
+        name: "2016 A Level Textbook",
         group: 32,
         hobby: "New",
         by: "benjaminloke"

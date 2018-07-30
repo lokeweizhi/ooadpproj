@@ -119,3 +119,37 @@ exports.delete = function (req, res) {
         res.status(200).send({ message: "Deleted Listing: " + record_num });
     });
 }
+
+//listing one specific record
+exports.listRecord = function (req, res) {
+    var record_num = req.params.id;
+    
+    ListingModel.findById(record_num).then(function (ListingRecord) {
+        res.render('individualListing', {
+            title: "Listing",
+            // item: ListingRecord,
+            // itemList: ListingRecord,
+            hostPath: req.protocol + "://" + req.get("host")
+        });
+    }).catch((err) => {
+        return res.status(400).send({
+            message: err
+        });
+    });
+};
+
+exports.listRecord = function (req, res) {
+    var record_num = req.params.id;
+    ListingModel.findById(record_num).then(function (ListingRecord) {
+        console.log(ListingRecord)
+        res.render('indivlisting', {
+            title: "Listings",
+            itemList: ListingRecord,
+            hostPath: req.protocol + "://" + req.get("host")
+        });
+    }).catch((err) => {
+        return res.status(400).send({
+            message: err
+        });
+    });
+};

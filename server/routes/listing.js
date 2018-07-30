@@ -8,5 +8,6 @@ listingRouter.get("/listingedit/:id", auth.isLoggedIn, auth.editRecord);
 listingRouter.post("/listingnew", auth.isLoggedIn, auth.insert);
 listingRouter.post("/listingedit/:id", auth.isLoggedIn, auth.update);
 listingRouter.delete("/listing/:id", auth.isLoggedIn, auth.delete);
+listingRouter.get("/listing/:id", auth.isLoggedIn, auth.listRecord);
 
 module.exports = listingRouter;
