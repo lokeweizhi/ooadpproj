@@ -3,42 +3,280 @@
 <head>
     <title><%= title %></title>
     <% include ../partials/stylesheet %>
+    <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
+    <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
     <link href="/stylesheets/settings.css" rel='stylesheet' type='text/css' />
     <script src="/javascripts/settings.js"></script>   
+    <style type="text/css">
+	@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+	#team {
+        /* background: #EEE !important; */
+        background: #EEE !important;
+        /*#eee*/
+	}
+
+	.btn-primary:focus {
+		background-color: #E45D5D;
+        border-color: #E45D5D;
+        border-bottom: 4px solid #B93838;
+		box-shadow: none;
+		outline: none;
+    }
+    .btn-primary:hover{
+        background: #1C1C20;
+        border-bottom: 4px solid #333;
+    }
+
+	.btn-primary {
+		color: #fff;
+		background-color: #E45D5D;
+        border-color: #E45D5D;
+        border-bottom: 4px solid #B93838;
+	}
+
+	section {
+		padding: 60px 0;
+	}
+
+	section .section-title {
+		text-align: center;
+		color: #E45D5D;;
+		margin-bottom: 50px;
+		text-transform: uppercase;
+	}
+
+	#team .card {
+		border: none;
+		background: #ffffff;
+	}
+
+	.image-flip:hover .backside,
+	.image-flip.hover .backside {
+		-webkit-transform: rotateY(0deg);
+		-moz-transform: rotateY(0deg);
+		-o-transform: rotateY(0deg);
+		-ms-transform: rotateY(0deg);
+		transform: rotateY(0deg);
+		border-radius: .25rem;
+	}
+
+	.image-flip:hover .frontside,
+	.image-flip.hover .frontside {
+		-webkit-transform: rotateY(180deg);
+		-moz-transform: rotateY(180deg);
+		-o-transform: rotateY(180deg);
+		transform: rotateY(180deg);
+	}
+
+	.mainflip {
+		-webkit-transition: 1s;
+		-webkit-transform-style: preserve-3d;
+		-ms-transition: 1s;
+		-moz-transition: 1s;
+		-moz-transform: perspective(1000px);
+		-moz-transform-style: preserve-3d;
+		-ms-transform-style: preserve-3d;
+		transition: 1s;
+		transform-style: preserve-3d;
+		position: relative;
+	}
+
+	.frontside {
+		position: relative;
+		-webkit-transform: rotateY(0deg);
+		-ms-transform: rotateY(0deg);
+		z-index: 2;
+		margin-bottom: 30px;
+	}
+
+	.backside {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: white;
+		-webkit-transform: rotateY(-180deg);
+		-moz-transform: rotateY(-180deg);
+		-o-transform: rotateY(-180deg);
+		-ms-transform: rotateY(-180deg);
+		transform: rotateY(-180deg);
+		-webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+		-moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+		box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+	}
+
+	.frontside,
+	.backside {
+		-webkit-backface-visibility: hidden;
+		-moz-backface-visibility: hidden;
+		-ms-backface-visibility: hidden;
+		backface-visibility: hidden;
+		-webkit-transition: 1s;
+		-webkit-transform-style: preserve-3d;
+		-moz-transition: 1s;
+		-moz-transform-style: preserve-3d;
+		-o-transition: 1s;
+		-o-transform-style: preserve-3d;
+		-ms-transition: 1s;
+		-ms-transform-style: preserve-3d;
+		transition: 1s;
+		transform-style: preserve-3d;
+	}
+
+	.frontside .card,
+	.backside .card {
+		min-height: 312px;
+	}
+
+	.backside .card a {
+		font-size: 18px;
+		color: #E45D5D !important;
+	}
+
+	.frontside .card .card-title,
+	.backside .card .card-title {
+		color: #E45D5D !important;
+	}
+
+	.frontside .card .card-body img {
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+	}
+    /*Profile UI*/
+    /*avg stars*/
+    .stars-outer {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .stars-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+    }
+    
+    .stars-outer::before {
+        content: "\f005 \f005 \f005 \f005 \f005";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        color: #ccc;
+    }
+    
+    .stars-inner::before {
+        content: "\f005 \f005 \f005 \f005 \f005";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        color: #f8ce0b;
+    }
+
+    /*---------------------------*/
+    /* .username:hover { 
+        color:#428bca
+    } */
+
+    </style>
 </head>
 <body>
     <% include ../partials/header %>
-    <table class="table">
-        <thread>
-            <tr>
-            <th>Username</th>
-            <th>Average Rating</th>
-            <th>Number of reviews</th>
-            </tr>
-            <% for(var i=0; i < sellersList.length; i++){ %>
-            <!-- <tr class="rowRecord" data-id="<%= sellersList[i].id %>"> -->
-            <tr class="rowRecord">
-                <td>
-                    <span class="username"><%= sellersList[i].username %></span>
-                </td>
-                <td>
-                <%= sellersList[i].averageRating %>
-                </td>
-                <td>
-                <%= sellersList[i].reviewCount %>
-                </td>
-            </tr>
-            <% } %>
-        </thread>
-        </table>
+    <!--My code 1-->
+    <!-- Team -->
+    <section id="team" class="pb-5">
+        <div class="container">
+            <h5 class="section-title h1" id="myStaticTooltip" data-toggle="tooltip" data-placement="bottom" title="Sellers who receive 5 perfect ratings and have an average rating of 4.5. ">
+                Top Seller
+            </h5>
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <p style="text-align: center;margin-top:-10%">
+                        Congratulations for making it in this list! 
+                    </p><br>
+                </div>
+                <div class="col-4"></div>
+            </div>
+            <div class="row">
+                <!-- Team member -->
+                <% for(var i=0; i < sellersList.length; i++){ %>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p class="text-left text-danger">#<%= i+1 %></p>
+                                        <p><img class=" img-fluid" src="images/profileImages/<%= sellersList[i].imageName %>" alt="card image"></p>
+                                        <h4 class="card-title">@<span class="username" style="cursor: pointer; font-weight: 700;font-size: 1em"><%= sellersList[i].username %></span></h4>
+                                        <p class="card-text"><%= sellersList[i].reviewCount %> Positive Reviews</p>
+                                        <br>
+                                        <a href="#" class="btn btn-primary btn-sm">
+                                            <div class="average<%=i%>">
+                                                <div class="stars-outer">
+                                                <div class="stars-inner"></div>
+                                                </div>
+                                                <span class="averageRating"><%= sellersList[i].averageRating %></span>
+                                                <span class="number-rating"></span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <!-- <h4 class="card-title">@<span class="username" style="cursor: pointer; font-weight: 700;font-size: 1em"><%= sellersList[i].username %></h4> -->
+                                        <p class="card-text" style="color:white">This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                                        <!-- <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                    <i class="fa fa-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                    <i class="fa fa-skype"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="#">
+                                                    <i class="fa fa-google"></i>
+                                                </a>
+                                            </li>
+                                        </ul> -->
+                                        <br>
+                                        <a href="#" class="btn btn-primary btn-sm">
+                                            <p style="cursor: pointer; font-weight: 500;font-size: 0.7em;color: white">
+                                                View @<span class="username"><%= sellersList[i].username %></span>'s Profile
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                <!-- ./Team member -->
+            </div>
+        </div>
+    </section>
+    <!--//My code 1-->
     <% include ../partials/footer %>
     <% include ../partials/javascript %>
     <script>
         // redirects to the next user
         login = "<%=login %>"
         console.log("login: ",login)
+        // $('#here').click(function () {
         $('.username').click(function () {
-            var record_username = $(this).closest('.rowRecord').find('.username').text();
+            var record_username = $(this).closest('.card-body').find('.username').text();
             if (login){
                 // username = user.username
                 location.href = "profile/"+record_username;
@@ -49,7 +287,63 @@
                 console.log("did not passed in login");
             }
         });
+    </script>
 
+    <script>
+        // display final avg stars
+        var numOfTopSellers = "<%=sellersList.length%>";
+        var ratings = new Array();
+
+        for (i=0;i<numOfTopSellers;i++){
+            window["avg"+i] = document.getElementsByClassName("averageRating")[i].innerHTML;
+            // console.log(window["avg"+i])
+            ratings[i] = new Object();
+            ratings[i] = window["avg"+i]
+        } 
+        console.log(ratings)
+        for (let rating in ratings) {
+            console.log("ratings[rating]",ratings[rating])
+        }
+
+        // Total Stars
+        const starsTotal = 5;
+
+        // Run getRatings when DOM loads
+        document.addEventListener('DOMContentLoaded', getRatings);
+
+        // Form Elements
+        const productSelect = document.getElementById('product-select');
+        const ratingControl = document.getElementById('rating-control');
+
+        // Init product
+        let product;
+
+        // Get ratings
+        function getRatings() {
+        for (let rating in ratings) {
+            // Get percentage
+            const starPercentage = (ratings[rating] / starsTotal) * 100;
+
+            // Round to nearest 10
+            const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+
+            // Set width of stars-inner to percentage
+            console.log('.${"average"+rating}:',rating)
+            document.querySelector(`.${"average"+rating} .stars-inner`).style.width = starPercentageRounded;
+
+            // Add number rating
+            //document.querySelector(`.${rating} #averageRating`).innerHTML = ratings[rating]
+        }
+        } 
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script>
+    $(function () {
+    $('#myStaticTooltip').tooltip('toggle')
+    $('#myStaticTooltip').on('hide.bs.tooltip', function () { return true;});
+    $('#myStaticTooltip').on('show.bs.tooltip', function () { return true;});
+    })
     </script>
 </body>
 </html>

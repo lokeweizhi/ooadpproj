@@ -27,9 +27,7 @@ const DeactivationRequest = sequelize.define('DeactivationRequest', {
 
 // force: true will drop the table if it already exists
 DeactivationRequest.sync({force: false, logging:console.log}).then(()=>{
-    console.log('========================================================')
     console.log("DeactivationRequest table synced");
-    console.log('========================================================')
 });
 
 module.exports = sequelize.model('DeactivationRequest', DeactivationRequest);

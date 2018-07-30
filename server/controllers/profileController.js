@@ -9,6 +9,8 @@ var IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 var ListingModel = require('../models/listingModel');
 var Profile = require('../models/profileModel');
 var UsersModel = require('../models/users');
+var ReviewsModel = require('../models/reviewsModel');
+var ReportModel = require('../models/reportUserModel');
 
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
@@ -17,18 +19,31 @@ exports.list = function(req, res){
     Profile.findAll({
         where:{targetUsername: req.user.username}
     }).then(function(profile){
-        ListingModel.findAll({
-            attributes: ['id', 'name', 'group', 'hobby'],
-            where:{by: req.user.username}
-        }).then(function (listings) {
-            res.render("profile", {
-                title: 'Adamire - @'+ req.user.username,
-                webTitle: 'Profile:',
-                profile: profile,
-                itemList: listings,
-                urlPath: req.protocol + "://" + req.get("host") + req.url,
-                user: req.user
-            });
+        ReviewsModel.find({
+            attributes: ['id', 'averageRating', 'reviewCount'],
+            where: {username: req.user.username}
+        }).then(function(review){
+            ReviewsModel.findAll({
+                attributes: ['id', 'username' ,'imageName', 'averageRating', 'reviewCount']
+            }).then(function (totalReviews) {
+                console.log("***********************totalReview",totalReviews)
+                ListingModel.findAll({
+                    attributes: ['id', 'name', 'group', 'hobby'],
+                    where:{by: req.user.username}
+                }).then(function (listings) {
+                    res.render("profile", {
+                        title: 'Adamire - @'+ req.user.username,
+                        webTitle: 'Profile:',
+                        profile: profile,
+                        review: review,
+                        totalReviews: totalReviews,
+                        itemList: listings,
+                        urlPath: req.protocol + "://" + req.get("host") + req.url,
+                        user: req.user
+                    });
+                })
+            })
+
         })
     }).catch((err)=> {
         return res.status(400).send({
@@ -142,6 +157,23 @@ exports.browseProfiles = function (req, res) {
         });
     }
 };
+
+// Create and submit request to the admin
+exports.create = function (req, res) {
+    var reportData = {
+        username: req.body.username,
+        reasons: req.body.reasons,
+        by: req.user.username
+    }
+    ReportModel.create(reportData).then((newRequest, created) => {
+        if (!newRequest) {
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        res.redirect('/profile');
+    })
+}
 
 // Profile authorization middleware
 exports.hasAuthorization = function (req, res, next) {
