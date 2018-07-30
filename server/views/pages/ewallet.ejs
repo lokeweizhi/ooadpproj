@@ -2,17 +2,10 @@
 <html>
     <head>
         <title><%= title %></title>
-        <% include ../partials/stylesheet %>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <% include ../partials/stylesheet %> 
 
         <link rel="stylesheet" type="text/css" href="stylesheets/ccstyles.css">
         <style>
-            /* .container {
-                position: relative;
-                width: 50%;
-            } */
             .image {
                 opacity: 1;
                 display: block;
@@ -141,6 +134,7 @@
             <div class="row">
                 <div class="col-lg-1 container" style="margin: 0 0 0 20px; height: 100px; border-style: dotted; border-radius: 10px;">
                     <a href="" data-toggle="modal" data-target="#addUser"><img class="image" style="height: 40px; width: 40px; margin: 15px 0 -10px 16px" src="images/plus.png"></a>
+                    <br>
                     <h3>Add User</h3>
                 </div>
                 <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -173,6 +167,7 @@
                     <div data-id="<%= itemList[i].id %>" class="col-lg-1 container" style="margin: 0 0 0 20px; height: 100px; border-style: dotted; border-radius: 10px;">
                         <input type="image" class="deleteBtn" value="Delete" align="right" src="images/cancel.png" />
                         <input data-toggle="modal" data-target="#sendMoney" type="image" class="image" src="images/user.png" style="height: 40px; width: 40px; margin: 15px 0 -10px 16px"/>
+                        <br>
                         <h3 style="text-align: center"><%= itemList[i].contactName %></h3>
                     </div>
                 <% } %>
