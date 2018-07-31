@@ -55,9 +55,30 @@ exports.insert = function (req, res) {
         name: req.body.name,
         group: req.body.group,
         hobby: req.body.hobby,
-        by: req.user.username
+        by: req.user.username,
     }
     ListingModel.create(listingData).then((newRecord, created) => {
+        var filename = req.body.name + JSON.stringify(newRecord.id);
+        var src;
+        var dest;
+        var targetPath;
+        var tempPath = req.file.path;
+        targetPath = './public/uploads/listingImages/' + filename;
+        src = fs.createReadStream(tempPath);
+        dest = fs.createWriteStream(targetPath);
+        src.pipe(dest);
+        var newImage = ({
+            img: filename,
+        });
+        ListingModel.update(newImage, {
+            where: {
+                name: req.body.name,
+                id: listingData.id,
+            }
+        })
+        fs.unlink(tempPath, function (err) {
+            res.redirect('/listing');
+        })
         if (!newRecord) {
             return res.send(400, {
                 message: "error"
