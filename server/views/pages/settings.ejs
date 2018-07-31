@@ -202,13 +202,15 @@
                 dataType: "json",
                 contentType: "application/json",
                 success: function(result){
-                    alert("Settings updated successfully");
+                    swal("Good job!", "Settings updated successfully!", "success");
+                    //alert("Settings updated successfully");
                     //reveal();
                     //location.href = "<%=hostPath%>/settings";
                     
                 },
                 error: function(result){
-                    alert("Error updating settings:"+result);
+                    swal("Whoops!", "Error updating settings!", "error");
+                    //alert("Error updating settings:"+result);
                     discardChanges();
                     
                 }
@@ -217,9 +219,9 @@
         function discardChanges() {
             location.href = "<%=hostPath%>/settings"
         }
-        $(document).click(function(event){
-            saveChanges(event);
-        });
+        // $(document).click(function(event){
+        //     saveChanges(event);
+        // });
     </script>
     <script>
     loca = "<%=user.location%>";
