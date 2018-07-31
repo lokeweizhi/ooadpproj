@@ -46,34 +46,5 @@
 <% include ../partials/javascript %>
 </body>
 
-<script>
-  $('.editBtn').click(function () {
-    var record_num = $(this).closest("tr").data('id');
-    location.href = "<%-urlPath %>edit/"+record_num;
-  });
-
-  $('.deleteBtn').click(function () {
-    var record_num = $(this).closest("tr").data('id');
-    $.ajax({
-      url: '<%-urlPath %>/' + record_num,
-      type: 'DELETE',
-      success: function (result) {
-        console.log(result.message);
-        var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
-        $(itemToRemove).remove();
-        redirectToListing();
-      },
-      error: function (result) {
-        alert("Unable to delete record.");
-        console.log(result.message);
-        redirectToListing();
-      }
-    });
-  });
-
-  function redirectToListing(){
-    location.href = "<%-urlPath %>"
-  }
-</script>
 
 </html>
