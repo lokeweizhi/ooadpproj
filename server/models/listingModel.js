@@ -12,6 +12,9 @@ const ListingModel = sequelize.define('Listings', {
         type: Sequelize.STRING,
         trim: true
     },
+    img: {
+        type: Sequelize.STRING,
+    },
     group: {
         type: Sequelize.INTEGER
     },

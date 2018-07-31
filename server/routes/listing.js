@@ -2,6 +2,7 @@ var express = require("express");
 var listingRouter = express.Router();
 
 var auth = require('../controllers/auth');
+var images = require('../controllers/images');
 
 listingRouter.get("/listing", auth.isLoggedIn, auth.list);
 listingRouter.get("/listingedit/:id", auth.isLoggedIn, auth.editRecord);
