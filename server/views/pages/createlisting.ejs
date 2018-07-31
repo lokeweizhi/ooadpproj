@@ -12,7 +12,7 @@
 
 <body>
     <% include ../partials/header %>
-        <form action="/listingnew" method="post">
+        <form action="/listingnew" method="post" enctype="multipart/form-data">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -25,7 +25,8 @@
               <input type="text" id="inputName" name="name" class="form-control" placeholder="Name" required="true">
             </fieldset>
             <fieldset>
-              <label for="inputImg"
+              <label for="inputImg">Image</label>
+              <input type="file" id="inputImg" name="img" class="form-control" placeholder="" required="true">
             </fieldset>
             <fieldset class="form-group">
               <label for="inputGroup">Price</label>
