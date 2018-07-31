@@ -24,6 +24,7 @@ var app = express();
 var serverPort = 3000;
 var httpServer = require('http').Server(app);
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views/pages'));
 app.set('view engine', 'ejs');
