@@ -106,6 +106,7 @@
           <td>
             <input type="button" class="editBtn" value="Edit">
             <input type="button" class="deleteBtn"  value="Delete">
+            <input type ="button" class="banBtn" value="Ban">
           </td>
         </tr>
         <% } %>
@@ -117,6 +118,8 @@
       var record_num = $(this).closest("tr").data('id');
       location.href = "<%-urlPath %>/edit/"+record_num;
     });
+    
+    $/('.banBtn')
 
     $('.deleteBtn').click(function () {
       var record_num = $(this).closest("tr").data('id');
