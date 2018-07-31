@@ -57,6 +57,7 @@ exports.uploadImage = function(req,res){
     var dest;
     var targetPath;
     var tempPath = req.file.path;
+    console.log("req.file.path*****************************",tempPath);
     // get the mime type of the file
     var type = mime.lookup(req.file.mimetype);
     // get the file extension

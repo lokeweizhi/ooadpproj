@@ -7,7 +7,6 @@
         <%= title %>
     </title>
     <% include ../partials/stylesheet %>
-    <% include ../partials/javascript %>
     <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
     <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
     <link href="/stylesheets/profile.css" rel='stylesheet' type='text/css' />
@@ -184,7 +183,7 @@
         <!-- </div> -->
         </div>
     </div>  
-     
+        <% include ../partials/javascript %>
         <% include ../partials/footer %>
         <script>
         // redirects to the next user
@@ -194,27 +193,30 @@
         });
         </script>
         <script>
-        // $('.btn-primary').on('click', function (e) {
-        //     e.preventDefault(); // Prevent href from redirecting directly
-        //     //var linkURL = $(this).attr("action");
-        //     var form = $(this).parents('form');
-        //     console.log(form)
-        //     swal({
-        //         title: 'Are you sure?',
-        //         text: "Once sent, you can't edit your review anymore!",
-        //         type: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Yes, submit!'
-        //     }), function(isConfirm) {
-        //         console.log("passed here!")
-        //         console.log(isConfirm)
-        //         // Redirect the user
-        //         if (isConfirm) form.submit();
-        //     }
-        // });
-
+        $('.btn-primary').on('click', function (e) {
+            e.preventDefault();
+            var form = $(this).parents('form');
+            swal({
+            title: "Are you sure?",
+            text: "Once sent, you cannot edit your report anymore!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, report user!",
+            cancelButtonText: "No, wait!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+            function(isConfirm) {
+            if (isConfirm) {
+                swal("Form Submitted!", "Your form has been sent to the admin.", "success");
+                form.submit();
+            } else {
+                swal("Cancelled", "Your form has not been submitted :)", "error");
+            }
+            });
+        })
+        
         </script>
         
         <script> 

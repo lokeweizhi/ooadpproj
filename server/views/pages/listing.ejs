@@ -13,41 +13,9 @@
 <body>
     <% include ../partials/header %>
   <div class="col-lg-5">
-    <button type="button" class="btn btn-secondary pull-right" data-toggle="modal" data-target="#createStudent">
+    <input type="button" class="btn btn-secondary pull-right" onclick="location.href='/createlisting';">
       New Listing
-    </button>
-  </div>
-  <div class="modal fade" id="createStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <form action="/listingnew" method="post">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Create New Listing</h4>
-          </div>
-          <div class="modal-body">
-            <fieldset class="form-group">
-              <label for="inputName">Item Name</label>
-              <input type="text" id="inputName" name="name" class="form-control" placeholder="Name" required="true">
-            </fieldset>
-            <fieldset class="form-group">
-              <label for="inputGroup">Price</label>
-              <input type="text" id="inputGroup" name="group" class="form-control" placeholder="0.00" required="true">
-            </fieldset>
-            <fieldset class="form-group">
-              <label for="inputHobby">Condition</label>
-              <input type="text" id="inputHobby" name="hobby" class="form-control" placeholder="Condition" required="true">
-            </fieldset>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Add Listing</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    </>
   </div>
   <table class="table">
     <thread>
@@ -61,6 +29,9 @@
         <tr class="col-sm-4" data-id="<%= itemList[i].id %>">
           <td>
             <%= itemList[i].name %>
+          </td>
+          <td>
+            <%= itemList[i].img %>
           </td>
           <td>
             <%= itemList[i].group %>

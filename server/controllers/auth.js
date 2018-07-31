@@ -1,6 +1,10 @@
 // get gravatar icon from email
+var fs = require('fs');
+var mime = require('mime');
 var gravatar = require('gravatar');
 var passport = require('passport');
+//set image file types
+var IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 
 // Signin GET
 exports.signin = function(req, res) {
@@ -51,18 +55,50 @@ exports.list = function (req, res) {
 };
 exports.insert = function (req, res) {
     console.log("****************req.body.name: "+req.body.name);
+    console.log("*************************", tempPath);
+    
     var listingData = {
         name: req.body.name,
         group: req.body.group,
         hobby: req.body.hobby,
-        by: req.user.username
+        by: req.user.username,
     }
     ListingModel.create(listingData).then((newRecord, created) => {
+        var filename = req.body.name + JSON.stringify(newRecord.id);
+        var src;
+        var dest;
+        var targetPath;
+        var tempPath = req.file.path;
+        console.log(req.file);
+        //get the mime type of file
+        var type = mime.lookup(req.file.mimetype);
+        //get file extension
+        var extension =  req.file.path.split(/[. ]+/).pop();
+        //check support fuile types
+        if(IMAGE_TYPES.indexOf(type) == -1) {
+            return res.status(415).send('Supported image formats: jpeg, jpg, png');
+        }
+        targetPath = './public/uploads/' + filename;
+        src = fs.createReadStream(tempPath);
+        dest = fs.createWriteStream(targetPath);
+        src.pipe(dest);
         if (!newRecord) {
             return res.send(400, {
                 message: "error"
             });
         }
+        //save file process
+        src.on('end', function () {
+            //create a new instance of the image
+            var imageData = {
+                img: req.body.img,
+            }
+            fs.unlink(tempPath, function (err) {
+                if(err) {
+                    return res.status(500).send('Internal Server Error');
+                }
+            })
+        })
         
     }).then(function(){
         res.redirect('/listing');
@@ -146,6 +182,22 @@ exports.listRecord = function (req, res) {
             title: "Listings",
             itemList: ListingRecord,
             hostPath: req.protocol + "://" + req.get("host")
+        });
+    }).catch((err) => {
+        return res.status(400).send({
+            message: err
+        });
+    });
+};
+
+exports.dispform = function (req, res) {
+    ListingModel.findAll({
+        attributes: ['id', 'name', 'group', 'hobby']
+    }).then(function (listings) {
+        res.render('createlisting', {
+            title: "Listings",
+            itemList: listings,
+            urlPath: req.protocol + "://" + req.get("host") + req.url
         });
     }).catch((err) => {
         return res.status(400).send({
