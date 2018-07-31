@@ -51,6 +51,9 @@ exports.list = function (req, res) {
 };
 exports.insert = function (req, res) {
     console.log("****************req.body.name: "+req.body.name);
+    console.log("*****************************",tempPath);
+    var tempPath = req.file.path;
+    
     var listingData = {
         name: req.body.name,
         group: req.body.group,
@@ -62,8 +65,7 @@ exports.insert = function (req, res) {
         var src;
         var dest;
         var targetPath;
-        var tempPath = req.file.path;
-        targetPath = './public/uploads/listingImages/' + filename;
+        targetPath = './public/uploads/' + filename;
         src = fs.createReadStream(tempPath);
         dest = fs.createWriteStream(targetPath);
         src.pipe(dest);
