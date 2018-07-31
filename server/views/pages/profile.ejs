@@ -30,9 +30,35 @@
         border-color: #E45D5D;
         border-bottom: 4px solid #B93838;
     }
+    .nav-item > .active:hover {
+		color: #fff !important;
+		background-color: #1C1C20 !important;
+        border-color: #1C1C20;
+        border-bottom: 4px solid #333;
+    }
     /* .tabPill .active a:hover {
         background-color: red;
     } */
+
+    .col-lg-4 {
+        border-right: 0.5px dotted gray;
+        height: 10%;
+    }
+
+    @media only screen and (max-width: 991px) {
+        .col-lg-4 {
+            border-right: unset;
+            border-bottom:  0.5px dotted gray;
+            height: 10%;
+        }
+        .social{
+            margin-bottom: unset;
+        }
+    }
+
+    .social{
+        margin-bottom: 10%;
+    }
     </style>
 </head>
 
@@ -55,22 +81,22 @@
                         </div>
                         <h4 class="name" id="username" name="username"><span id="verified"></span><%=user.username %></h4>
 
-                        <p class="badge badge-primary">Student(a tag)</p>
+                        <p class="badge badge-success">Student(a tag)</p>
                         <br>
                         <br>
                         <p class="info" style="font-style:italic;"><%=user.location %></p>
                         <!-- <div class="stats row"> -->
-                        <hr>
+                        <!-- <hr> -->
                         <div class="desc" style="margin-bottom: 3%; margin-top:5%;">
                             <div>
                                 <p class="number-stat"><%= itemList.length %></p>
                                 <p class="desc-stat"style="margin-bottom:-3%; margin-top:0%;">Listings</p>
                             </div>
                         </div>
-                        <hr>
+                        <!-- <hr> -->
                         <br>
                         <p class="desc"><%=user.aboutMe %></p>
-                        <div style="margin-bottom: 10%" class="social">
+                        <div class="social">
                             <div class="average">
                                 <div class="stars-outer">
                                 <div class="stars-inner"></div>
@@ -91,7 +117,7 @@
                                 <a style="color: black" class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Listings</a>
                             </li>
                             <li class="nav-item">
-                                <a style="color: black" class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">rEVIEWS</a>
+                                <a style="color: black;" class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">rEVIEWS</a>
                             </li>
                         </ul>
                         <!--//tab pills-->

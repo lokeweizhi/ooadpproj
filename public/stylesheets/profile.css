@@ -94,7 +94,7 @@ main {
   margin-top: 20px;
   font-family: "Open Sans";
   font-weight: 600;
-  font-size: 18pt;
+  font-size: 14pt;
   /* color: #777; */
   color: #333;
 }
@@ -142,7 +142,7 @@ main {
   font-size: 11pt;
   font-family: "Open Sans";
   padding-bottom: 25px;
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #ccc7c5;
 }
 
 .social {
@@ -186,9 +186,9 @@ main {
 }
 
 @media (max-width:990px) {
-  .nav {
+  /* .nav {
     display: none;
-  }
+  } */
   
   .follow {
     width: 50%;
