@@ -62,11 +62,20 @@ if ($(".list-group > #more").length > 0){
 
 // upload image
 $(':input[type=file]').change( function(event) {
-var tmppath = URL.createObjectURL(event.target.files[0]);
+    var tmppath = URL.createObjectURL(event.target.files[0]);
+
     //get parent using closest and then find img element
     $(this).closest("div").find("img").attr('src',tmppath);
+
+    console.log(event)
 });
 
+// $('img').on('error', function () {
+//     $(this).remove();
+// })
+$('img').error(function(){
+    $(this).attr('src', 'missing.png');
+});
 // trim length for listing title
 var length = parseInt(document.getElementsByClassName("itemName").length);
 for (i=0;i<length;i++)
