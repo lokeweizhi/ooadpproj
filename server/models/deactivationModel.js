@@ -15,14 +15,14 @@ const DeactivationRequest = sequelize.define('DeactivationRequest', {
     reasons: {
         type: Sequelize.STRING
     },
-    user_id:{
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Users',
-            key: 'id'
-        }
-    }
+    // user_id:{
+    //     type: Sequelize.INTEGER,
+    //     allowNull: false,
+    //     references: {
+    //         model: 'Users',
+    //         key: 'id'
+    //     }
+    // }
 });
 
 // force: true will drop the table if it already exists

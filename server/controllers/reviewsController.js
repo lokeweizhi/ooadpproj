@@ -128,7 +128,7 @@ exports.create = function (req, res) {
                 buyerRating: req.body.buyerRating,
                 by: req.user.username,
                 targetUsername: req.body.username,
-                user_id: req.user.id // stores user who submitted the reviews
+                // user_id: req.user.id // stores user who submitted the reviews
             };
             Profile.create(reviewData).then((newReview, created) => {
                 Reviews.update(ratingsData, { where: { username: req.body.username } }).then((newRatings) => {

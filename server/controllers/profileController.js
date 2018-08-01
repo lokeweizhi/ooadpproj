@@ -14,7 +14,6 @@ var ReportModel = require('../models/reportUserModel');
 
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
-// for date-time ejs
 var moment = require('moment');
 var sortBy = require('sort-by');
 
