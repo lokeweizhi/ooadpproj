@@ -89,7 +89,12 @@ module.exports = function (passport) {
                             var reviewsData = {
                                 username: username,
                                 imageName: "default-avatar.png",
-                                averageRating: 0
+                                averageSellerRating: 0,
+                                totalServiceRatings: 0,
+                                totalPriceRatings: 0,
+                                averageBuyerRating: 0,
+                                sellerCount: 0,
+                                buyerCount: 0
                             }
 
                             // save data

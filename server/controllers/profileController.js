@@ -20,13 +20,13 @@ exports.list = function(req, res){
         where:{targetUsername: req.user.username}
     }).then(function(profile){
         ReviewsModel.find({
-            attributes: ['id', 'averageRating', 'reviewCount'],
+            attributes: ['id', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount'],
             where: {username: req.user.username}
         }).then(function(review){
             ReviewsModel.findAll({
-                attributes: ['id', 'username' ,'imageName', 'averageRating', 'reviewCount']
+                attributes: ['id', 'username' ,'imageName', 'averageSellerRating', 'averageBuyerRating', 'sellerCount', 'buyerCount']
             }).then(function (totalReviews) {
-                console.log("***********************totalReview",totalReviews)
+                //console.log("***********************totalReview",totalReviews)
                 ListingModel.findAll({
                     attributes: ['id', 'name', 'group', 'hobby'],
                     where:{by: req.user.username}

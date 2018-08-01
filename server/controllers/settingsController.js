@@ -9,6 +9,7 @@ var sequelize = myDatabase.sequelize;
 
 // List Settings
 exports.list = function (req, res) {
+    console.log("****************************req.user.id",req.user.id);
     res.render('settings', {
         title: "Adamire - Settings",
         webTitle: "SETTINGS",

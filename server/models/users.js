@@ -115,7 +115,7 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         aboutMe: 'Hello, thank you for visiting this page.',
         location: "Singapore",
         gender: "Female",
-        imageName: "human.png"
+        imageName: "human2.png"
     });
 });
 
