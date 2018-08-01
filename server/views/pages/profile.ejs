@@ -101,7 +101,7 @@
                         <!-- <hr> -->
                         <br>
                         <p class="desc"><%=user.aboutMe %></p>
-                        <p>Average Rating(Seller):</p>
+                        <p>Average Rating(as Seller):</p>
                         <div class="social">
                             <div class="averageSeller">
                                 <div class="stars-outer">
@@ -111,7 +111,7 @@
                                 <!-- <span class="number-rating"></span> -->
                             </div>
                         </div>
-                        <p>Average Rating(Buyer):</p>
+                        <p>Average Rating(as Buyer):</p>
                         <div class="social">
                             <div class="averageBuyer">
                                 <div class="stars-outer">
@@ -287,8 +287,8 @@
                                                                         <span class="number-rating"></span>
                                                                     </div>                                                
                                                                 </p>
-                                                                <p class="list-group-item-text" id="bRating" style="display: none;">
-                                                                    <div class="buyerRating<%=i%>">
+                                                                <p class="list-group-item-text" id="bRating">
+                                                                    <div class="buyerRating<%=i%>" style="display: none;">
                                                                         <div class="stars-outer">
                                                                         <div class="stars-inner"></div>
                                                                         </div>
@@ -303,7 +303,8 @@
                                                     <p class="text-muted"><%= review.content %></p>
                                                     <small class="text-muted">
                                                         <strong>-<span class="by" style="cursor: pointer;font-size: 0.85em;font-weight: 700;font-style: italic;" ><%= review.by %></strong>
-                                                        <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= review.createdAt.getDate() + "/" + review.createdAt.getMonth() + "/" + review.createdAt.getFullYear() + ", " + review.createdAt.getHours() + ":" + review.createdAt.getMinutes()%></div>
+                                                        <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= moment(review.created).format( 'DD-MMM-YYYY HH:mm:ss') %>
+                                                        </div>
                                                     </small>
                                                 </li>                                              
                                     <% }); %>     
