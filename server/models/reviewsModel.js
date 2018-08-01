@@ -42,44 +42,44 @@ Reviews.sync({force: false, logging:console.log}).then(()=>{
         id: 1,
         username: 'linpeishan',
         imageName: "animal-avian-bald-eagle-1131774.jpg",
-        averageSellerRating: 0,
+        averageSellerRating: 4.5,
         totalServiceRatings: 0,
         totalPriceRatings: 0,
         averageBuyerRating: 0,
-        sellerCount: 0,
+        sellerCount: 6,
         buyerCount: 0
     });
     Reviews.upsert({
         id: 2,
         username: 'JohannaJimeno',
         imageName: "yo.jpg",
-        averageSellerRating: 0,
+        averageSellerRating: 4.6,
         totalServiceRatings: 0,
         totalPriceRatings: 0,
         averageBuyerRating: 0,
-        sellerCount: 0,
+        sellerCount: 6,
         buyerCount: 0
     });
     Reviews.upsert({
         id: 3,
         username: 'benjaminloke',
         imageName: "human.png",
-        averageSellerRating: 0,
+        averageSellerRating: 5,
         totalServiceRatings: 0,
         totalPriceRatings: 0,
         averageBuyerRating: 0,
-        sellerCount: 0,
+        sellerCount: 6,
         buyerCount: 0
     });
     Reviews.upsert({
         id: 4,
         username: 'leeshangji',
         imageName: "human2.png",
-        averageSellerRating: 0,
+        averageSellerRating: 4.9,
         totalServiceRatings: 0,
         totalPriceRatings: 0,
         averageBuyerRating: 0,
-        sellerCount: 0,
+        sellerCount: 6,
         buyerCount: 0
     });
 });
