@@ -5,7 +5,7 @@
         <% include ../partials/stylesheet %>
         <style>
             h1 {
-                font-size: 30px;
+                font-size: 25px;
                 font-family: 'Open Sans';
                 text-align: center;
             }
@@ -26,7 +26,7 @@
             <div class="col-lg-5"></div>
             <button type="button" onclick="location.href='/ewallet'" class="col-lg-1 btn btn-basic">Accept</button>
             <div id="separate"></div>
-            <button type="button" class="col-lg-1 btn btn-basic">Reject</button>
+            <button type="button" class="col-lg-1 btn btn-basic reject">Reject</button>
             <div class="col-lg-2"></div>
         </div>
         <br>
@@ -35,42 +35,49 @@
             <table class="col-lg-10 table">
                 <thead>
                     <tr>
-                    <th scope="col"></th>
-                    <th scope="col">User</th>
-                    <th scope="col">Offer</th>
-                    <th scope="col">Date</th>
+                        <th scope="col"></th>
+                        <th scope="col">User</th>
+                        <th scope="col">Offer</th>
+                        <th scope="col">Date</th>
                     </tr>
+                    <% for(var i=0; i < offerList.length; i++){ %>
+                        <tr class="rowOffer" data-id="<%= offerList[i].id %>">
+                            <td scope="row">
+                                <input class="checkbox" data-id="<%= offerList[i].id %>" type="checkbox">
+                            </td>
+                            <td><%= offerList[i].buyerUsername %></td>
+                            <td><%= offerList[i].price %></td>
+                            <td><%= offerList[i].createdAt %></td>
+                            </tr>
+                        <tr>
+                    <% } %>
                 </thead>
-                <tbody>
-                    <tr>
-                    <th scope="row">
-                        <input type="checkbox">
-                    </th>
-                    <td>Mark</td>
-                    <td>$10</td>
-                    <td>28/6/2018</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">
-                        <input type="checkbox">
-                    </th>
-                    <td>Jacob</td>
-                    <td>$11</td>
-                    <td>30/6/2018</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">
-                        <input type="checkbox">
-                    </th>
-                    <td>Larry</td>
-                    <td>$12.50</td>
-                    <td>03/7/2018</td>
-                    </tr>
+                <tbody> 
                 </tbody>
             </table>
             <div class="col-lg-1"></div>
         </div>
-        <% include ../partials/footer %>
         <% include ../partials/javascript %>
+        <script>
+        $('.reject').click(function () {
+            if (confirm("Reject Offers?")) {
+                var offers_id = $(this).closest("tr").data('id'); 
+                $.ajax({
+                    url: '<%-urlPath%>' + '/' + offers_id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        console.log(result.message);
+                        var itemToRemove = '.rowOffer[data-id=' + offers_id + ']';
+                        $(itemToRemove).remove();
+                    },
+                    error: function(result) {
+                        alert("Unable to reject offer.");
+                        console.log(result.message);
+                    }
+                });
+            }
+        }); 
+        </script>
+        <% include ../partials/footer %>
     </body>
 </html>

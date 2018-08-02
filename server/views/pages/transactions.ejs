@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <% include ../partials/stylesheet %>
+        <style>
+            /* Tabs CSS */
+            * {box-sizing: border-box}
+            /* Set height of body and the document to 100% */
+            /* Style tab links */
+            .tablink {
+                background-color: #555;
+                color: white;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                font-size: 17px;
+                width: 50%;
+            }
+
+            .tablink:hover {
+                background-color: #777;
+            }
+
+            /* Style the tab content (and add height:100% for full page content) */
+            .tabcontent {
+                color: black;
+                display: none;
+                padding: 100px 20px;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <% include ../partials/header %>
+        <button class="tablink" onclick="location.href='/ewallet';">Wallet</button>
+        <button class="tablink" onclick="openPage('Transactions', this, 'orange')"id="defaultOpen">Transactions</button>
+        <h1 style="margin: 8% 0 -4% 0; font-size: 25px;text-align: center">Transaction History</h1>
+        <div id="Wallet" class="tabcontent">
+            <h3>Transactions</h3>
+            <p>Some numbers</p> 
+        </div>
+        <div id="Transactions" class="tabcontent container-fluid">
+        <table class="table">
+            <thead>
+                <tr>
+                <th>Username</th>
+                <th>Date</th>
+                <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < transactionList.length; i++){ %>
+                <tr>
+                    <td><%= transactionList[i].contactName %></td>
+                    <td><%= transactionList[i].createdAt %></td>
+                    <td><%= transactionList[i].amount %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        </div>
+        <% include ../partials/javascript %>
+        <script>
+        // Tabs
+        function openPage(pageName,elmnt,color) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+            document.getElementById(pageName).style.display = "block";
+            elmnt.style.backgroundColor = color;
+        }
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click(); 
+        </script>
+        <% include ../partials/footer %>
+    </body>
+</html>

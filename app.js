@@ -100,7 +100,7 @@ app.use('/',ewalletRouter);
 
 // Offers
 var offersRouter = require('./server/routes/offers');
-app.use('/offers',offersRouter);
+app.use('/',offersRouter);
 
 // Listings
 var listingRouter = require('./server/routes/listing');

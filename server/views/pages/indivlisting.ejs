@@ -11,27 +11,31 @@
 <body>
     <% include ../partials/header2 %>
     <!--I included it outside bc the table doesnt seem to work-->
-    <div>
-      <p>Name</p>
-    </div>
-    <div>
-      <p>Price</p>
-    </div>
-    <div>
-      <p>Condition</p>
-    </div>
-    <%=itemList.name%> ,
-    <%=itemList.img%> ,
-    <%=itemList.group%> ,
-    <%=itemList.hobby%>, 
-    <%=itemList.by%> ,
+      <h4><%=itemList.img%></h4>
+      <div>
+        <p>Name:</p>
+        <p><%=itemList.name%></p>
+      </div>
+        <div>
+          <p>Price:</p>
+          <p><%=itemList.group%></p>
+        </div>
+      <div>
+        <p>Condition:</p>
+        <h4><%=itemList.hobby%></h4>
+      </div>
+        <div>
+          <p>By:</p>
+          <p><%=itemList.by%></p>
+        </div>
+      <input type="button" class="editBtn" value="Edit">
+      <input type="button" class="deleteBtn"  value="Delete">
+
+      <button type="button" onclick="location.href='';">Chat to Buy</button>
+      <button type="submit" onclick="location.href='';">Make an offer</button>
     <!--//end-->
     
-          <input type="button" class="editBtn" value="Edit">
-          <input type="button" class="deleteBtn"  value="Delete">
-
-          <button type="button" onclick="location.href='http://google.com';">Chat to Buy</button>
-          <button type="button" onclick="location.href='http://google.com';">Make an offer</button>
+          
   <script>
 
   </script>
