@@ -14,19 +14,23 @@ var ReportModel = require('../models/reportUserModel');
 
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
+var moment = require('moment');
+var sortBy = require('sort-by');
 
 exports.list = function(req, res){
     Profile.findAll({
         where:{targetUsername: req.user.username}
     }).then(function(profile){
-        ReviewsModel.find({
-            attributes: ['id', 'averageRating', 'reviewCount'],
+        profile = profile.sort(sortBy('-created'))
+        //console.log("***********************profile",profile)
+        ReviewsModel.find({ // display Individual ratings
+            attributes: ['id', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount'],
             where: {username: req.user.username}
         }).then(function(review){
-            ReviewsModel.findAll({
-                attributes: ['id', 'username' ,'imageName', 'averageRating', 'reviewCount']
+            ReviewsModel.findAll({ // display multiple ratings
+                attributes: ['id', 'username' ,'imageName', 'averageSellerRating', 'averageBuyerRating', 'sellerCount', 'buyerCount']
             }).then(function (totalReviews) {
-                console.log("***********************totalReview",totalReviews)
+                //console.log("***********************totalReview",totalReviews)
                 ListingModel.findAll({
                     attributes: ['id', 'name', 'group', 'hobby'],
                     where:{by: req.user.username}
@@ -39,7 +43,8 @@ exports.list = function(req, res){
                         totalReviews: totalReviews,
                         itemList: listings,
                         urlPath: req.protocol + "://" + req.get("host") + req.url,
-                        user: req.user
+                        user: req.user,
+                        moment: moment
                     });
                 })
             })

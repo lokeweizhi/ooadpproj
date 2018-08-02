@@ -28,4 +28,5 @@ sequelize.authenticate().then(() => {
 sequelizeTransforms(sequelize);
 
 module.exports.sequelize = sequelize;
+module.exports.sequelizeInstance = sequelize;
 module.exports.Sequelize = Sequelize;

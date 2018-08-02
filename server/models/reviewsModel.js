@@ -15,10 +15,22 @@ const Reviews = sequelize.define('Reviews', {
     imageName: {
         type: Sequelize.STRING
     },
-    averageRating: { //totalRatings, perRatings, numCount
-        type: Sequelize.DECIMAL(10,1),
+    averageSellerRating: { // for Sellers 
+        type: Sequelize.DECIMAL(10,1)
     },
-    reviewCount: {
+    totalServiceRatings: { // for Sellers
+        type: Sequelize.DECIMAL(10,1)
+    },
+    totalPriceRatings: { // for Sellers
+        type: Sequelize.DECIMAL(10,1)
+    },
+    averageBuyerRating: { // for Buyers
+        type: Sequelize.DECIMAL(10,1)
+    },
+    sellerCount: {
+        type: Sequelize.INTEGER
+    },
+    buyerCount: {
         type: Sequelize.INTEGER
     }
 });
@@ -28,38 +40,47 @@ Reviews.sync({force: false, logging:console.log}).then(()=>{
     console.log("reviews table synced");
     Reviews.upsert({
         id: 1,
-        username: 'admin',
-        imageName: "default-avatar.png",
-        averageRating: 0,
-        reviewCount: 0
+        username: 'linpeishan',
+        imageName: "animal-avian-bald-eagle-1131774.jpg",
+        averageSellerRating: 4.5,
+        totalServiceRatings: 0,
+        totalPriceRatings: 0,
+        averageBuyerRating: 0,
+        sellerCount: 6,
+        buyerCount: 0
     });
     Reviews.upsert({
         id: 2,
-        username: 'linpeishan',
-        imageName: "animal-avian-bald-eagle-1131774.jpg",
-        averageRating: 5,
-        reviewCount: 5
+        username: 'JohannaJimeno',
+        imageName: "yo.jpg",
+        averageSellerRating: 4.6,
+        totalServiceRatings: 0,
+        totalPriceRatings: 0,
+        averageBuyerRating: 0,
+        sellerCount: 6,
+        buyerCount: 0
     });
     Reviews.upsert({
         id: 3,
-        username: 'JohannaJimeno',
-        imageName: "yo.jpg",
-        averageRating: 0,
-        reviewCount: 0
+        username: 'benjaminloke',
+        imageName: "human.png",
+        averageSellerRating: 5,
+        totalServiceRatings: 0,
+        totalPriceRatings: 0,
+        averageBuyerRating: 0,
+        sellerCount: 6,
+        buyerCount: 0
     });
     Reviews.upsert({
         id: 4,
-        username: 'benjaminloke',
-        imageName: "human.png",
-        averageRating: 0,
-        reviewCount:0
-    });
-    Reviews.upsert({
-        id: 5,
         username: 'leeshangji',
-        imageName: "human.png",
-        averageRating: 0,
-        reviewCount: 0
+        imageName: "human2.png",
+        averageSellerRating: 4.9,
+        totalServiceRatings: 0,
+        totalPriceRatings: 0,
+        averageBuyerRating: 0,
+        sellerCount: 6,
+        buyerCount: 0
     });
 });
 

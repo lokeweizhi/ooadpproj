@@ -41,7 +41,8 @@ const Users = sequelize.define('Users', {
     },
     imageName: {
         type: Sequelize.STRING
-    }
+    },
+
 });
 
 // force: true will drop the table if it already exists
@@ -115,7 +116,7 @@ Users.sync({force: false, logging:console.log}).then(()=>{
         aboutMe: 'Hello, thank you for visiting this page.',
         location: "Singapore",
         gender: "Female",
-        imageName: "human.png"
+        imageName: "human2.png"
     });
 });
 

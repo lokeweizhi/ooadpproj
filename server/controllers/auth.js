@@ -205,3 +205,18 @@ exports.dispform = function (req, res) {
         });
     });
 };
+
+exports.searchThru = function(req, res) {
+    var itemName = '%' + req.params.name + '%';
+    sequelizeInstance.query('SELECT * FROM listings WHERE name LIKE :name',
+{
+    replacements: { name: itemName }, type: sequelizeInstance.QueryTypes.SELECT
+}).then(listings => {
+    console.log(listings)
+    res.render('listing', {
+        title: "Searched Listings",
+        itemList: listings,
+        urlPath: req.protocol + "://" + req.get("host") + "/listing"
+    });
+})
+}

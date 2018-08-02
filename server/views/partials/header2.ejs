@@ -1,3 +1,84 @@
+<style>
+/* The Modal (background) */
+.modalNotif {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+/* Modal Content */
+.modalNotif-content {
+    position: fixed;
+    background-color: #fefefe;
+    width: 100%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
+    text-align: center;
+}
+
+/* The Close Button */
+.close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modalNotif-header {
+    padding: 2px 8px;
+    background-color: #DFDEDE;
+    color: black;
+}
+
+.modalNotif-body {padding: 2px 16px;}
+
+.modalNotif-footer {
+    padding: 2px 16px;
+    background-color: #DFDEDE;
+    color: black;
+}
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+    from {top: -300px; opacity: 0} 
+    to {top: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+</style>
 <!--start all header-->
 <div class="header">
     <!--TOP HEADER-->
@@ -25,17 +106,18 @@
                     <li>&nbsp &nbsp <a href="/signup">Sign Up</a></li>
                 </ul>
             </div>     -->
-            <div class="top-header-right">
+            <div style="margin-top: -10px" class="top-header-right">
                 <% if (login) { %>
                     <ul>
-                        <li><a href="#"><i class="fa fa-envelope-o fa-lg" aria-hidden="true" style="color:white;"></i></a><span> </span></li>
+                        <li id="myBtn" style="margin-right: 30px;"><a href="#"><i class="fa fa-bell-o fa-lg" aria-hidden="true" style="color:white;"></i></a></li>
+                        <li style="margin-right: 15px;"><a href="/messages"><i class="fa fa-comment-o fa-lg" aria-hidden="true" style="color:white;"></i></a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-list fa-lg" aria-hidden="true" style="color:white;"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" style="color:black;" href="/listing"><i class="fa fa-dollar"></i>&nbsp&nbspSell item</a>
-                                <a class="dropdown-item" style="color:black;" href="#"><i class="fa fa-tags"></i>&nbsp&nbspView Offers</a>
+                                <a class="dropdown-item" style="color:black;" href="/offers"><i class="fa fa-tags"></i>&nbsp&nbspView Offers</a>
                                 <a class="dropdown-item" style="color:black;" href="/activity"><i class="fa fa-bell-o"></i>&nbsp&nbspActivity</a>
                                 <a class="dropdown-item" style="color:black;" href="#"><i class="fa fa-bookmark"></i>&nbsp&nbspBookmarks</a>
                                 <a class="dropdown-item" style="color:black;" href="/ewallet"><i class="fa fa-credit-card"></i>&nbsp&nbspE-wallet</a>
@@ -63,7 +145,26 @@
         </div>
     </div>
     <!--//TOP HEADER-->
-
+    <div id="myModalNotif" class="modalNotif">
+            <!-- Modal content -->
+            <div class="modalNotif-content">
+            <div class="modalNotif-header">
+                <span class="close">&times;</span>
+                <br>
+                <h1 style="font-size: 18px">Notifications</h1>
+                <br>
+            </div>
+            <div class="modalNotif-body">
+                <br>
+                <p>Your Offer has been accepted!</p>
+                <a href="/ewallet"><p>Click here to pay!</p></a>
+                <br>
+            </div>
+            <div class="modalNotif-footer">
+                <h3></h3>
+            </div>
+            </div>
+        </div>
     <!--MIDDLE HEADER-->
     <div class="mid-header">
         <div class="wrap">
@@ -145,4 +246,30 @@
         </div>
     </div>
 </div>
+<script>
+var modal = document.getElementById('myModalNotif');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 <!--//all header-->
