@@ -119,6 +119,7 @@ io.on('connection', function(socket) {
         chatConnections--;
         console.log("Num of chat users connected: "+chatConnections);
     });
+
 })
 app.get('/messages', function (req,res) {
     ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {

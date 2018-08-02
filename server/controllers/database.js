@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize');
 var sequelizeTransforms = require('sequelize-transforms');
 
-const sequelize = new Sequelize('itp211db','root','Shizamed1', {
+const sequelize = new Sequelize('itp211db','root','mysql', {
 // const sequelize = new Sequelize('itp211db','root','Shizamed1', {
     host: 'localhost',
     port: '3306',

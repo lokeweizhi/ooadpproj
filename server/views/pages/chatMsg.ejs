@@ -1,35 +1,112 @@
 <!doctype html>
 <html>
 <head>
-<script src="/javascripts/socket.io.js"></script>    
-<% include ../partials/javascript %>
-<% include ../partials/stylesheet %>
+    <script src="/javascripts/socket.io.js"></script>    
+    <% include ../partials/javascript %>
+    <% include ../partials/stylesheet %>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maxium-scale=1.0"> -->
+    <link rel="stylesheet" href="/public/stylesheets/chat.css">
 
 </head>    
 <body>
-<% include ../partials/header %>
-<div class ="container">
-    <br>
-    <div class="jumbotron">
-        <h1 class="display-4">Send Message</h1>
-        <br>
-        <input id="name" class="form-control" placeholder="Name" value="<%=user%>" readonly style="display: none"> 
-        <br>
-        <textarea id="message" class="form-control" placeholder="Message"></textarea>
-        <br>
-        <button id="send" class="btn btn-success">Send</button>
-        <br>
-    </div>
-    
-<span class="border">
-    <div id="messages">
-        <%data.forEach(function(msg){%>
-        <h4> <%=msg.name%> </h4> <p> <%=msg.message%> </p>   
-        <%})%>
-    </div>
-</span>
+    <style>
 
+        #MakeOffer{
+            float: left;
+            width: 50%;
+        }
+
+        #MakeFeedback{
+            float: right;
+            width: 50%;
+        }
+        textarea{
+            resize:none
+        }
+        #Seller{
+            text-align: center;
+            padding-top: 1rem;
+            text-align:center;
+        }
+        #chicken{
+            padding-bottom: 5px;
+            padding-top:5px;
+            width: 1000px;
+            border-bottom: 1px solid black;
+            border-top: 1px solid black;
+        }
+        #messages
+        {       
+            /* background-color: lightblue; */
+            border: 2px solid black;
+            height: 240px;
+            width: 970px;    
+            overflow-y: auto;
+        }
+        
+    </style>
+<% include ../partials/header %>
+<div class="container">  
+    
+    <div class="col-sm-8">
+        <p id ="Seller">Name of Seller</p>
+
+        <div class="row" id="chicken">
+            <div class="col-sm-3">
+                <img src ="/public/images/UploadImage.png" id="prod_img">
+            </div>
+            <div class="col-sm-3">
+                <p style="text-align:middle;">Product Name</p>
+                <br>
+                <p style="text-align:middle;">Product Price</p>
+            </div>
+            <div class="container">
+                <div id="mybuttons">
+                    <button id="MakeOffer" class="btn btn-success" data-toggle="modal" data-target="#myModal">Make Offer</button>
+                    <button id="MakeFeedback" class="btn btn-success"> FeedBack</button>
+                </div>
+                <br>
+                <br>
+                <input id="name" class="form-control" placeholder="Name" value="<%=user%>" readonly style="display: none"> 
+                <div id="messages" type="textarea">
+                    <%data.forEach(function(msg){%>
+                        <p><strong><%=msg.name%> : </strong><%=msg.message%></p>
+                        <p dir="rtl"></p> 
+                    <%})%>
+            </div>
+                <hr>
+                <textarea id="message" class="form-control"  placeholder="Type your message here"></textarea>
+                <br>
+                <button id="send" class="btn btn-success">Send</button>
+                &nbsp;&nbsp;&nbsp;
+                  
+</div> 
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal Content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <hr>
+            <div class="modal body">
+                <div class="input-group u-horizontal-full bz-i">
+                    <span class="input-group-addon">Price</span>
+                    <input type="number" step="0.10" min="0" id="chatPrice" value="5" class="form-control u-horizontal-full">
+                </div>
+            </div>
+            <hr>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" >Confirm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
 <script>
     var socket = io()
     $(() => {
@@ -42,6 +119,7 @@
     socket.on('message', addMessage)
 
 
+
     function addMessage(msg){
         $("#messages").append(`<h4> ${msg.name} </h4> <p> ${msg.message} </p>`)
     }
@@ -49,6 +127,9 @@
     function postMessage(message) {
         $.post('<%-url%>', message)
     }
+    
+    
+
 </script>    
 </body>
 </html>
