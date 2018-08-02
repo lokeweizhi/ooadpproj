@@ -23,11 +23,11 @@ exports.list = function(req, res){
     }).then(function(profile){
         profile = profile.sort(sortBy('-created'))
         //console.log("***********************profile",profile)
-        ReviewsModel.find({
+        ReviewsModel.find({ // display Individual ratings
             attributes: ['id', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount'],
             where: {username: req.user.username}
         }).then(function(review){
-            ReviewsModel.findAll({
+            ReviewsModel.findAll({ // display multiple ratings
                 attributes: ['id', 'username' ,'imageName', 'averageSellerRating', 'averageBuyerRating', 'sellerCount', 'buyerCount']
             }).then(function (totalReviews) {
                 //console.log("***********************totalReview",totalReviews)
