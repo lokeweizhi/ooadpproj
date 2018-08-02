@@ -105,7 +105,6 @@ app.use('/',offersRouter);
 // Listings
 var listingRouter = require('./server/routes/listing');
 app.use('/',listingRouter);
-
 // Setup chat
 var io = require('socket.io')(httpServer);
 var chatConnections = 0;
@@ -119,6 +118,7 @@ io.on('connection', function(socket) {
         chatConnections--;
         console.log("Num of chat users connected: "+chatConnections);
     });
+
 })
 app.get('/messages', function (req,res) {
     ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {
@@ -143,6 +143,7 @@ app.post('/messages', function (req,res) {
         res.sendStatus(200)
     })
 });
+
 //===========================================================================================================================================
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
