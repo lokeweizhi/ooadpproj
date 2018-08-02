@@ -73,9 +73,9 @@ $(':input[type=file]').change( function(event) {
 // $('img').on('error', function () {
 //     $(this).remove();
 // })
-$('img').error(function(){
-    $(this).attr('src', 'missing.png');
-});
+// $('img').error(function(){
+//     $(this).attr('src', 'missing.png');
+// });
 // trim length for listing title
 var length = parseInt(document.getElementsByClassName("itemName").length);
 for (i=0;i<length;i++)

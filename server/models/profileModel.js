@@ -27,8 +27,14 @@ const Profile = sequelize.define('Profile', {
         defaultValue: '',
         trim: true
     },
-    rating: { //totalRatings, perRatings, numCount
+    serviceRating: { //as seller
         type: Sequelize.INTEGER,
+    },
+    priceRating: { // as seller
+        type: Sequelize.INTEGER
+    },
+    buyerRating: {
+        type: Sequelize.INTEGER
     },
     by: {
         type:Sequelize.STRING,
@@ -36,14 +42,14 @@ const Profile = sequelize.define('Profile', {
     targetUsername: {
         type:Sequelize.STRING,
     },
-    user_id:{
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Users',
-            key: 'id'
-        }
-    }
+    // user_id:{
+    //     type: Sequelize.INTEGER,
+    //     allowNull: false,
+    //     references: {
+    //         model: 'Users',
+    //         key: 'id'
+    //     }
+    // }
 });
 
 // force: true will drop the table if it already exists

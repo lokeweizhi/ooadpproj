@@ -5,7 +5,7 @@ var sequelize = myDatabase.sequelize;
 exports.list = function (req, res) {
     var login = (req.session.passport) ? req.session.passport.user : false;
     // [condition: must hv 5 '5/5' ratings and an average of 4.5/5]
-    sequelize.query('SELECT * FROM reviews where averageRating > 4.4 and reviewCount> 4 ORDER BY averageRating desc',  
+    sequelize.query('SELECT * FROM reviews where averageSellerRating > 4.4 and sellerCount> 4 ORDER BY averageSellerRating desc',  
         { model: ReviewsModel }
     ).then(function (reviews) {
         res.render('topSellers', {

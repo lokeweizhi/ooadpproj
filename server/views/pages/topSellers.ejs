@@ -209,14 +209,14 @@
                                         <p class="text-left text-danger">#<%= i+1 %></p>
                                         <p><img class=" img-fluid" src="images/profileImages/<%= sellersList[i].imageName %>" alt="card image"></p>
                                         <h4 class="card-title">@<span class="username" style="cursor: pointer; font-weight: 700;font-size: 1em"><%= sellersList[i].username %></span></h4>
-                                        <p class="card-text"><%= sellersList[i].reviewCount %> Positive Reviews</p>
+                                        <p class="card-text"><%= sellersList[i].sellerCount %> Positive Reviews</p>
                                         <br>
                                         <a href="#" class="btn btn-primary btn-sm">
                                             <div class="average<%=i%>">
                                                 <div class="stars-outer">
                                                 <div class="stars-inner"></div>
                                                 </div>
-                                                <span class="averageRating"><%= sellersList[i].averageRating %></span>
+                                                <span class="averageRating"><%= sellersList[i].averageSellerRating %></span>
                                                 <span class="number-rating"></span>
                                             </div>
                                         </a>

@@ -10,28 +10,54 @@
     <% include ../partials/javascript %>
     <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
     <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
-    <!--Trying out-->
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
-    <!--//Trying out-->
-    <!--Sweet Alert-->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> -->
-    <!--//Sweet Alert-->
     <!--Bar rating-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <script src="http://antenna.io/demo/jquery-bar-rating/jquery.barrating.js"></script>
-    <link href="http://antenna.io/demo/jquery-bar-rating/dist/themes/fontawesome-stars.css" rel="stylesheet"/>
+    <link href="http://antenna.io/demo/jquery-bar-rating/dist/themes/fontawesome-stars.css" rel="stylesheet"/> -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.1/themes/fontawesome-stars.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.1/themes/bars-reversed.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.1/jquery.barrating.min.js'></script>
+
     <script type="text/javascript">
     $(function() {
-    $('#example').barrating({
-        theme: 'fontawesome-stars'
-    });
+        $('#serviceRating').barrating({
+            // theme: 'fontawesome-stars'
+            theme: 'bars-reversed',
+            initialRating: '0',
+            allowEmpty: true
+        });
+        $('#priceRating').barrating({
+            theme: 'bars-reversed',
+            initialRating: '0',
+            allowEmpty: true
+        });
+        $('#buyerRating').barrating({
+            theme: 'bars-reversed',
+            initialRating: '0',
+            allowEmpty: true
+        });
     });
     </script> 
     <!--//Bar rating-->
+
+    <style>
+    .br-theme-bars-reversed .br-widget a {
+    background-color: pink;
+    }
+
+    .br-theme-bars-reversed .br-widget a.br-active,
+    .br-theme-bars-reversed .br-widget a.br-selected {
+    background-color: #E45D5D;
+    }
+
+    .br-theme-bars-reversed .br-widget .br-current-rating {
+    color: #E45D5D;
+    font-size: 20px;  
+    }    
+    </style>
 </head>
 
 <body>
@@ -96,12 +122,34 @@
                                             <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
                                             <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
                                         </span> -->
-                                        <select id="example" name="rating">
+                                        <label for="inputRating">Out of 5, how would you rate their service? :) </label>
+                                        <select id="serviceRating" name="serviceRating">
+                                            <option name="rating" value="0" style="display: none;">0</option>
                                             <option name="rating" value="1">1</option>
                                             <option name="rating" value="2">2</option>
                                             <option name="rating" value="3">3</option>
                                             <option name="rating" value="4">4</option>
                                             <option name="rating" value="5">5</option>
+                                        </select>
+                                        <br>
+                                        <label for="inputRating">Out of 5, how would you rate their price? :) </label>
+                                        <select id="priceRating" name="priceRating">
+                                            <option value="0" style="display: none;">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        <br>
+                                        <label for="inputRating">Out of 5, how would you rate this buyer? :) </label>
+                                        <select id="buyerRating" name="buyerRating">
+                                            <option value="0" style="display: none;">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
                                         </select>
                                     </fieldset>
                                 </div>

@@ -9,6 +9,7 @@ var sequelize = myDatabase.sequelize;
 
 // List Settings
 exports.list = function (req, res) {
+    console.log("****************************req.user.id",req.user.id);
     res.render('settings', {
         title: "Adamire - Settings",
         webTitle: "SETTINGS",
@@ -45,8 +46,8 @@ exports.update = function(req,res) {
 exports.create = function (req, res) {
     var deactivationData = {
         username: req.user.username,
-        reasons: req.body.reasons,
-        user_id: req.user.id
+        reasons: req.body.reasons
+        // user_id: req.user.id
     }
     DeactivationModel.create(deactivationData).then((newRequest, created) => {
         if (!newRequest) {
