@@ -17,5 +17,6 @@ ewalletRouter.post("/ewalletBalance", balances.hasAuthorization, balances.create
 
 // Transaction Routes
 ewalletRouter.post("/ewalletSendMoney", transactions.hasAuthorization, transactions.create);
+ewalletRouter.get("/transactions", transactions.list);
 
 module.exports = ewalletRouter;

@@ -54,9 +54,6 @@ $(function() {
             alert("Invalid card number");
         } else if (!isCvvValid) {
             alert("Invalid CVV");
-        } else {
-            // Everything is correct. Add your form submission code here.
-            alert("Everything is correct");
         }
     });
 });

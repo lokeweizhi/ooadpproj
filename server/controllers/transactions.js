@@ -23,6 +23,24 @@ exports.create = function (req, res) {
         res.redirect('/ewallet');
     })
 }
+exports.list = function (req, res) {
+    TransactionsModel.findAll({
+
+        attributes: ['id', 'amount', 'contactName', 'username', 'createdAt'],
+        where:{username: req.user.username}
+    }).then(function (transaction) {
+        res.render('transactions', {
+            title: "Adamire - Transaction History",
+            transactionList: transaction,
+            urlPath: req.protocol + "://" + req.get("host") + req.url,
+            user: req.user
+        });
+    }).catch((err) => {
+        return res.status(400).send({
+            message: err
+        });
+    });
+};
 
 // Comments authorization middleware
 exports.hasAuthorization = function (req, res, next) {
