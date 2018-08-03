@@ -47,16 +47,16 @@
             <thead>
                 <tr>
                 <th>Username</th>
-                <th>Date</th>
                 <th>Amount</th>
+                <th>Date</th>
                 </tr>
             </thead>
             <tbody>
                 <% for(var i=0; i < transactionList.length; i++){ %>
                 <tr>
                     <td><%= transactionList[i].contactName %></td>
-                    <td><%= transactionList[i].createdAt %></td>
-                    <td><%= transactionList[i].amount %></td>
+                    <td>$<%= transactionList[i].amount %></td>
+                    <td><%= moment(transactionList[i].createdAt).format('DD-MMM-YYYY') %></td>
                 </tr>
                 <% } %>
             </tbody>

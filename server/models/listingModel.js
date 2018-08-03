@@ -51,6 +51,13 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         hobby: "New",
         by: "benjaminloke"
     });
+    ListingModel.upsert({
+        id:4,
+        name: "Social Studies Textbook",
+        group: 4,
+        hobby: "New",
+        by: "johannajimeno"
+    });
 })
 
 module.exports = sequelize.model('Listings', ListingModel);

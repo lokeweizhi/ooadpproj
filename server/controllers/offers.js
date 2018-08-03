@@ -1,7 +1,9 @@
 // get offers model
 var OffersModel = require('../models/offers');
+var ListingModel = require('../models/listingModel');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
+var moment = require('moment');
 
 // Create Offers
 exports.create = function (req, res) {
@@ -25,12 +27,21 @@ exports.create = function (req, res) {
 exports.list = function (req, res) {
     OffersModel.findAll({
         attributes: ['id', 'sellerUsername', 'price', 'buyerUsername', 'createdAt'],
+        where:{sellerUsername: req.user.username}
     }).then(function (offers) {
-        res.render('offers', {
-            title: "Adamire - Offers",
-            offerList: offers,
-            urlPath: req.protocol + "://" + req.get("host") + req.url,
-        });
+        ListingModel.findAll({
+            attributes: ['name', 'by'],
+            where:{by: req.user.username}
+        }).then(function (listings) {
+            res.render('offers', {
+                title: "Adamire - Offers",
+                offerList: offers,
+                listingList: listings,
+                urlPath: req.protocol + "://" + req.get("host") + req.url,
+                user: req.user,
+                moment: moment
+            });
+        })
     }).catch((err) => {
         return res.status(400).send({
             message: err

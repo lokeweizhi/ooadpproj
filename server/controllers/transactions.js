@@ -2,6 +2,7 @@
 var TransactionsModel = require('../models/transactions');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
+var moment = require('moment');
 
 // Create Transaction
 exports.create = function (req, res) {
@@ -10,7 +11,7 @@ exports.create = function (req, res) {
     var transactionData = {
         amount: req.body.amount,
         contactName: req.body.contactName,
-        username: req.user.username
+        username: req.user.username,
     }
 
     TransactionsModel.create(transactionData).then((newTransaction, created) => {
@@ -25,7 +26,6 @@ exports.create = function (req, res) {
 }
 exports.list = function (req, res) {
     TransactionsModel.findAll({
-
         attributes: ['id', 'amount', 'contactName', 'username', 'createdAt'],
         where:{username: req.user.username}
     }).then(function (transaction) {
@@ -33,7 +33,8 @@ exports.list = function (req, res) {
             title: "Adamire - Transaction History",
             transactionList: transaction,
             urlPath: req.protocol + "://" + req.get("host") + req.url,
-            user: req.user
+            user: req.user,
+            moment: moment
         });
     }).catch((err) => {
         return res.status(400).send({

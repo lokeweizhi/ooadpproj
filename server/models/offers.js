@@ -22,6 +22,12 @@ const OffersModel = sequelize.define('Offers', {
 
 OffersModel.sync({ force: false, logging: console.log}).then(() => {
     console.log("Offers table synced");
+    OffersModel.upsert({
+        id:3,
+        sellerUsername: "johannajimeno",
+        price: 4,
+        buyerUsername: "leeshangji",
+    });
 });
 
 module.exports = sequelize.model('Offers', OffersModel);

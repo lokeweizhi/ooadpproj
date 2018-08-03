@@ -20,11 +20,12 @@
         <div class="row">
             <div class="col-lg-1"></div>
             <select class="form-control col-lg-2" id="sel1">
-                <option>Listing 1</option>
-                <option>Listing 2</option>
+                <% for(var i=0; i < listingList.length; i++){ %>
+                <option><%= listingList[i].name %></option>
+                <% } %>
             </select>
             <div class="col-lg-5"></div>
-            <button type="button" onclick="location.href='/ewallet'" class="col-lg-1 btn btn-basic">Accept</button>
+            <button type="button" onclick="location.href=''" class="col-lg-1 btn btn-basic">Accept</button>
             <div id="separate"></div>
             <button type="button" class="col-lg-1 btn btn-basic reject">Reject</button>
             <div class="col-lg-2"></div>
@@ -46,8 +47,8 @@
                                 <input class="checkbox" data-id="<%= offerList[i].id %>" type="checkbox">
                             </td>
                             <td><%= offerList[i].buyerUsername %></td>
-                            <td><%= offerList[i].price %></td>
-                            <td><%= offerList[i].createdAt %></td>
+                            <td>$<%= offerList[i].price %></td>
+                            <td><%= moment(offerList[i].createdAt).format('DD-MMM-YYYY') %></td>
                             </tr>
                         <tr>
                     <% } %>
