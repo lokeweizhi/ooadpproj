@@ -17,6 +17,9 @@ const TransactionsModel = sequelize.define('Transactions', {
     },
     username: {
         type: Sequelize.STRING
+    },
+    reviewStatus: {
+        type: Sequelize.STRING
     }
 });
 
