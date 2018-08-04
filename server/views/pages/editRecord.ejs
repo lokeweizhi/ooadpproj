@@ -28,6 +28,15 @@
             <label for="inputHobby">Condition</label>
             <input type="text" id="inputHobby" name="hobby" class="form-control" placeholder="Hobby" required="true" value="<%=item.hobby%>">
         </fieldset>
+        <fieldset>
+            <label for="inputCateogry">Category</label>
+            <input type="radio" id="inputCateogry" name="category" class="form-control" value="Art & Design">Art & Design<br>
+            <input type="radio" id="inputCateogry" name="category" class="form-control" value="Humanities">Humanities<br>
+            <input type="radio" id="inputCateogry" name="category" class="form-control" value="Languages">Languages<br>
+            <input type="radio" id="inputCateogry" name="category" class="form-control" value="Mathematics">Mathematics<br>
+            <input type="radio" id="inputCateogry" name="category" class="form-control" value="Science">Science<br>
+            <input type="radio" id="inputCateogry" name="category" class="form-control" value="Other Subjects">Other Subjects<br>
+        </fieldset>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" onclick=saveChanges()>Save Changes</button>
@@ -39,10 +48,12 @@
             console.log($("#inputName").val())
             console.log($("#inputGroup").val())
             console.log($("#inputHobby").val())
+            console.log($("#inputCategory").val())
             var newValues = {
                 name: $("#inputName").val(),
                 group: $("#inputGroup").val(),
-                hobby: $("#inputHobby").val()
+                hobby: $("#inputHobby").val(),
+                category: $("#inputCategory").val(),
             }
             $.ajax({
                 url: url,
@@ -58,7 +69,7 @@
                     alert("Error updating student record");
                     console.log("LAWIGLAWNGLIAWNGLIAWNGLIANGLIKAGLIKAWNGL");
                     console.log(result);
-                    //discardChanges();
+                    discardChanges();
 
                 }
             })

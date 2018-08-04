@@ -41,7 +41,8 @@ const Users = sequelize.define('Users', {
     },
     imageName: {
         type: Sequelize.STRING
-    }
+    },
+
 });
 
 // force: true will drop the table if it already exists

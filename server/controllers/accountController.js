@@ -1,6 +1,7 @@
 // var AccountModel = require('../models/accountModel'); // don't need this bc we only need to retrieve data FROM the login page.
 var UsersModel = require('../models/users');
 var myDatabase = require('./database');
+var reviews = require('../models/reviewsModel');
 var sequelizeInstance = myDatabase.sequelizeInstance;
 
 //Add a new account to the database
@@ -8,6 +9,7 @@ exports.insert = function (req,res) {
     var accountData = {
         accountType: "User",
         username: req.body.username,
+        imageName: "default-avatar.png",
         password: req.body.password,
         email: req.body.email,
         // dateofbirth: req.body.dateofbirth,
@@ -18,14 +20,25 @@ exports.insert = function (req,res) {
         location: req.body.location,
         gender: req.body.gender
     }
+    var reviewsData = { // added this for my individual reviews
+        username: req.body.username,
+        imageName: "default-avatar.png",
+        averageSellerRating: 0,
+        totalServiceRatings: 0,
+        totalPriceRatings: 0,
+        averageBuyerRating: 0,
+        verificationStatus: "nope"
+    }
     // AccountModel.create(accountData).then((newAccount, created) => {
-    UsersModel.create(accountData).then((newAccount, created) => {
-        if (!newAccount) {
-            return res.send(400, {
-                message: "error"
-            });
-        }
-        res.redirect('/admin');
+    reviews.create(reviewsData).then((newReview, created) => {
+        UsersModel.create(accountData).then((newAccount, created) => {
+            if (!newAccount) {
+                return res.send(400, {
+                    message: "error"
+                });
+            }
+            res.redirect('/admin');
+        })
     })
 };
 

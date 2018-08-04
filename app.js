@@ -4,6 +4,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var socket = require("socket.io");
 
 // import multer
 // var multer = require('multer');
@@ -109,6 +110,7 @@ app.use('/',listingRouter);
 var io = require('socket.io')(httpServer);
 var chatConnections = 0;
 var ChatMsg = require('./server/models/chatMsg');
+var makeOffer = require('./server/models/makeOffer');
 
 io.on('connection', function(socket) {
     chatConnections++;
@@ -121,11 +123,15 @@ io.on('connection', function(socket) {
 
 })
 app.get('/messages', function (req,res) {
-    ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {
-        res.render('chatMsg', {
-            url: req.protocol + "://" + req.get("host") + req.url,
-            user:req.user.username,
-            data: chatMessages
+    makeOffer.findAll({where: {name:req.user.username}}).then((offers) => {
+        console.log("***************************************",offers);
+        ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {
+            res.render('chatMsg', {
+                url: req.protocol + "://" + req.get("host") + req.url,
+                user:req.user.username,
+                data: chatMessages,
+                offers: offers
+            });
         });
     });
 });
@@ -143,6 +149,24 @@ app.post('/messages', function (req,res) {
         res.sendStatus(200)
     })
 });
+
+//Post offer price into database
+var OfferPrice = require('./server/models/makeOffer');
+app.post('/makeOffer', function (req,res) {
+    console.log('Making new offer');
+    var makeOfferData = {
+        name: req.user.username,
+        offerprice: req.body.offerprice
+    }
+    //Save into database
+    OfferPrice.create(makeOfferData).then((newOfferData) => {
+        if(!newOfferData) {
+            sendStatus(500);
+        }
+        io.emit('message', req.body)
+    })
+});
+
 
 //===========================================================================================================================================
 // catch 404 and forward to error handler
@@ -171,3 +195,16 @@ var server = httpServer.listen(app.get('port'), function () {
     console.log('http server listening on port ' + server.address().port);
     console.log('========================================================')
 });
+
+//upload image to db
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+            cb(null, 'public/uploads/itemImage')
+    },
+    filename: (req, file, cb) => {
+      cb(null,  Date.now() + '-' + file.originalname)
+
+    }
+});
+var upload = multer({storage: storage});

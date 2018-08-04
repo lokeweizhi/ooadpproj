@@ -57,11 +57,11 @@
                     <td><%= moment(transactionList[i].createdAt).format('DD-MMM-YYYY') %></td>
                     <td>$<%= transactionList[i].amount %></td>
                     <td>
-                        <% if (transactionList[i].contactName == currentUser && transactionList[i].reviewStatus == "incomplete") {%>
+                        <% if (transactionList[i].contactName == currentUser && transactionList[i].sellerStatus == "incomplete") {%>
                             <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
                                 Review Buyer
                             </button>
-                        <% } else if (transactionList[i].username == currentUser && transactionList[i].reviewStatus == "incomplete") {%>
+                        <% } else if (transactionList[i].username == currentUser && transactionList[i].buyerStatus == "incomplete") {%>
                             <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
                                 Review Seller
                             </button>
@@ -96,7 +96,7 @@
         // for review
         $('.reviewButton').click(function () {
             var record_num = $(this).closest("tr").data('id');
-            location.href = "http://localhost:3000/activity/"+record_num;
+            location.href = "http://localhost:3000/review/"+record_num;
         });
         </script>
         <% include ../partials/footer %>
