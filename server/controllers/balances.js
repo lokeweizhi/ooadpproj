@@ -9,27 +9,33 @@ var sequelize = myDatabase.sequelize;
 exports.list = function (req, res) {
     TransactionsModel.findAll({
         attributes: ['id', 'amount', 'contactName', 'username'],
-        where:{username: req.user.username}
+        where:{contactName: req.user.username}
     }).then(function (transaction) {
-        BalanceModel.findAll({
-            attributes: ['id', 'balanceAmt', 'username'], 
+        TransactionsModel.findAll({
+            attributes: ['amount', 'username'],
             where:{username: req.user.username}
-        }).then(function (balance) {
-            ContactModel.findAll({
-                attributes: ['id', 'contactName', 'username'],
+        }).then(function (deduction) {
+            BalanceModel.findAll({
+                attributes: ['id', 'balanceAmt', 'username'], 
                 where:{username: req.user.username}
-            }).then(function (contacts){
-                console.log("**********",balance);
-                console.log("**********",contacts);
-                res.render('ewallet', {
-                    title: "Adamire - Ewallet",
-                    balanceList: balance,
-                    itemList: contacts,
-                    transactionList: transaction,
-                    urlPath: req.protocol + "://" + req.get("host") + req.url,
-                    user: req.user
-                });
-            })
+            }).then(function (balance) {
+                ContactModel.findAll({
+                    attributes: ['id', 'contactName', 'username'],
+                    where:{username: req.user.username}
+                }).then(function (contacts){
+                    console.log("**********",balance);
+                    console.log("**********",contacts);
+                    res.render('ewallet', {
+                        title: "Adamire - Ewallet",
+                        balanceList: balance,
+                        itemList: contacts,
+                        transactionList: transaction,
+                        deductionList: deduction,
+                        urlPath: req.protocol + "://" + req.get("host") + req.url,
+                        user: req.user
+                    });
+                })
+            });
         });
     }).catch((err) => {
         return res.status(400).send({

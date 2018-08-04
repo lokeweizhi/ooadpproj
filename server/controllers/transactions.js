@@ -2,6 +2,7 @@
 var TransactionsModel = require('../models/transactions');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
+var moment = require('moment');
 const Op = sequelize.Op;
 
 // Create Transaction
@@ -28,7 +29,6 @@ exports.create = function (req, res) {
 }
 exports.list = function (req, res) {
     TransactionsModel.findAll({
-
         attributes: ['id', 'amount', 'contactName', 'username', 'buyerStatus','sellerStatus', 'createdAt'],
         where:{
             [Op.or]: [{username: req.user.username}, {contactName:req.user.username}] //added this for my review page
@@ -39,6 +39,7 @@ exports.list = function (req, res) {
             transactionList: transaction,
             urlPath: req.protocol + "://" + req.get("host") + req.url,
             user: req.user,
+            moment: moment,
             currentUser: req.user.username
         });
     }).catch((err) => {
