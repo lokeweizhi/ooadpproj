@@ -79,7 +79,7 @@
                 <div class="col-lg-1"></div>
                 <div class="col-lg-2">
                     <img style="cursor: pointer" data-toggle="modal" data-target="#creditCardForm" src="images/down-arrow.png" align="left">
-                    <h3 style="text-align: right; cursor: pointer" data-toggle="modal" data-target="#creditCardForm">Load Money</h3>
+                    <h3 style="margin: 0 0 0 60px; cursor: pointer" data-toggle="modal" data-target="#creditCardForm">Load Money</h3>
                 
                     <div id="creditCardForm" class="modal fade" role="dialog">
                         <div class="modal-dialog" style="width: 700px">
@@ -201,7 +201,7 @@
                         <input type="image" class="deleteBtn" value="Delete" align="right" src="images/cancel.png" />
                         <input data-toggle="modal" data-id="<%= itemList[i].id %>" data-target="#sendMoney" type="image" class="image" src="images/user.png" style="height: 40px; width: 40px; margin: 15px 0 -10px 16px"/>
                         <br>
-                        <h3 style="text-align: center"><%= itemList[i].contactName %></h3>
+                        <h3><%= itemList[i].contactName %></h3>
                     </div>
                 <% } %>
                 <div class="modal fade" id="sendMoney" role="dialog">
@@ -219,7 +219,7 @@
                                 <div class="modal-body">
                                     <fieldset class="form-group">
                                         <label style="width: 100%; margin-bottom: 10px;" for="inputuser">User</label>
-                                        <input type="text" id="inputContactName" name="contactName" class="form-control" value="" placeholder="">
+                                        <input type="text" id="inputContactName" name="contactName" class="form-control" value="" placeholder="username">
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <label style="width: 100%; margin-bottom: 10px;" for="inputuser">Amount</label>

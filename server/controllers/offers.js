@@ -12,6 +12,7 @@ exports.create = function (req, res) {
     var offerData = {
         sellerUsername: req.body.sellerUsername,
         price: req.body.price,
+        listingTitle: req.body.listingTitle,
         buyerUsername: req.user.username
     }
     OffersModel.create(offerData).then((newOffer, created) => {
@@ -26,7 +27,7 @@ exports.create = function (req, res) {
 // List Offers
 exports.list = function (req, res) {
     OffersModel.findAll({
-        attributes: ['id', 'sellerUsername', 'price', 'buyerUsername', 'createdAt'],
+        attributes: ['id', 'sellerUsername', 'price', 'listingTitle', 'buyerUsername', 'createdAt'],
         where:{sellerUsername: req.user.username}
     }).then(function (offers) {
         ListingModel.findAll({
@@ -52,14 +53,14 @@ exports.list = function (req, res) {
 // delete offers
 exports.delete = function (req, res) {
     var record_num = req.params.offers_id;
-    console.log("deleting offers " + record_num);
+    console.log("deleting offer" + record_num);
     OffersModel.destroy({where: {id: record_num}}).then((deletedOffer)=> {
         if (!deletedOffer) {
             return res.send(400, {
                 message: "error"
             });
         }
-        res.status(200).send({ message: "Deleted offers :" + record_num});
+        res.status(200).send({ message: "Deleted offer :" + record_num});
     })
 }
 
