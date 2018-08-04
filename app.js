@@ -110,6 +110,7 @@ app.use('/',listingRouter);
 var io = require('socket.io')(httpServer);
 var chatConnections = 0;
 var ChatMsg = require('./server/models/chatMsg');
+var makeOffer = require('./server/models/makeOffer');
 
 io.on('connection', function(socket) {
     chatConnections++;
@@ -122,11 +123,15 @@ io.on('connection', function(socket) {
 
 })
 app.get('/messages', function (req,res) {
-    ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {
-        res.render('chatMsg', {
-            url: req.protocol + "://" + req.get("host") + req.url,
-            user:req.user.username,
-            data: chatMessages
+    makeOffer.findAll({where: {name:req.user.username}}).then((offers) => {
+        console.log("***************************************",offers);
+        ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {
+            res.render('chatMsg', {
+                url: req.protocol + "://" + req.get("host") + req.url,
+                user:req.user.username,
+                data: chatMessages,
+                offers: offers
+            });
         });
     });
 });
