@@ -203,7 +203,7 @@ var storage = multer.diskStorage({
             cb(null, 'public/uploads/itemImage')
     },
     filename: (req, file, cb) => {
-      cb(null,  Date.now() + '-' + file.originalname)
+      cb(null,  Date.now() + '-' + file.originalname);
 
     }
 });
