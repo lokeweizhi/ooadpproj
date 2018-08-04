@@ -40,7 +40,7 @@ var sequelizeInstance = myDatabase.sequelizeInstance;
 
 exports.list = function (req, res) {
     ListingModel.findAll({
-        attributes: ['id', 'name', 'group', 'hobby']
+        attributes: ['id', 'name', 'group', 'hobby', 'category']
     }).then(function (listings) {
         res.render('listing', {
             title: "Listings",
@@ -61,6 +61,7 @@ exports.insert = function (req, res) {
         name: req.body.name,
         group: req.body.group,
         hobby: req.body.hobby,
+        category: req.body.category,
         by: req.user.username,
     }
     ListingModel.create(listingData).then((newRecord, created) => {
@@ -128,7 +129,8 @@ exports.update = function (req, res) {
     var updateData = {
         name: req.body.name,
         group: req.body.group,
-        hobby: req.body.hobby
+        hobby: req.body.hobby,
+        category: req.body.category
     }
     console.log(updateData)
     ListingModel.update(updateData, { where: { id: record_num } }).then((updatedRecord) => {

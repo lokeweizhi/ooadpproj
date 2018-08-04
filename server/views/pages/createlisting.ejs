@@ -36,6 +36,15 @@
               <label for="inputHobby">Condition</label>
               <input type="text" id="inputHobby" name="hobby" class="form-control" placeholder="Condition" required="true">
             </fieldset>
+            <fieldset>
+              <label for="inputCateogry">Category</label>
+              <input type="radio" id="inputCateogry" name="category" class="form-control" value="artDesign">Art & Design<br>
+              <input type="radio" id="inputCateogry" name="category" class="form-control" value="humanities">Humanities<br>
+              <input type="radio" id="inputCateogry" name="category" class="form-control" value="languages">Languages<br>
+              <input type="radio" id="inputCateogry" name="category" class="form-control" value="mathematics">Mathematics<br>
+              <input type="radio" id="inputCateogry" name="category" class="form-control" value="science">Science<br>
+              <input type="radio" id="inputCateogry" name="category" class="form-control" value="other">Other Subjects<br>
+            </fieldset>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" class="deletebtn">Close</button>
@@ -46,36 +55,6 @@
     </div>
   </div>
 
-
-  <script>
-    $('.editBtn').click(function () {
-      var record_num = $(this).closest("tr").data('id');
-      location.href = "<%-urlPath %>edit/"+record_num;
-    });
-
-    $('.deleteBtn').click(function () {
-      var record_num = $(this).closest("tr").data('id');
-      $.ajax({
-        url: '<%-urlPath%>/' + record_num,
-        type: 'DELETE',
-        success: function (result) {
-          console.log(result.message);
-          var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
-          $(itemToRemove).remove();
-          redirectToListing();
-        },
-        error: function (result) {
-          alert("Unable to delete record.");
-          console.log(result.message);
-          redirectToListing();
-        }
-      });
-    });
-
-    function redirectToListing(){
-      location.href = "<%-urlPath %>"
-    }
-  </script>
 
 <% include ../partials/footer %>
 <% include ../partials/javascript %>

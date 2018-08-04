@@ -58,6 +58,9 @@
             <div>
               <%= itemList[i].hobby %>
             </div>
+            <div>
+              <%= itemList[i].category %>
+            </div>
             <input type="button" class="editBtn" value="Edit">
             <input type="button" class="deleteBtn"  value="Delete">
           </div>
@@ -69,7 +72,7 @@
 
   <script>
     $('.editBtn').click(function () {
-      var record_num = $(this).data('<%= itemList.id %>'); // id not defined
+      var record_num = $(this).data('<%= itemList.id'); // id not defined
       location.href = "<%-urlPath %>edit/"+record_num;
     });
 

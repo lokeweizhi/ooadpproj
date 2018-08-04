@@ -22,6 +22,9 @@ const ListingModel = sequelize.define('Listings', {
         type: Sequelize.STRING,
         trim: true
     },
+    category: {
+        type: Sequelize.STRING,
+    },
     by: { // sorry for hogging your page, but I rlly need to add this to display your listings for my profile page
         type: Sequelize.STRING
     }
@@ -35,6 +38,7 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         name: "2017 N Level Practice Book",
         group: 100,
         hobby: "Used",
+        category: "Art & Design",
         by: "benjaminloke"
     });
     ListingModel.upsert({
@@ -42,6 +46,7 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         name: "2016 A Level Textbook",
         group: 32,
         hobby: "New",
+        category: "Humanities",
         by: "benjaminloke"
     });
     ListingModel.upsert({
@@ -49,6 +54,7 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         name: "2018 A Level Exercise Books",
         group: 12,
         hobby: "New",
+        category: "Maathematics",
         by: "benjaminloke"
     });
 })
