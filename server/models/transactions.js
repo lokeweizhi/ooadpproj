@@ -18,6 +18,9 @@ const TransactionsModel = sequelize.define('Transactions', {
     username: {
         type: Sequelize.STRING
     },
+    reviewStatus: {
+        type: Sequelize.STRING
+    }
 });
 
 TransactionsModel.sync({ force: false, logging: console.log}).then(() => {

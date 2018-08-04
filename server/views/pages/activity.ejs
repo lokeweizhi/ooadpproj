@@ -57,73 +57,89 @@
     color: #E45D5D;
     font-size: 20px;  
     }    
+
+    .form-area
+    { 
+    background-color: #FAFAFA;
+	padding: 10px 40px 60px;
+	margin: 10px 0px 60px;
+	border: 1px solid GREY;
+	}
     </style>
 </head>
 
 <body>
-    <% include ../partials/header %>
-    <!--Trying-->
-
-    <!--//trying-->
+    <% include ../partials/header2 %>
     <div class="login-main">
         <div class="container">
                 <div class="wrap">
-                    <h1><%=webTitle%></h1>
-                    <div class="row">
-                        <div class="col-lg-2" style="margin-left: auto; margin-right: auto;">
-                            <br>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createPost">
-                                Write a review!
-                            </button>
+                    <br>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                    <form action="/newReview" method="post" class="form-area">
+                        <div class="modal-header">
+                            <% if (transaction.contactName == currentUser) { %>
+                                <h2 style="font-weight: bold;"><%=webTitle%> on @<%=transaction.username%></h2>   
+                            <% } else if(transaction.username == currentUser) { %>
+                                <h2 style="font-weight: bold;"><%=webTitle%> on <%=transaction.contactName%></h2>
+                            <% } %> 
                         </div>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <form action="/newReview" method="post">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h4 class="modal-title" id="myModalLabel">Review</h4>
-                                </div>
-
-                                <div class="modal-body">
-                                    <fieldset class="form-group">
+                        <div class="modal-body">
+                            <fieldset class="form-group">
+                                    <input type="text" class="form-control" id="id" name="id" value="<%=transaction.id%>">
+                                    <% if (transaction.contactName == currentUser) { %>
+                                    <div id="hide">
                                         <label for="inlineFormInputGroupUsername">REVIEW USERNAME<span id="impt">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                             <span id="verified"></span>
                                             <div class="input-group-text">@</div>
-                                            </div>
-                                            <!-- <input type="text" class="form-control" id="username" name="username" value="<%=user.username %>"> -->
-                                            <input type="text" class="form-control" id="username" name="username" value="user1">
                                         </div>
-                                    </fieldset>
-                                    <fieldset class="form-group">
+                                        <input type="text" class="form-control" id="username" name="username" value="<%=transaction.username%>">
                                         <label for="inputbuyerseller">Buyer/Seller</label>
-                                        <input type="text" id="buyerOrSeller" name="buyerOrSeller" class="form-control" placeholder="Buyer/Seller" required="">
-                                    </fieldset>
-                                    <fieldset class="form-group">
-                                        <label for="inputitle">Title</label>
-                                        <input type="text" id="title" name="title" class="form-control" placeholder="Title" required="">
-                                    </fieldset>
-                                    <fieldset class="form-group">
-                                        <label for="inputContent">Give feedback</label>
-                                        <textarea id="Content" name="content" rows="8" cols="40" class="form-control" placeholder="Feedback Description" required=""></textarea>
-                                    </fieldset>
-                                    <fieldset class="form-group">
-                                        <!-- <span class="star-cb-group">
-                                            <input type="radio" id="rating-5" name="rating" value="5" checked="checked"/><label for="rating-5">5</label>
-                                            <input type="radio" id="rating-4" name="rating" value="4" /><label for="rating-4">4</label>
-                                            <input type="radio" id="rating-3" name="rating" value="3" /><label for="rating-3">3</label>
-                                            <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
-                                            <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
-                                            <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
-                                        </span> -->
-                                        <label for="inputRating">Out of 5, how would you rate their service? :) </label>
-                                        <select id="serviceRating" name="serviceRating">
+                                        <input type="text" id="buyerOrSeller" name="buyerOrSeller" class="form-control" placeholder="Buyer/Seller" value="Seller">
+                                    </div>
+                                    <style>
+                                    #hide {
+                                        display: none;
+                                    }
+                                    </style>
+                                    <% } else if(transaction.username == currentUser) { %>
+                                    <div id="hide">
+                                        <label for="inlineFormInputGroupUsername">REVIEW USERNAME<span id="impt">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span id="verified"></span>
+                                            <div class="input-group-text">@</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="username" name="username" value="<%=transaction.contactName%>">
+                                        <label for="inputbuyerseller">Buyer/Seller</label>
+                                        <input type="text" id="buyerOrSeller" name="buyerOrSeller" class="form-control" placeholder="Buyer/Seller" value="Buyer">
+                                    </div>
+                                    <% } %>
+                                    <style>
+                                        #hide {
+                                            display: none;
+                                        }
+                                    </style>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="inputitle">Title</label>
+                                <input type="text" id="title" name="title" class="form-control" placeholder="Title" required>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="inputContent">Give feedback</label>
+                                <textarea id="Content" name="content" rows="8" cols="40" class="form-control" placeholder="Feedback Description" required></textarea>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <% if (transaction.contactName == currentUser) { %>
+                                    <div id="hide">
+                                    <label for="inputRating">Out of 5, how would you rate their service? :) </label>
+                                        <select id="serviceRating" name="serviceRating" display="none">
                                             <option name="rating" value="0" style="display: none;">0</option>
                                             <option name="rating" value="1">1</option>
                                             <option name="rating" value="2">2</option>
@@ -133,7 +149,7 @@
                                         </select>
                                         <br>
                                         <label for="inputRating">Out of 5, how would you rate their price? :) </label>
-                                        <select id="priceRating" name="priceRating">
+                                        <select id="priceRating" name="priceRating" display="none">
                                             <option value="0" style="display: none;">0</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -142,25 +158,70 @@
                                             <option value="5">5</option>
                                         </select>
                                         <br>
+                                    </div>
+                                    <label for="inputRating">Out of 5, how would you rate this buyer? :) </label>
+                                    <select id="buyerRating" name="buyerRating">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <style>
+                                    #hide{
+                                        display: none;
+                                    }
+                                    </style>  
+                                <% } else if(transaction.username == currentUser) { %>
+                                    <label for="inputRating">Out of 5, how would you rate their service? :) </label>
+                                    <select id="serviceRating" name="serviceRating">
+                                        <option name="rating" value="0">0</option>
+                                        <option name="rating" value="1">1</option>
+                                        <option name="rating" value="2">2</option>
+                                        <option name="rating" value="3">3</option>
+                                        <option name="rating" value="4">4</option>
+                                        <option name="rating" value="5">5</option>
+                                    </select>
+                                    <br>
+                                    <label for="inputRating">Out of 5, how would you rate their price? :) </label>
+                                    <select id="priceRating" name="priceRating">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <br>
+                                    <div id="hide">
                                         <label for="inputRating">Out of 5, how would you rate this buyer? :) </label>
-                                        <select id="buyerRating" name="buyerRating">
-                                            <option value="0" style="display: none;">0</option>
+                                        <select id="buyerRating" name="buyerRating" style="display: none; visibility: hidden">
+                                            <option value="0">0</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Submit Review</button>
-                                </div>
-                            </form>
+                                        </select>     
+                                    </div>        
+                                    <style>
+                                    #hide{
+                                        display: none;
+                                    }
+                                    </style>                       
+                                <% } %>
+                            </fieldset>
                         </div>
+                        <div class="modal-footer">
+                            <center>
+                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                            </center>
+                        </div>
+                    </form>
                     </div>
-                    </div>
+                    <div class="col-md-2"></div>
+                    <!--//Form-->
                 </div>
             </div>
     </div>
