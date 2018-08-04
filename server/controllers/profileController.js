@@ -135,27 +135,39 @@ exports.browseProfiles = function (req, res) {
         res.redirect('/profile');
     }
     else{
-        UsersModel.find({
-            where:{username: record_username
-            }}).then(function(profilesRecord){
-            var username = profilesRecord.username
-            Profile.findAll({
-                where:{targetUsername: username}
-            }).then(function(profile){
-                ListingModel.findAll({
-                    attributes: ['id', 'name', 'group', 'hobby'],
-                    where:{by: record_username}
-                }).then(function (listings) {
-                    res.render('browseProfiles', {
-                        title: "Adamire - @" + profilesRecord.username,
-                        webTitle: "User - " + profilesRecord.username,
-                        item: profilesRecord,
-                        profile: profile,
-                        itemList: listings,
-                        urlPath: req.protocol + "://" + req.get("host") + "/profile"
-                    });
+        ReviewsModel.findAll({ // display multiple ratings
+            attributes: ['id', 'username' ,'imageName', 'averageSellerRating', 'averageBuyerRating', 'sellerCount', 'buyerCount']
+        }).then(function (totalReviews) {
+            ReviewsModel.find({ // display Individual ratings
+                attributes: ['id', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount'],
+                where: {username: req.user.username}
+            }).then(function(review){
+                UsersModel.find({
+                    where:{username: record_username
+                    }}).then(function(profilesRecord){
+                    var username = profilesRecord.username
+                    Profile.findAll({
+                        where:{targetUsername: username}
+                    }).then(function(profile){
+                        ListingModel.findAll({
+                            attributes: ['id', 'name', 'group', 'hobby'],
+                            where:{by: record_username}
+                        }).then(function (listings) {
+                            res.render('browseProfiles', {
+                                title: "Adamire - @" + profilesRecord.username,
+                                webTitle: "User - " + profilesRecord.username,
+                                item: profilesRecord,
+                                profile: profile,
+                                itemList: listings,
+                                review: review,
+                                totalReviews: totalReviews,
+                                moment: moment,
+                                urlPath: req.protocol + "://" + req.get("host") + "/profile"
+                            });
+                        })
+                    }) 
                 })
-            }) 
+            })
         }).catch((err) => {
             return res.status(400).send({
                 message: err
