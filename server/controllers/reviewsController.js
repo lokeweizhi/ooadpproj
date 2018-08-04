@@ -149,9 +149,16 @@ exports.create = function (req, res) {
                 targetUsername: req.body.username,
                 // user_id: req.user.id // stores user who submitted the reviews
             };
-            var transactionStatus = {
-                reviewStatus: "completed"
+            if (req.body.buyerOrSeller == "Buyer"){
+                var transactionStatus = {
+                    buyerStatus: "completed"
+                }
+            } else if(req.body.buyerOrSeller == "Seller"){
+                var transactionStatus = {
+                    sellerStatus: "completed"
+                }
             }
+            
             transactionId = req.body.id;
 
             Profile.create(reviewData).then((newReview, created) => {
