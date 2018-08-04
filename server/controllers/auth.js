@@ -178,10 +178,9 @@ exports.dispform = function (req, res) {
 
 exports.searchThru = function(req, res) {
     var itemName = '%' + req.params.name + '%';
-    var price = " and group between " + req.body.minAmount + " and " + req.body.maxAmount;
-    sequelizeInstance.query('SELECT * FROM listings WHERE name LIKE :name :price',
+    sequelizeInstance.query('SELECT * FROM listings WHERE name LIKE :name',
 {
-    replacements: { name: itemName, price: price }, type: sequelizeInstance.QueryTypes.SELECT
+    replacements: { name: itemName}, type: sequelizeInstance.QueryTypes.SELECT
 }).then(listings => {
     console.log(listings)
     res.render('listing', {
@@ -192,11 +191,11 @@ exports.searchThru = function(req, res) {
 })
 }
 
-/*exports.searchPrice = function(req, res) {
-    var itemPrice = '%' + req.params.group + '%';
-    sequelizeInstance.query('SELECT * FROM listings WHERE name LIKE :group',
+exports.searchPrice = function(req, res) {
+    var price = req.body.minAmount + " and " + req.body.maxAmount;
+    sequelizeInstance.query('SELECT * FROM listings WHERE price between :price',
 {
-    replacements: { group: itemPrice }, type: sequelizeInstance.QueryTypes.SELECT
+    replacements: { price: price }, type: sequelizeInstance.QueryTypes.SELECT
 }).then(listings => {
     console.log(listings)
     res.render('listing', {
@@ -206,4 +205,3 @@ exports.searchThru = function(req, res) {
     });
 })
 }
-*/

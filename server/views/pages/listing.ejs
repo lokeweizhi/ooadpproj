@@ -48,7 +48,7 @@
               <%= itemList[i].name %>
             </div>
             <div>
-              <img src="<%=hostPath%>/uploads/itemImage/<%=itemList[i].itemImage %>"
+              <img src="<%=itemList[i].itemImage %>"
             </div>
             <div>
               <%= itemList[i].group %>
@@ -105,21 +105,20 @@
     //search function
     $('#search').click(function(){
       var searchValue = $('#userInput').val();
-      var mini = $('#minAmount').val();
-      var maxi = $('#maxAmount').val();
       location.href = "<%-urlPath %>/search/" + searchValue;
     });
 
     //search for price
-    /*$('#searchPrice').click(function(){
-      var maxPrice = $('#amount').val();
-      location.href = "<%-urlPath %>/search/" + maxPrice;
+    $('#searchPrice').click(function(){
+      var minamount = $('#minAmount').val();
+      var maxAmount = $('#maxAmount').val();
+      location.href = "<%-urlPath %>/search/price";
     })
 
     function redirectToListing(){
       location.href = "<%-urlPath %>"
     }
-    */
+    
   </script>
 
 <% include ../partials/footer %>
