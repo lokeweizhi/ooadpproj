@@ -94,7 +94,8 @@ module.exports = function (passport) {
                                 totalPriceRatings: 0,
                                 averageBuyerRating: 0,
                                 sellerCount: 0,
-                                buyerCount: 0
+                                buyerCount: 0,
+                                verificationStatus: 'nope'
                             }
 
                             // save data

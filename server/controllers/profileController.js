@@ -24,11 +24,11 @@ exports.list = function(req, res){
         profile = profile.sort(sortBy('-created'))
         //console.log("***********************profile",profile)
         ReviewsModel.find({ // display Individual ratings
-            attributes: ['id', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount'],
+            attributes: ['id', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'sellerCount5', 'buyerCount', 'verificationStatus'],
             where: {username: req.user.username}
         }).then(function(review){
             ReviewsModel.findAll({ // display multiple ratings
-                attributes: ['id', 'username' ,'imageName', 'averageSellerRating', 'averageBuyerRating', 'sellerCount', 'buyerCount']
+                attributes: ['id', 'username' ,'imageName', 'averageSellerRating', 'averageBuyerRating', 'sellerCount', 'sellerCount5', 'buyerCount', 'verificationStatus']
             }).then(function (totalReviews) {
                 //console.log("***********************totalReview",totalReviews)
                 ListingModel.findAll({
@@ -136,10 +136,10 @@ exports.browseProfiles = function (req, res) {
     }
     else{
         ReviewsModel.findAll({ // display multiple ratings
-            attributes: ['id', 'username' ,'imageName', 'averageSellerRating', 'averageBuyerRating', 'sellerCount', 'buyerCount']
+            attributes: ['id', 'username' ,'imageName', 'averageSellerRating', 'averageBuyerRating', 'sellerCount', 'buyerCount', 'verificationStatus']
         }).then(function (totalReviews) {
             ReviewsModel.find({ // display Individual ratings
-                attributes: ['id', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount'],
+                attributes: ['id', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount', 'verificationStatus'],
                 where: {username: req.user.username}
             }).then(function(review){
                 UsersModel.find({

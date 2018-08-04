@@ -103,7 +103,7 @@
                     <div class="left col-lg-4">
                         <div class="photo-left" style="position: relative;">
                             <img class="photo" src="../images/profileImages/<%= item.imageName %>"/>
-                            <button type="button" style="position: absolute;border:0; padding: 8px 8px;top: 90%;left: 50%;transform: translate(-50%, -50%);text-align: center; background-color: rgba(205,207,211,0.90);" data-toggle="modal" data-target="#sendDeactivationRequest" class="btn btn-default">
+                            <button type="button" style="position: absolute;border:0; padding: 8px 8px;top: 90%;left: 50%;transform: translate(-50%, -50%);text-align: center; background-color: rgba(255,68,68,0.90);" data-toggle="modal" data-target="#sendDeactivationRequest" class="btn btn-danger">
                                 Report User
                             </button>
                             <!--Modal-->
@@ -133,7 +133,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary" id="btn-submit">Submit</button>
+                                                <button type="submit" class="btn btn-primary reportButton" id="btn-submit">Submit</button>
                                             </div>
                                         </form>
                                     </div>
@@ -142,7 +142,7 @@
                             <!--// Modal-->
                         </div>
                         <h4 class="name" id="username" name="username"><span id="verified"></span><%=item.username %></h4>
-
+                        <p id="isVerified"></p>
                         <!-- <p class="badge badge-success">Student(a tag)</p> -->
                         <!-- <br> -->
                         <hr style="margin-bottom: -10px; visibility:hidden;" />
@@ -242,7 +242,7 @@
                                     <div class="row">
                                         <div id="users" class="col-xs-12">
                                             <div class="filter-group row">
-                                                <div align="center">
+                                                <div align="center" style="margin-left:2%">
                                                     <small><strong style="font-weight: 700;font-size: 0.8em">Filter by:</strong></small>
                                                     <!--Trying-->
                                                         <div class="btn btn-primary active">
@@ -324,7 +324,7 @@
                                                                     <% } else if (review.buyerOrSeller == "Buyer") {%>
                                                                         <p class="list-group-item-text" id="sRating">
                                                                             <div class="sellerRating<%=i%>">
-                                                                                <span  class="sellerRating"><%= Math.round(((review.serviceRating*0.35)+(review.priceRating*0.65)) * 10) / 10 %> / 5</span>
+                                                                                <span  class="sellerRating"><%= Math.round(((review.serviceRating*0.5)+(review.priceRating*0.5)) * 10) / 10 %> / 5</span>
                                                                             </div>                                                
                                                                         </p>
                                                                         <p class="list-group-item-text" id="bRating">
@@ -340,13 +340,25 @@
                                                                 </div>
                                                             </h4>                                                                                                                    
                                                         <!--//User's rating-->
-                                                        <p class="text-muted"><%= review.content %></p>
-                                                        <small class="text-muted">
-                                                            <strong>-<span class="by" style="cursor: pointer;font-size: 0.85em;font-weight: 700;font-style: italic;" ><%= review.by %></strong>
-                                                            <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= moment(review.created).format( 'DD-MMM-YYYY HH:mm:ss') %>
-                                                            </div>
-                                                        </small>
-
+                                                        <% totalReviews.forEach(function(verify){ %>
+                                                            <% if (verify.username == review.by) {%>
+                                                            <p class="text-muted"><%= review.content %></p>
+                                                            <% if (verify.verificationStatus == 'verified') { %>
+                                                            <small class="text-muted">
+                                                                <strong>-<span class="by" style="cursor: pointer;font-size: 0.85em;font-weight: 700;font-style: italic;" ><%= review.by %></strong>
+                                                                <span class="badge badge-success">Verified</span>
+                                                                <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= moment(review.created).format( 'DD-MMM-YYYY HH:mm:ss') %>
+                                                                </div>
+                                                            </small>
+                                                            <%} else {%>
+                                                            <small class="text-muted">
+                                                                <strong>-<span class="by" style="cursor: pointer;font-size: 0.85em;font-weight: 700;font-style: italic;" ><%= review.by %></strong>
+                                                                <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= moment(review.created).format( 'DD-MMM-YYYY HH:mm:ss') %>
+                                                                </div>
+                                                            </small>
+                                                            <% } %>
+                                                            <% } %>
+                                                        <% }) %>
                                                         <!-- <h3 class="name"><%= review.by %></h3>
                                                         <p class="born">1986</p>
                                                         <p class="address">13 Oak St.</p> -->
@@ -434,7 +446,7 @@
         });
         </script>
         <script>
-        $('.btn-primary').on('click', function (e) {
+        $('.reportButton').on('click', function (e) {
             e.preventDefault();
             var form = $(this).parents('form');
             swal({
@@ -603,31 +615,24 @@
         // }
         </script>
         <script>
+            console.log("rejfwejfndkfme","<%=review.verificationStatus%>")
         // check whether if it's a verified user
         function verified(){
-            var count = 0; // to count the num of '5/5' ratings. [condition: must hv 5 '5/5' ratings and an average of 4.5/5]
-            var sRating = document.querySelectorAll("#sRating");
-            for (var i=0; i<sRating.length; i++) {
-                value = parseInt(document.querySelectorAll("#sRating")[i].innerHTML);
-                if (value === 5){
-                    console.log(value);
-                    count += 1;
-                }
-            }
-            var averageSellerRating = "<%=review.averageSellerRating%>";
-            console.log("average rating:",averageSellerRating);
-            if (count >= 5 && averageSellerRating >= 4.5 ) {
+            if ("<%=review.verificationStatus%>" == 'verified' ) {
                 console.log("YAYYYYY! YOU'RE VERIFIED!!! :D")
-                var i = document.createElement("i");
-                i.className = "fa fa-check-circle-o";
-                i.style.cssText = "font-size:24px;color:blue";
-                var verified = document.getElementById("verified");
-                verified.appendChild(i);
-            } else if (document.getElementsByClassName("fa fa-check-circle-o").length === 1) { // remove the rating if user drop their ratings
-                var check = document.getElementsByClassName("fa fa-check-circle-o2");
-                var verified = document.getElementById("verified");
-                verified.remove();
-            }
+                //<span class="badge badge-primary">Primary</span>
+                var span = document.createElement("span");
+                span.className = "badge badge-success"
+                span.innerHTML = "Verified";
+                var isVerified = document.getElementById("isVerified");
+                isVerified.appendChild(span);
+                // ========================
+                // var i = document.createElement("i");
+                // i.className = "fa fa-check-circle-o";
+                // i.style.cssText = "font-size:24px;color:blue";
+                // var verified = document.getElementById("verified");
+                // verified.appendChild(i);
+            } 
         }
         verified();
         </script> 

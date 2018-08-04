@@ -30,8 +30,14 @@ const Reviews = sequelize.define('Reviews', {
     sellerCount: {
         type: Sequelize.INTEGER
     },
+    sellerCount5: {
+        type: Sequelize.INTEGER
+    },
     buyerCount: {
         type: Sequelize.INTEGER
+    },
+    verificationStatus: {
+        type: Sequelize.STRING
     }
 });
 
@@ -47,7 +53,8 @@ Reviews.sync({force: false, logging:console.log}).then(()=>{
         totalPriceRatings: 0,
         averageBuyerRating: 0,
         sellerCount: 6,
-        buyerCount: 0
+        buyerCount: 0,
+        verificationStatus: 'verified'
     });
     Reviews.upsert({
         id: 2,
@@ -58,7 +65,8 @@ Reviews.sync({force: false, logging:console.log}).then(()=>{
         totalPriceRatings: 0,
         averageBuyerRating: 0,
         sellerCount: 6,
-        buyerCount: 0
+        buyerCount: 0,
+        verificationStatus: 'verified'
     });
     Reviews.upsert({
         id: 3,
@@ -69,7 +77,8 @@ Reviews.sync({force: false, logging:console.log}).then(()=>{
         totalPriceRatings: 0,
         averageBuyerRating: 0,
         sellerCount: 6,
-        buyerCount: 0
+        buyerCount: 0,
+        verificationStatus: 'verified'
     });
     Reviews.upsert({
         id: 4,
@@ -80,7 +89,8 @@ Reviews.sync({force: false, logging:console.log}).then(()=>{
         totalPriceRatings: 0,
         averageBuyerRating: 0,
         sellerCount: 6,
-        buyerCount: 0
+        buyerCount: 0,
+        verificationStatus: 'verified'
     });
 });
 
