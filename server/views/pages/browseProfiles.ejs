@@ -102,7 +102,7 @@
                     <div class="row">
                     <div class="left col-lg-4">
                         <div class="photo-left" style="position: relative;">
-                            <img class="photo" src="../images/profileImages/<%= user.imageName %>"/>
+                            <img class="photo" src="../images/profileImages/<%= item.imageName %>"/>
                             <button type="button" style="position: absolute;border:0; padding: 8px 8px;top: 90%;left: 50%;transform: translate(-50%, -50%);text-align: center; background-color: rgba(205,207,211,0.90);" data-toggle="modal" data-target="#sendDeactivationRequest" class="btn btn-default">
                                 Report User
                             </button>
@@ -141,12 +141,12 @@
                             </div>
                             <!--// Modal-->
                         </div>
-                        <h4 class="name" id="username" name="username"><span id="verified"></span><%=user.username %></h4>
+                        <h4 class="name" id="username" name="username"><span id="verified"></span><%=item.username %></h4>
 
                         <!-- <p class="badge badge-success">Student(a tag)</p> -->
                         <!-- <br> -->
                         <hr style="margin-bottom: -10px; visibility:hidden;" />
-                        <p class="info" style="font-style:italic;"><%=user.location %></p>
+                        <p class="info" style="font-style:italic;"><%=item.location %></p>
                         <!-- <div class="stats row"> -->
                         <!-- <hr> -->
                         <div class="desc" style="margin-bottom: -5%; margin-top:5%;">
@@ -157,7 +157,7 @@
                         </div>
                         <!-- <hr> -->
                         <br>
-                        <p class="desc"><%=user.aboutMe %></p>
+                        <p class="desc"><%=item.aboutMe %></p>
                         <p>Average Rating(as Seller):</p>
                         <div class="social">
                             <div class="averageSeller">
@@ -213,13 +213,13 @@
                                                                 <%= itemList[i].name %>
                                                             </h6>
                                                             <p class="card-text text-muted">
-                                                                <%if (user.location == "Singapore") {%>
+                                                                <%if (item.location == "Singapore") {%>
                                                                     <p class="text-muted"  style="font-size: 0.875em;">SGD <strong><%= itemList[i].group %></strong></p>
                                                                 <!-- <br>
                                                                 <p>Condition: <strong><%= itemList[i].hobby %></strong></p> -->
-                                                                <% } else if (user.location == "Malaysia") { %>
+                                                                <% } else if (item.location == "Malaysia") { %>
                                                                     <p class="text-muted">RM <strong><%= itemList[i].group %></strong></p>
-                                                                <% } else if (user.location == "Indonesia") {%>
+                                                                <% } else if (item.location == "Indonesia") {%>
                                                                     <p class="text-muted">RP <strong><%= itemList[i].group %></strong></p>
                                                                 <% } else {%>
                                                                     <p class="text-muted">Price: <strong><%= itemList[i].group %></strong></p>
