@@ -111,7 +111,7 @@ exports.editRecord = function (req, res) {
     ListingModel.findById(record_num).then(function (ListingRecord) {
         res.render('editRecord', {
             title: "Edit Listings",
-            item: ListingRecord,
+            itemList: ListingRecord,
             hostPath: req.protocol + "://" + req.get("host")
         });
     }).catch((err) => {
@@ -208,9 +208,10 @@ exports.dispform = function (req, res) {
 
 exports.searchThru = function(req, res) {
     var itemName = '%' + req.params.name + '%';
-    sequelizeInstance.query('SELECT * FROM listings WHERE name LIKE :name',
+    var price = '%' + req.params.group + '%';
+    sequelizeInstance.query('SELECT * FROM listings WHERE name LIKE :name AND group between ',
 {
-    replacements: { name: itemName }, type: sequelizeInstance.QueryTypes.SELECT
+    replacements: { name: itemName, price: price }, type: sequelizeInstance.QueryTypes.SELECT
 }).then(listings => {
     console.log(listings)
     res.render('listing', {
@@ -220,3 +221,19 @@ exports.searchThru = function(req, res) {
     });
 })
 }
+
+/*exports.searchPrice = function(req, res) {
+    var itemPrice = '%' + req.params.group + '%';
+    sequelizeInstance.query('SELECT * FROM listings WHERE name LIKE :group',
+{
+    replacements: { group: itemPrice }, type: sequelizeInstance.QueryTypes.SELECT
+}).then(listings => {
+    console.log(listings)
+    res.render('listing', {
+        title: "Searched Listings",
+        itemList: listings,
+        urlPath: req.protocol + "://" + req.get("host") + "/listing"
+    });
+})
+}
+*/

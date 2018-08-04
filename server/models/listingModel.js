@@ -46,7 +46,7 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
     });
     ListingModel.upsert({
         id:3,
-        name: "Red Velvet Ernest Photocard",
+        name: "2018 A Level Exercise Books",
         group: 12,
         hobby: "New",
         by: "benjaminloke"

@@ -16,8 +16,7 @@
       <div class="x-c">
         <label for="searchItem">Search for an item</label>
         <form id="searchItem">
-            <input type="text" class="search" id="userInput" placeholder="Search!" title="type in">
-            <input type="button" id="search" value="Search"/>
+            <input type="text" class="search" id="userInput" placeholder="Search!" title="Search For An Item!">
         </form>
       </div>
     </fieldset>
@@ -26,36 +25,37 @@
         <div>Price</div>
       </div>
       <div>
-        <div id="slider-container"></div>
         <p>
           <label for="amount">Price Range</label>
-          <input type="text" id="amount" style="border: 0; color:black; font-weight: bold"/>
+          <input type="number" id="minAmount" placeholder="Minimum" style="border: 0; color:black;"/>
+          <input type="number" id="maxAmount" placeholder="Maximum" style="border: 0; color:black;"/>
         </p>
+        <div>
+          <input type="button" id="search" value="Search"/>
+        </div>
       </div>
     </fieldset>
-    <div>
-      <button type="submit" class="btn btn-primary">Search!</button>
-    </div>
+
     <div class="container-fluid">
       <div class="col-lg-5">
         <button class="btn btn-secondary pull-right" onclick="location.href='/createlisting';">New Listing</button>
       </div>
     </div>
 
-  <div class="container-fluid" id="encompass">
+  <div class="container-fluid">
       <% for(var i=0; i < itemList.length; i++){ %>
-        <div class="row" data-id="<%= itemList[i].id %>">
+        <div data-id="<%= itemList[i].id %>">
           <div class="col-lg-4" id="onelisting">
             <div id="itemName">
               <%= itemList[i].name %>
             </div>
-            <div id="itemImage">
+            <div>
               <%= itemList[i].img %>
             </div>
-            <div id="itemPrice">
+            <div>
               <%= itemList[i].group %>
             </div>
-            <div id="itemCond">
+            <div>
               <%= itemList[i].hobby %>
             </div>
             <input type="button" class="editBtn" value="Edit">
@@ -69,7 +69,7 @@
 
   <script>
     $('.editBtn').click(function () {
-      var record_num = $(this).closest("div").data('id');
+      var record_num = $(this).data('<%= itemList.id %>'); // id not defined
       location.href = "<%-urlPath %>edit/"+record_num;
     });
 
@@ -104,37 +104,21 @@
     //search function
     $('#search').click(function(){
       var searchValue = $('#userInput').val();
+      var mini = $('#minAmount').val();
+      var maxi = $('#maxAmount').val();
       location.href = "<%-urlPath %>/search/" + searchValue;
     });
 
-
-
-    $(function() {
-      $('#slider-container').slider({
-        range: true,
-        min: 0,
-        max: 5000,
-        values: [0, 5000],
-        slide: function(event, ui) {
-          $('#amount').val("$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ]);
-          var mi = ui.values[0];
-          var mx = ui.values[1];
-          filterSystem(mi, mx);
-        }
-      });
-      $('#amount').val( "$" + $( "#slider-range").slider( "values", 0) + " - $" + $("#slider-range").slider( "values", 1));
-    });
-
-    function filterSystem(minPrice, maxPrice) {
-      $("#onelisting div.system").hide().filter(function() {
-        var price = parseInt($(this).data("price"), 10);
-        return price >= minPrice && price <= maxPrice;
-      }).show();
-    }
+    //search for price
+    /*$('#searchPrice').click(function(){
+      var maxPrice = $('#amount').val();
+      location.href = "<%-urlPath %>/search/" + maxPrice;
+    })
 
     function redirectToListing(){
       location.href = "<%-urlPath %>"
     }
+    */
   </script>
 
 <% include ../partials/footer %>
