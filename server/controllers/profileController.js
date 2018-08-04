@@ -139,8 +139,8 @@ exports.browseProfiles = function (req, res) {
             attributes: ['id', 'username' ,'imageName', 'averageSellerRating', 'averageBuyerRating', 'sellerCount', 'buyerCount', 'verificationStatus']
         }).then(function (totalReviews) {
             ReviewsModel.find({ // display Individual ratings
-                attributes: ['id', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount', 'verificationStatus'],
-                where: {username: req.user.username}
+                attributes: ['id','username', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount', 'verificationStatus'],
+                where: {username: record_username}
             }).then(function(review){
                 UsersModel.find({
                     where:{username: record_username
