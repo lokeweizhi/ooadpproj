@@ -9,7 +9,7 @@ var offers = require('../controllers/offers');
 
 listingRouter.get("/listing", auth.isLoggedIn, auth.list);
 listingRouter.get("/listingedit/:id", auth.isLoggedIn, auth.editRecord);
-listingRouter.get("/listing/search/:name", auth.isLoggedIn, auth.searchThru);
+listingRouter.get("/listing/search/:name:price", auth.isLoggedIn, auth.searchThru);
 listingRouter.post("/listingnew", auth.isLoggedIn, upload.single("itemImage"), auth.insert);
 listingRouter.post("/listingedit/:id", auth.isLoggedIn, auth.update);
 listingRouter.delete("/listing/:id", auth.isLoggedIn, auth.delete);

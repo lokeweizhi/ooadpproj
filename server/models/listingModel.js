@@ -35,26 +35,29 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
     console.log("listings table synced");
     ListingModel.upsert({
         id:1,
-        name: "2017 N Level Practice Book",
+        name: "2017 N Level Math",
+        itemImage: "/uploads/itemImage/o level book.jpg",
         group: 100,
         hobby: "Used",
-        category: "Art & Design",
+        category: "Mathematics",
         by: "benjaminloke"
     });
     ListingModel.upsert({
         id:2,
-        name: "2016 A Level Textbook",
+        name: "Engineering Mathematics",
+        itemImage: "/uploads/itemImage/165811_55859657_thumbnail.jpg",
         group: 32,
         hobby: "New",
-        category: "Humanities",
+        category: "Mathematics",
         by: "benjaminloke"
     });
     ListingModel.upsert({
         id:3,
         name: "2018 A Level Exercise Books",
+        itemImage: "/uploads/itemImage/secondary_1_topical_science_practice_book_1462534369_6010a887.jpg",
         group: 12,
         hobby: "New",
-        category: "Maathematics",
+        category: "Science",
         by: "benjaminloke"
     });
 })

@@ -196,16 +196,11 @@ var server = httpServer.listen(app.get('port'), function () {
     console.log('========================================================')
 });
 
+//upload image to db
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        if (file.fieldname == "BundlePic") {
-            cb(null, 'public/uploads/bundleCover')
-        }
-        else if (file.fieldname == "itemImage"){
             cb(null, 'public/uploads/itemImage')
-        }
-
     },
     filename: (req, file, cb) => {
       cb(null,  Date.now() + '-' + file.originalname)
