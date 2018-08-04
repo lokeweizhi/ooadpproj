@@ -37,6 +37,10 @@ exports.isLoggedIn = function(req, res, next) {
 var ListingModel = require('../models/listingModel');
 var myDatabase = require('./database');
 var sequelizeInstance = myDatabase.sequelizeInstance;
+var fs = require('fs');
+var mime = require('mime');
+// set image file types
+var IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 
 exports.list = function (req, res) {
     ListingModel.findAll({
@@ -55,23 +59,62 @@ exports.list = function (req, res) {
     });
 };
 exports.insert = function (req, res) {
-    var listingData = {
-        name: req.body.name,
-        itemImage: req.file.filename,
-        group: req.body.group,
-        hobby: req.body.hobby,
-        category: req.body.category,
-        by: req.user.username,
+    var src;
+    var dest;
+    var targetPath;
+    var tempPath = req.file.path;
+    console.log("req.file.path*****************************",tempPath);
+    // get the mime type of the file
+    var type = mime.lookup(req.file.mimetype);
+    // get the file extension
+    var extension = req.file.path.split(/[. ]+/).pop();
+    // check support file types
+    if (IMAGE_TYPES.indexOf(type) == -1) {
+        return res.status(415).send('Supported image formats: jpeg, jpg, jpe, png.');
     }
-    ListingModel.create(listingData).then((newRecord, created) => {
-        if (!newRecord) {
-            return res.send(400, {
-                message: "error"
+    // Set new path to images
+    targetPath = './public/images/itemImage/' + req.file.originalname;
+    // using read stream API to read the file
+    src = fs.createReadStream(tempPath);
+    // using a write stream API to write file
+    dest = fs.createWriteStream(targetPath);
+    src.pipe(dest);
+
+    // Show error
+    src.on('error', function(err) {
+        if (err) {
+            return res.status(500).send({
+                message: error
             });
         }
-    }).then(function(){
-        res.redirect('/listing');
-    })
+    });
+
+    // Save file process
+    src.on('end', function() {
+        var listingData = {
+            name: req.body.name,
+            itemImage: req.file.originalname,
+            group: req.body.group,
+            hobby: req.body.hobby,
+            category: req.body.category,
+            by: req.user.username,
+        }
+        ListingModel.create(listingData).then((newRecord, created) => {
+            if (!newRecord) {
+                return res.send(400, {
+                    message: "error"
+                });
+            }
+        }).then(function(){
+            res.redirect('/listing');
+        })
+        fs.unlink(tempPath, function (err) {
+            if (err) {
+                return res.status(500).send('Something bad happened here');
+            }
+            res.redirect('listing');
+        });
+    });
 };
 
 //list one specific student record from database
