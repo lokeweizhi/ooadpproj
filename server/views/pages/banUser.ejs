@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <% include ../partials/stylesheet %>
+  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src='/javascripts/jquery.min.js'></script>
+  <script src='/javascripts/bootstrap.min.js'></script>
+</head>
+
+<body>
+  <% include ../partials/header %>
+  <table class="table">
+    <thread>
+      <tr>
+        <th>Username</th>
+        <th>Reason</th>
+        <th></th>
+      </tr>
+      <% for(var i=0; i < itemList.length; i++){ %>
+        <tr class="rowRecord" data-id="<%= itemList[i].id %>">
+          <td>
+            <%= itemList[i].username%>
+          </td>
+          <td>
+            <%= itemList[i].reasons %>
+          </td>
+          <td>
+            <input type="button" class="deleteBtn"  value="Done">
+          </td>
+        </tr>
+        <% } %>
+    </thread>
+  </table>
+
+<% include ../partials/footer %>
+<% include ../partials/javascript %>
+<script>
+    $('.deleteBtn').click(function () {
+    var record_num = $(this).closest("tr").data('id');
+    $.ajax({
+      url: '<%-urlPath%>/' + record_num,
+      type: 'DELETE',
+      success: function (result) {
+        console.log(result.message);
+        var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+        $(itemToRemove).remove();
+      },
+      error: function (result) {
+        alert("Unable to delete Account.");
+        console.log(result.message);
+      }
+    });
+  });
+</script>
+</body>
+
+</html>
