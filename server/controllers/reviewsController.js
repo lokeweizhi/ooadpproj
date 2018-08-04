@@ -55,12 +55,15 @@ exports.create = function (req, res) {
 
             numOfSellerRatings = 0;
             numOfBuyerRatings = 0; 
+            numOfSellerRatings5 = 0;
 
             totalServiceRatings = 0; // Sellers: Service Ratings
             totalPriceRatings = 0; // Sellers: Price Ratings
 
             aveSeller = 0;
             aveBuyer = 0;
+
+            verificationStatus = "";
 
             for (item in obj) {
                 totalServiceRatings += obj[item].serviceRating;
@@ -72,7 +75,10 @@ exports.create = function (req, res) {
                 } else if(obj[item].buyerOrSeller == "Seller"){
                     numOfBuyerRatings += 1;
                 }
-                    
+                if (obj[item].serviceRating == 5 && obj[item].priceRating == 5){
+                    numOfSellerRatings5 += 1;
+                }
+                verificationStatus = obj[0].verificationStatus;
                 // console.log("*********obj[item].serviceRating: ",obj[item].serviceRating);
                 // console.log("*********obj[item].priceRating: ",obj[item].priceRating);
                 // console.log("*********obj[item].buyerRating: ",obj[item].buyerRating);
@@ -81,6 +87,7 @@ exports.create = function (req, res) {
             console.log("totalServiceRatings = "+totalServiceRatings);
             console.log("totalPriceRatings = "+totalPriceRatings);
             console.log("totalBuyerRatings = "+totalBuyerRatings);
+            console.log("numOfSellerRating5 = "+numOfSellerRatings5)
 
             totalServiceRatings = totalServiceRatings + parseInt(req.body.serviceRating);
             console.log("totalServiceRatings(include req.body.rating) = "+totalServiceRatings);
@@ -91,9 +98,12 @@ exports.create = function (req, res) {
             totalBuyerRatings = totalBuyerRatings + parseInt(req.body.buyerRating);
             console.log("totalBuyerRatings(include req.body.rating) = "+totalBuyerRatings);
 
-            // priceRating: 65% & serviceRating: 35%
-            totalSellerRatings = (totalServiceRatings*0.35) + (totalPriceRatings*0.65);
+            // priceRating: 50% & serviceRating: 50%
+            totalSellerRatings = (totalServiceRatings*0.5) + (totalPriceRatings*0.5);
             console.log("total(include req.body.rating) = " + totalSellerRatings);
+            if(totalSellerRatings == 5) {
+                numOfSellerRatings5 += 1;
+            }
 
             if (req.body.buyerOrSeller == "Buyer") {
                 numOfSellerRatings += 1;
@@ -112,7 +122,12 @@ exports.create = function (req, res) {
                 aveSeller = totalSellerRatings/numOfSellerRatings;
                 totalServiceRatings = totalServiceRatings/numOfSellerRatings;
                 totalPriceRatings = totalPriceRatings/numOfSellerRatings;
-                console.log("aveSeller(include req.body.rating) = "+aveSeller);
+                console.log("aveSeller(include req.body.rating) = "+aveSeller);   
+                if (aveSeller>4.4 && numOfSellerRatings5 >4){
+                    verificationStatus = "verified";
+                }else{
+                    verificationStatus = "nope";
+                } 
             }
             if (totalBuyerRatings==0 && numOfBuyerRatings==0){
                 console.log("this is being passed in")
@@ -136,7 +151,9 @@ exports.create = function (req, res) {
                 totalPriceRatings: totalPriceRatings,
                 averageBuyerRating: aveBuyer,
                 sellerCount: numOfSellerRatings,
-                buyerCount: numOfBuyerRatings
+                sellerCount5: numOfSellerRatings5,
+                buyerCount: numOfBuyerRatings,
+                verificationStatus: verificationStatus
             };
             var reviewData = { //aka profiles
                 buyerOrSeller: req.body.buyerOrSeller,
@@ -159,6 +176,7 @@ exports.create = function (req, res) {
                 }
             }
             
+
             transactionId = req.body.id;
 
             Profile.create(reviewData).then((newReview, created) => {
