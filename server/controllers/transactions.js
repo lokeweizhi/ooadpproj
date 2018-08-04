@@ -2,6 +2,7 @@
 var TransactionsModel = require('../models/transactions');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
+const Op = sequelize.Op;
 
 // Create Transaction
 exports.create = function (req, res) {
@@ -10,7 +11,9 @@ exports.create = function (req, res) {
     var transactionData = {
         amount: req.body.amount,
         contactName: req.body.contactName,
-        username: req.user.username
+        username: req.user.username,
+        buyerStatus: "incomplete",
+        sellerStatus: "incomplete"
     }
 
     TransactionsModel.create(transactionData).then((newTransaction, created) => {
@@ -26,14 +29,17 @@ exports.create = function (req, res) {
 exports.list = function (req, res) {
     TransactionsModel.findAll({
 
-        attributes: ['id', 'amount', 'contactName', 'username', 'createdAt'],
-        where:{username: req.user.username}
+        attributes: ['id', 'amount', 'contactName', 'username', 'buyerStatus','sellerStatus', 'createdAt'],
+        where:{
+            [Op.or]: [{username: req.user.username}, {contactName:req.user.username}] //added this for my review page
+        }
     }).then(function (transaction) {
         res.render('transactions', {
             title: "Adamire - Transaction History",
             transactionList: transaction,
             urlPath: req.protocol + "://" + req.get("host") + req.url,
-            user: req.user
+            user: req.user,
+            currentUser: req.user.username
         });
     }).catch((err) => {
         return res.status(400).send({

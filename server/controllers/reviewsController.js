@@ -1,17 +1,36 @@
 // get Profile model
 var Profile = require('../models/profileModel');
 var Reviews = require('../models/reviewsModel');
+var transaction = require('../models/transactions');
 var UsersModel = require('../models/users');
 
 var myDatabase = require('./database');
 
 // List reviews & details from reviews
-exports.show = function(req, res) {
-	// Render home screen
-	res.render('activity', {
-        title: 'Adamire - Activity',
-        webTitle: 'Activity:'
-	});
+// exports.show = function(req, res) {
+// 	// Render home screen
+// 	res.render('activity', {
+//         title: 'Adamire - Review',
+//         webTitle: 'Review:'
+// 	});
+// };
+
+// view reviews
+exports.show = function (req, res) {
+    var record_num = req.params.id;
+    transaction.findById(record_num).then(function (transaction) {
+        res.render('activity', {
+            title: "Adamire - Review",
+            webTitle: "Review",
+            transaction: transaction,
+            currentUser: req.user.username
+            // hostPath: req.protocol + "://" + req.get("host")
+        });
+    }).catch((err) => {
+        return res.status(400).send({
+            message: err
+        });
+    });
 };
 
 // Create Reviews
@@ -130,14 +149,28 @@ exports.create = function (req, res) {
                 targetUsername: req.body.username,
                 // user_id: req.user.id // stores user who submitted the reviews
             };
+            if (req.body.buyerOrSeller == "Buyer"){
+                var transactionStatus = {
+                    buyerStatus: "completed"
+                }
+            } else if(req.body.buyerOrSeller == "Seller"){
+                var transactionStatus = {
+                    sellerStatus: "completed"
+                }
+            }
+            
+            transactionId = req.body.id;
+
             Profile.create(reviewData).then((newReview, created) => {
-                Reviews.update(ratingsData, { where: { username: req.body.username } }).then((newRatings) => {
-                    if (!newReview || !newRatings || newRatings == 0) { // ***** what if i accidentally delete the record?
-                        return res.send(400, {
-                            message: "error"
-                        });
-                    }
-                    res.redirect('/profile/'+req.body.username);
+                transaction.update(transactionStatus, { where: {id : transactionId} }).then((newTransactionStatus) => {
+                    Reviews.update(ratingsData, { where: { username: req.body.username } }).then((newRatings) => {
+                        if (!newReview || !newRatings || !newTransactionStatus || newRatings == 0 || newTransactionStatus == 0) { // ***** what if i accidentally delete the record?
+                            return res.send(400, {
+                                message: "error"
+                            });
+                        }
+                        res.redirect('/profile/'+req.body.username);
+                    })
                 })
             })
         });

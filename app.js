@@ -4,6 +4,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var socket = require("socket.io");
 
 // import multer
 // var multer = require('multer');
@@ -105,7 +106,6 @@ app.use('/',offersRouter);
 // Listings
 var listingRouter = require('./server/routes/listing');
 app.use('/',listingRouter);
-
 // Setup chat
 var io = require('socket.io')(httpServer);
 var chatConnections = 0;
@@ -119,6 +119,7 @@ io.on('connection', function(socket) {
         chatConnections--;
         console.log("Num of chat users connected: "+chatConnections);
     });
+
 })
 app.get('/messages', function (req,res) {
     ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {
@@ -143,6 +144,25 @@ app.post('/messages', function (req,res) {
         res.sendStatus(200)
     })
 });
+
+//Post offer price into database
+var OfferPrice = require('./server/models/makeOffer');
+app.post('/makeOffer', function (req,res) {
+    console.log('Making new offer');
+    var makeOfferData = {
+        name: req.user.username,
+        offerprice: req.body.offerprice
+    }
+    //Save into database
+    OfferPrice.create(makeOfferData).then((newOfferData) => {
+        if(!newOfferData) {
+            sendStatus(500);
+        }
+        io.emit('message', req.body)
+    })
+});
+
+
 //===========================================================================================================================================
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

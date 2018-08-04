@@ -180,7 +180,7 @@
                                                 <center>
                                                     <br>
                                                     <p>Preview: </p>
-                                                    <img src="" id="img1" class="img1" height="100px" width="100px" style="width: 200px;height: 200px;border-radius: 100px;border: 1px solid #83878e;"><br>
+                                                    <img src="images/profileImages/<%= user.imageName %>" id="img1" class="img1" height="100px" width="100px" style="width: 200px;height: 200px;border-radius: 100px;border: 1px solid #83878e;"><br>
                                                 </center>
                                             </div>
                                             <div class="modal-footer">
@@ -241,9 +241,26 @@
                                     <div class="row">
                                         <div id="users" class="col-xs-12">
                                             <div class="filter-group row">
-                                                <small><strong style="font-weight: 700;font-size: 0.8em">Filter by:</strong></small>
                                                 <div align="center">
-                                                    <button class="btn btn-primary">
+                                                    <small><strong style="font-weight: 700;font-size: 0.8em">Filter by:</strong></small>
+                                                    <!--Trying-->
+                                                        <div class="btn btn-primary active">
+                                                            <label>
+                                                                <input class="filter-all" type="radio" value="all" name="gender" id="gender-all" style="display: none" checked/> All
+                                                            </label>
+                                                        </div>
+                                                        <div class="btn btn-default">
+                                                            <label>
+                                                                <input class="filter" type="radio" value="Buyer" name="gender" id="gender-female" style="display: none" /> Buyer
+                                                            </label>
+                                                        </div>
+                                                        <div class="btn btn-default">
+                                                            <label>
+                                                                <input class="filter" type="radio" value="Seller" name="gender" id="gender-male" style="display: none" /> Seller
+                                                            </label>
+                                                        </div>
+                                                    <!--//trying-->
+                                                    <!-- <button class="btn btn-primary">
                                                         <label>
                                                             <input class="filter-all" type="radio" value="all" name="gender" id="gender-all" checked/> All
                                                         </label>
@@ -257,7 +274,7 @@
                                                         <label>
                                                             <input class="filter" type="radio" value="Seller" name="gender" id="gender-female" /> Seller
                                                         </label>
-                                                    </button>
+                                                    </button> -->
                                                 </div>
                                                 <div align="right">
                                                     <div class="form-group col-xs-12 col-sm-12">
