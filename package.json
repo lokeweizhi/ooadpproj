@@ -27,7 +27,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "req-flash": "0.0.3",
-    "sequelize": "^4.37.6",
+    "sequelize": "^4.38.0",
     "sequelize-transforms": "^2.0.0",
     "socket.io": "^2.1.1",
     "sort-by": "^1.2.0",

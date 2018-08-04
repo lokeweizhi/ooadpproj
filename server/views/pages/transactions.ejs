@@ -42,21 +42,33 @@
             <h3>Transactions</h3>
             <p>Some numbers</p> 
         </div>
-        <div id="Transactions" class="tabcontent container-fluid">
+        <div id="Transactions" class="tabcontent container-fluid" >
         <table class="table">
             <thead>
                 <tr>
                 <th>Username</th>
                 <th>Date</th>
                 <th>Amount</th>
+                <th></th>
                 </tr>
             </thead>
             <tbody>
                 <% for(var i=0; i < transactionList.length; i++){ %>
-                <tr>
+                <tr data-id="<%= transactionList[i].id %>">
                     <td><%= transactionList[i].contactName %></td>
                     <td><%= transactionList[i].createdAt %></td>
                     <td><%= transactionList[i].amount %></td>
+                    <td>
+                        <% if (transactionList[i].contactName == currentUser && transactionList[i].reviewStatus == "incomplete") {%>
+                            <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
+                                Review Buyer
+                            </button>
+                        <% } else if (transactionList[i].username == currentUser && transactionList[i].reviewStatus == "incomplete") {%>
+                            <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
+                                Review Seller
+                            </button>
+                        <% } %>
+                    </td>
                 </tr>
                 <% } %>
             </tbody>
@@ -80,6 +92,14 @@
         }
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click(); 
+        </script>
+
+        <script>
+        // for review
+        $('.reviewButton').click(function () {
+            var record_num = $(this).closest("tr").data('id');
+            location.href = "http://localhost:3000/activity/"+record_num;
+        });
         </script>
         <% include ../partials/footer %>
     </body>

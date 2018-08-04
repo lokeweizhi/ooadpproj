@@ -106,7 +106,6 @@ app.use('/',offersRouter);
 // Listings
 var listingRouter = require('./server/routes/listing');
 app.use('/',listingRouter);
-
 // Setup chat
 var io = require('socket.io')(httpServer);
 var chatConnections = 0;
@@ -145,6 +144,7 @@ app.post('/messages', function (req,res) {
         res.sendStatus(200)
     })
 });
+<<<<<<< HEAD
 //Post offer price into database
 var OfferPrice = require('./server/models/makeOffer');
 app.post('/makeOffer', function (req,res) {
@@ -161,6 +161,8 @@ app.post('/makeOffer', function (req,res) {
         io.emit('message', req.body)
     })
 });
+=======
+>>>>>>> a815b9a6d6ba86d404c6a15b5738ed5f54d8669a
 
 //===========================================================================================================================================
 // catch 404 and forward to error handler
