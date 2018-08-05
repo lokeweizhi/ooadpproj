@@ -21,6 +21,10 @@
             <input type="text" id="inputName" name="name" class="form-control" placeholder="Name" required="true" value="<%=item.name%>">
         </fieldset>
         <fieldset class="form-group">
+            <label for="inputImage">Change Picture</label>
+            <input type="file" id="inputimage" name="itemImage" class="form-control" placeholder="Upload Here" required="true" value="<%=item.itemImage">
+        </fieldset>
+        <fieldset class="form-group">
             <label for="inputGroup">Price</label>
             <input type="text" id="inputGroup" name="group" class="form-control" placeholder="Group" required="true" value="<%=item.group%>">
         </fieldset>
@@ -51,6 +55,7 @@
             console.log($("#inputCategory").val())
             var newValues = {
                 name: $("#inputName").val(),
+                itemImage: $("#inputImage").val(),
                 group: $("#inputGroup").val(),
                 hobby: $("#inputHobby").val(),
                 category: $("#inputCategory").val(),

@@ -27,8 +27,23 @@
           <form id="searchItem">
              <input type="text" class="search" id="userInput" placeholder="Search!" title="Search For An Item!">
           </form>
+<<<<<<< HEAD
         <div>
             <input type="button" id="search" value="Search"/>
+=======
+      </fieldset>
+      <fieldset class="priceField">
+          <div>Price</div>
+        <div>
+          <p>
+            <label for="amount">Price Range</label>
+            <input type="number" id="minAmount" placeholder="Minimum" style="border: 0; color:black;"/>
+            <input type="number" id="maxAmount" placeholder="Maximum" style="border: 0; color:black;"/>
+          </p>
+          <div>
+            <input type="button" id="search" value="Search"/>
+          </div>
+>>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
         </div>
       </fieldset>
     </div>
@@ -38,6 +53,7 @@
       </div>
   </div>
 
+<<<<<<< HEAD
   <% for(var i=0; i < itemList.length; i++){ %>
 		
     <div class="col-lg-4 product_col" >
@@ -54,6 +70,34 @@
                     <a href="http://localhost:3000/listing/<%=itemList[i].id%>"><%= itemList[i].name %></a>
                   
               <div class="product_price">by:<%= itemList[i].by %></div>
+=======
+  <div class="container-fluid">
+      <% for(var i=0; i < itemList.length; i++){ %>
+        <div data-id="<%= itemList[i].id %>">
+          <div class="col-lg-4" id="onelisting">
+            <div id="itemName">
+              <%= itemList[i].name %>
+            </div>
+            <div>
+              <img src="<%=itemList[i].itemImage %>"
+<<<<<<< HEAD
+=======
+=======
+
+<<<<<<< HEAD
+              <img src="images/itemImage/<%=itemList.itemImage %>">
+=======
+              <img src="<%=itemList[i].itemImage %>">
+>>>>>>> 8c09f2995f3132434a0e1b46423b72d042b8f9d0
+>>>>>>> fccaf45afffa782d8dd96e8144575bf3d249e354
+>>>>>>> 4b861e7277ef9926fb318bc85e6de714a6568b61
+            </div>
+            <div>
+              <%= itemList[i].group %>
+            </div>
+            <div>
+              <%= itemList[i].hobby %>
+>>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
             </div>
           <br>
             <div class="product_options">
@@ -87,8 +131,13 @@
 
 
   <script>
+<<<<<<< HEAD
    $('.editBtn').click(function () {
       var record_num = $(this).closest("tr").data('id');
+=======
+    $('.editBtn').click(function () {
+      var record_num = $(this).closest("div").data('<%= itemList.id %>'); // id not defined
+>>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
       location.href = "<%-urlPath %>edit/"+record_num;
     });
 
@@ -125,15 +174,16 @@
     });
 
     //search for price
-    /*$('#searchPrice').click(function(){
-      var maxPrice = $('#amount').val();
-      location.href = "<%-urlPath %>/search/" + maxPrice;
+    $('#searchPrice').click(function(){
+      var minamount = $('#minAmount').val();
+      var maxAmount = $('#maxAmount').val();
+      location.href = "<%-urlPath %>/search/price";
     })
 
     function redirectToListing(){
       location.href = "<%-urlPath %>"
     }
-    */
+    
   </script>
 
 <% include ../partials/footer %>

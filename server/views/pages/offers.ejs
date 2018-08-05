@@ -1,4 +1,4 @@
-z<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <title><%= title %></title>
@@ -20,13 +20,12 @@ z<!DOCTYPE html>
         <div class="row">
             <div class="col-lg-1"></div>
             <select class="form-control col-lg-2" id="sel1">
-                <option>Listing 1</option>
-                <option>Listing 2</option>
+                <% for(var i=0; i < listingList.length; i++){ %>
+                <option><%= listingList[i].name %></option>
+                <% } %>
             </select>
             <div class="col-lg-5"></div>
-            <button type="button" onclick="location.href='/ewallet'" class="col-lg-1 btn btn-basic">Accept</button>
             <div id="separate"></div>
-            <button type="button" class="col-lg-1 btn btn-basic reject">Reject</button>
             <div class="col-lg-2"></div>
         </div>
         <br>
@@ -35,19 +34,19 @@ z<!DOCTYPE html>
             <table class="col-lg-10 table">
                 <thead>
                     <tr>
-                        <th scope="col"></th>
                         <th scope="col">User</th>
                         <th scope="col">Offer</th>
                         <th scope="col">Date</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     <% for(var i=0; i < offerList.length; i++){ %>
                         <tr class="rowOffer" data-id="<%= offerList[i].id %>">
-                            <td scope="row">
-                                <input class="checkbox" data-id="<%= offerList[i].id %>" type="checkbox">
-                            </td>
                             <td><%= offerList[i].buyerUsername %></td>
-                            <td><%= offerList[i].price %></td>
-                            <td><%= offerList[i].createdAt %></td>
+                            <td>$<%= offerList[i].price %></td>
+                            <td><%= moment(offerList[i].createdAt).format('DD-MMM-YYYY') %></td>
+                            <td><button type="button" class="btn btn-basic accept">Accept</button></td>
+                            <td><button type="button" class="btn btn-basic reject">Reject</button></td>
                             </tr>
                         <tr>
                     <% } %>
@@ -60,7 +59,25 @@ z<!DOCTYPE html>
         <% include ../partials/javascript %>
         <script>
         $('.reject').click(function () {
-            if (confirm("Reject Offers?")) {
+            if (confirm("Reject Offer?")) {
+                var offers_id = $(this).closest("tr").data('id'); 
+                $.ajax({
+                    url: '<%-urlPath%>' + '/' + offers_id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        console.log(result.message);
+                        var itemToRemove = '.rowOffer[data-id=' + offers_id + ']';
+                        $(itemToRemove).remove();
+                    },
+                    error: function(result) {
+                        alert("Unable to reject offer.");
+                        console.log(result.message);
+                    }
+                });
+            }
+        }); 
+        $('.accept').click(function () {
+            if (confirm("Accept Offer?")) {
                 var offers_id = $(this).closest("tr").data('id'); 
                 $.ajax({
                     url: '<%-urlPath%>' + '/' + offers_id,
