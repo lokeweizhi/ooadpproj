@@ -95,7 +95,7 @@
     $('.deleteBtn').click(function () {
       var record_num = $(this).closest("tr").data('id');
       $.ajax({
-        url: '<%-urlPath%>/delete/' + record_num,
+        url: '<%-urlPath%>/' + record_num,
         type: 'DELETE',
         success: function (result) {
           console.log(result.message);

@@ -27,8 +27,13 @@
             <div style="margin-top: -10px" class="top-header-right">
                 <% if (login) { %>
                     <ul>
+<<<<<<< HEAD
+                        <li id="myBtn" style="margin-right: 30px;"><a href="#"><i class="fa fa-bell-o fa-lg" aria-hidden="true" style="color:white;"></i></a></li>
+                        <li style="margin-right: 15px;"><a href="/inboxMessage"><i class="fa fa-comment-o fa-lg" aria-hidden="true" style="color:white;"></i></a></li>
+=======
                         <li style="margin-right: 30px;"><a href="/notifications"><i class="fa fa-bell-o fa-lg" aria-hidden="true" style="color:white;"></i></a></li>
                         <li style="margin-right: 15px;"><a href="/messages"><i class="fa fa-comment-o fa-lg" aria-hidden="true" style="color:white;"></i></a></li>
+>>>>>>> 5ada9303c9e4a87fd66c5f1368330d8d0ee81054
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-list fa-lg" aria-hidden="true" style="color:white;"></i>
@@ -97,7 +102,7 @@
                                 <div class="h_nav">
                                     <h4 class="top" id="categoryVal">Humanities</h4>
                                     <ul>
-                                        <li><a href="/listing/Humanities" id="viewMore">View More</a></li>
+                                        <li><a href="/listings/Humanities" id="viewMore">View More</a></li>
                                     </ul>	
                                 </div>
                             </div>
@@ -105,13 +110,13 @@
                                 <div class="h_nav">
                                     <h4 id="categoryVal">Languages</h4>
                                     <ul>
-                                        <li><a href="/listing/Languages" id="viewMore">View More</a></li>
+                                        <li><a href="/listings/Languages" id="viewMore">View More</a></li>
                                     </ul>	
                                 </div>
                                 <div class="h_nav">
                                     <h4 class="top" id="categoryVal">Mathematics</h4>
                                     <ul>
-                                        <li><a href="/listing/Mathematics" id="viewMore">View More</a></li>
+                                        <li><a href="/listings/Mathematics" id="viewMore">View More</a></li>
                                     </ul>	
                                 </div>
                             </div>
@@ -119,13 +124,13 @@
                                 <div class="h_nav">
                                     <h4 id="categoryVal">Science</h4>
                                     <ul>
-                                        <li><a href="/listing/Science" id="viewMore">View More</a></li>
+                                        <li><a href="/listings/Science" id="viewMore">View More</a></li>
                                         </ul>	
                                 </div>
                                 <div class="h_nav">
                                     <h4 class="top" id="categoryVal">Other Subjects</h4>
                                     <ul>
-                                        <li><a href="/listing/Other Subjects" id="viewMore">View More</a></li>
+                                        <li><a href="/listings/Other Subjects" id="viewMore">View More</a></li>
                                     </ul>	
                                 </div>
                             </div>
@@ -133,7 +138,7 @@
                                 <div class="h_nav">
                                     <h4 id="categoryVal">Art & Design</h4>
                                     <ul>
-                                        <li><a href="/listing/Art & Design" id="viewMore">View More</a></li>
+                                        <li><a href="/listings/Art & Design" id="viewMore">View More</a></li>
                                     </ul>	
                                 </div>
                             </div>          
@@ -154,7 +159,7 @@
 //category routing
 $('#viewMore').click(function(){
       var categoryValue = $('#categoryVal').val();
-      location.href = "http://localhost:3000/listing" + searchValue;
+      location.href = "http://localhost:3000/listing" + categoryValue;
     });
 </script>
 <!--//all header-->

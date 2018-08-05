@@ -221,7 +221,12 @@ app.post('/makeOffer', function (req,res) {
         io.emit('message', req.body)
     })
 });
-
+//Inbox
+app.get('/inboxMessage', function(req, res) {
+    res.render("inboxMessage", {
+        title: "Report a Product"
+    })
+}) 
 
 //===========================================================================================================================================
 // catch 404 and forward to error handler
