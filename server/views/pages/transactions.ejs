@@ -47,27 +47,49 @@
                 <th>Username</th>
                 <th>Date</th>
                 <th>Amount</th>
+                <th>Info</th>
                 <th></th>
                 </tr>
             </thead>
             <tbody>
                 <% for(var i=0; i < transactionList.length; i++){ %>
-                <tr data-id="<%= transactionList[i].id %>">
-                    <td><%= transactionList[i].contactName %></td>
-                    <td><%= moment(transactionList[i].createdAt).format('DD-MMM-YYYY') %></td>
-                    <td>$<%= transactionList[i].amount %></td>
-                    <td>
-                        <% if (transactionList[i].contactName == currentUser && transactionList[i].sellerStatus == "incomplete") {%>
-                            <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
-                                Review Buyer
-                            </button>
-                        <% } else if (transactionList[i].username == currentUser && transactionList[i].buyerStatus == "incomplete") {%>
-                            <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
-                                Review Seller
-                            </button>
-                        <% } %>
-                    </td>
-                </tr>
+                    <% if (transactionList[i].contactName == currentUser) { %>
+                    <tr data-id="<%= transactionList[i].id %>">
+                        <td><%= transactionList[i].username %></td>
+                        <td><%= moment(transactionList[i].createdAt).format('DD-MMM-YYYY') %></td>
+                        <td>$<%= transactionList[i].amount %></td>
+                        <td>Received</td>
+                        <td>
+                            <% if (transactionList[i].contactName == currentUser && transactionList[i].sellerStatus == "incomplete") {%>
+                                <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
+                                    Review Buyer
+                                </button>
+                            <% } else if (transactionList[i].username == currentUser && transactionList[i].buyerStatus == "incomplete") {%>
+                                <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
+                                    Review Seller
+                                </button>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% } else { %>
+                    <tr data-id="<%= transactionList[i].id %>">
+                        <td><%= transactionList[i].contactName %></td>
+                        <td><%= moment(transactionList[i].createdAt).format('DD-MMM-YYYY') %></td>
+                        <td>$<%= transactionList[i].amount %></td>
+                        <td>Sent</td>
+                        <td>
+                            <% if (transactionList[i].contactName == currentUser && transactionList[i].sellerStatus == "incomplete") {%>
+                                <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
+                                    Review Buyer
+                                </button>
+                            <% } else if (transactionList[i].username == currentUser && transactionList[i].buyerStatus == "incomplete") {%>
+                                <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
+                                    Review Seller
+                                </button>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% } %>
                 <% } %>
             </tbody>
         </table>

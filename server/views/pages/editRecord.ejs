@@ -68,7 +68,11 @@
                 contentType: "application/json",
                 success: function(result){
                     alert("Listing updated successfully")
-                    location.href = "<%=hostPath%>/listing"
+                    if (currentUser != "admin") {
+                        location.href = "http://localhost:3000/listingAdmin";
+                    } else {
+                        location.href = "http://localhost:3000/listing";
+                    }
                 },
                 error: function(result){
                     alert("Error updating Listing");
