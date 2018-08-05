@@ -103,6 +103,10 @@ app.use('/',ewalletRouter);
 var offersRouter = require('./server/routes/offers');
 app.use('/',offersRouter);
 
+// Notifications
+var notificationsRouter = require('./server/routes/notifications');
+app.use('/',notificationsRouter);
+
 // Listings
 var listingRouter = require('./server/routes/listing');
 app.use('/',listingRouter);

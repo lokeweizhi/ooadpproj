@@ -40,6 +40,8 @@
                         <th></th>
                         <th></th>
                     </tr>
+                </thead>
+                <tbody> 
                     <% for(var i=0; i < offerList.length; i++){ %>
                         <tr class="rowOffer" data-id="<%= offerList[i].id %>">
                             <td><%= offerList[i].buyerUsername %></td>
@@ -47,11 +49,8 @@
                             <td><%= moment(offerList[i].createdAt).format('DD-MMM-YYYY') %></td>
                             <td><button type="button" class="btn btn-basic accept">Accept</button></td>
                             <td><button type="button" class="btn btn-basic reject">Reject</button></td>
-                            </tr>
-                        <tr>
+                        </tr>
                     <% } %>
-                </thead>
-                <tbody> 
                 </tbody>
             </table>
             <div class="col-lg-1"></div>

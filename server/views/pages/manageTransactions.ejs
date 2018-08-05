@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <% include ../partials/stylesheet %>
+    </head>
+    <body>
+        <% include ../partials/header %>
+        <div class="container-fluid">
+            <h1 style="font-size: 25px; text-align: center">Manage Transactions</h1>
+            <br>
+            <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">From User</th>
+                            <th scope="col">To User</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <% for(var i=0; i < manageTransactionsList.length; i++){ %>
+                            <tr class="rowOffer" data-id="<%= manageTransactionsList[i].id %>">
+                                <td><%= manageTransactionsList[i].username %></td>
+                                <td><%= manageTransactionsList[i].contactName %></td>
+                                <td>$<%= manageTransactionsList[i].amount %></td>
+                                <td><%= moment(manageTransactionsList[i].createdAt).format('DD-MMM-YYYY') %></td>
+                                <td><button type="button" class="btn btn-basic editBtn">Edit</button></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+        </div>
+        <% include ../partials/javascript %>
+        <script>
+        $('.editBtn').click(function () {
+            var transactions_id = $(this).closest("tr").data('id');
+            location.href = "<%-urlPath %>/edit/"+transactions_id;
+        });
+        </script>
+        <% include ../partials/footer %>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <% include ../partials/stylesheet %>
+    </head>
+    <body>
+        <% include ../partials/header %>
+        <div class="container-fluid">
+            <h1 style="font-size: 25px; text-align: center">Edit Transaction</h1>
+            <br>
+            <fieldset class="form-group">
+                <label for="inputFromUser">From User</label>
+                <input type="text" id="inputFromUser" name="username" class="form-control" placeholder="Username" required="true" value="<%=transactionList.username%>">
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="inputToUser">To User</label>
+                <input type="text" id="inputToUser" name="contactName" class="form-control" placeholder="Username" required="true" value="<%=transactionList.contactName%>">
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="inputAmount">Amount</label>
+                <input type="text" id="inputAmount" name="amount" class="form-control" placeholder="Amount" required="true" value="<%=transactionList.amount%>">
+            </fieldset>
+            <button type="submit" class="btn btn-primary" onclick=saveChanges()>Save Changes</button>
+            <button type="button" class="btn btn-secondary" onclick=discardChanges()>Cancel</button>
+        </div>
+        <% include ../partials/javascript %>
+        <script>
+            function saveChanges() {
+            var url = "<%=hostPath%>/edit/<%=transactionList.id%>";
+            var newValues = {
+                username: $("#inputFromUser").val(),
+                contactName: $("#inputToUser").val(),
+                amount: $("#inputAmount").val(),
+            }
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: JSON.stringify(newValues),
+                dataType: "json",
+                contentType: "application/json",
+                success: function(result){
+                    alert("Transaction updated successfully")
+                    location.href = "<%=hostPath%>"
+                },
+                error: function(result){
+                    alert("Error updating transaction");
+                    discardChanges();
+
+                }
+            })
+        }
+        function discardChanges() {
+            location.href = "<%=hostPath%>"
+        }
+        </script>
+        <% include ../partials/footer %>
+    </body>
+</html>
