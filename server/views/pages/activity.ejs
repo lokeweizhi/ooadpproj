@@ -65,6 +65,18 @@
 	margin: 10px 0px 60px;
 	border: 1px solid GREY;
 	}
+
+    .btn-primary:hover{
+        background: #1C1C20;
+        border-bottom: 4px solid #333;
+    }
+
+	.btn-primary {
+		color: #fff;
+		background-color: #E45D5D;
+        border-color: #E45D5D;
+        border-bottom: 4px solid #B93838;
+	}    
     </style>
 </head>
 
@@ -86,7 +98,7 @@
                         </div>
                         <div class="modal-body">
                             <fieldset class="form-group">
-                                    <input type="text" class="form-control" id="id" name="id" value="<%=transaction.id%>">
+                                    <input type="text" class="form-control" id="id" name="id" value="<%=transaction.id%>" style= "display: none;">
                                     <% if (transaction.contactName == currentUser) { %>
                                     <div id="hide">
                                         <label for="inlineFormInputGroupUsername">REVIEW USERNAME<span id="impt">*</span></label>

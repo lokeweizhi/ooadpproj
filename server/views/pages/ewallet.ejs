@@ -65,17 +65,21 @@
                         <% totalAmount += parseFloat(balanceList[x].balanceAmt); %>
                     <% } %> 
                     <% var deductedAmt = 0; %>
-                    <% for (var x = 0; x < transactionList.length; x++) { %>
-                        <% deductedAmt += parseFloat(transactionList[x].amount); %>
+                    <% for (var x = 0; x < deductionList.length; x++) { %>
+                        <% deductedAmt += parseFloat(deductionList[x].amount); %>
                     <% } %>
-                    <h2 style="font-weight: bold; margin: 10px 0 0 15px; font-size: 20px">$<%= totalAmount - deductedAmt %></h2>
+                    <% var addedAmt = 0; %>
+                    <% for (var x = 0; x < transactionList.length; x++) { %>
+                        <% addedAmt += parseFloat(transactionList[x].amount); %>
+                    <% } %>
+                    <h2 style="font-weight: bold; margin: 10px 0 0 15px; font-size: 20px">$<%= totalAmount + addedAmt - deductedAmt %></h2>
                     <h3 style="margin: 40px 0 0 15px">* * * * * * * *  * * * * 0000</h3>
                     <h3 style="margin: 10px 0 0 15px">00/00</h3>
                 </div>
                 <div class="col-lg-1"></div>
                 <div class="col-lg-2">
                     <img style="cursor: pointer" data-toggle="modal" data-target="#creditCardForm" src="images/down-arrow.png" align="left">
-                    <h3 style="text-align: right; cursor: pointer" data-toggle="modal" data-target="#creditCardForm">Load Money</h3>
+                    <h3 style="margin: 0 0 0 60px; cursor: pointer" data-toggle="modal" data-target="#creditCardForm">Load Money</h3>
                 
                     <div id="creditCardForm" class="modal fade" role="dialog">
                         <div class="modal-dialog" style="width: 700px">
@@ -195,9 +199,9 @@
                 <% for(var i=0; i < itemList.length; i++){ %>
                     <div data-id="<%= itemList[i].id %>" class="col-lg-1 container" style="margin: 0 0 0 20px; height: 100px; border-style: dotted; border-radius: 10px;">
                         <input type="image" class="deleteBtn" value="Delete" align="right" src="images/cancel.png" />
-                        <input data-toggle="modal" data-target="#sendMoney" type="image" class="image" src="images/user.png" style="height: 40px; width: 40px; margin: 15px 0 -10px 16px"/>
+                        <input data-toggle="modal" data-id="<%= itemList[i].id %>" data-target="#sendMoney" type="image" class="image" src="images/user.png" style="height: 40px; width: 40px; margin: 15px 0 -10px 16px"/>
                         <br>
-                        <h3 style="text-align: center"><%= itemList[i].contactName %></h3>
+                        <h3><%= itemList[i].contactName %></h3>
                     </div>
                 <% } %>
                 <div class="modal fade" id="sendMoney" role="dialog">
@@ -239,6 +243,9 @@
         <script src="javascripts/jquery.payform.min.js" chatrset="utf-8"></script>
         <script src="javascripts/script.js"></script>
         <script>
+             $('.image').click(function () {
+                var contactID = $(this).data("id");
+            });
             $(document).ready(function(){
                 $(".deleteBtn").hide();
             });

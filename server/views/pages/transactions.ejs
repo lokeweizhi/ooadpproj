@@ -39,8 +39,6 @@
         <button class="tablink" onclick="openPage('Transactions', this, 'orange')"id="defaultOpen">Transactions</button>
         <h1 style="margin: 8% 0 -4% 0; font-size: 25px;text-align: center">Transaction History</h1>
         <div id="Wallet" class="tabcontent">
-            <h3>Transactions</h3>
-            <p>Some numbers</p> 
         </div>
         <div id="Transactions" class="tabcontent container-fluid" >
         <table class="table">
@@ -56,14 +54,14 @@
                 <% for(var i=0; i < transactionList.length; i++){ %>
                 <tr data-id="<%= transactionList[i].id %>">
                     <td><%= transactionList[i].contactName %></td>
-                    <td><%= transactionList[i].createdAt %></td>
-                    <td><%= transactionList[i].amount %></td>
+                    <td><%= moment(transactionList[i].createdAt).format('DD-MMM-YYYY') %></td>
+                    <td>$<%= transactionList[i].amount %></td>
                     <td>
-                        <% if (transactionList[i].contactName == currentUser && transactionList[i].reviewStatus == "incomplete") {%>
+                        <% if (transactionList[i].contactName == currentUser && transactionList[i].sellerStatus == "incomplete") {%>
                             <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
                                 Review Buyer
                             </button>
-                        <% } else if (transactionList[i].username == currentUser && transactionList[i].reviewStatus == "incomplete") {%>
+                        <% } else if (transactionList[i].username == currentUser && transactionList[i].buyerStatus == "incomplete") {%>
                             <button type="button" class="btn btn-success reviewButton" data-toggle="modal" data-target="#createPost">
                                 Review Seller
                             </button>
@@ -98,7 +96,7 @@
         // for review
         $('.reviewButton').click(function () {
             var record_num = $(this).closest("tr").data('id');
-            location.href = "http://localhost:3000/activity/"+record_num;
+            location.href = "http://localhost:3000/review/"+record_num;
         });
         </script>
         <% include ../partials/footer %>

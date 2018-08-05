@@ -87,11 +87,23 @@
                 <br>
                 <textarea id="message" class="form-control"  placeholder="Type your message here"></textarea>
                 <br>
+                <div id = "offers">
+                <% offers.forEach(function(sth){%>
+                    <%=sth.offerprice%>
+                    <br>
+                <%})%>
+                </div>
 
                 <button type="submit" id="send" class="btn btn-success">Send</button>
                 <button id="upload" class="btn btn-success">Upload Image</button>
             </div>    
         </div>
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
 </div>
 
 <script>
@@ -115,7 +127,6 @@
         $.post('<%-url%>', message)
     }
     
-
 </script>    
 </body>
 <% include ../partials/footer %>
