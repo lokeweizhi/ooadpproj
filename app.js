@@ -196,7 +196,6 @@ var server = httpServer.listen(app.get('port'), function () {
     console.log('========================================================')
 });
 
-<<<<<<< HEAD
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -210,16 +209,6 @@ var storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
       cb(null,  Date.now() + '-' + file.originalname)
-=======
-//upload image to db
-var multer = require('multer');
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-            cb(null, 'public/uploads/itemImage')
-    },
-    filename: (req, file, cb) => {
-      cb(null,  Date.now() + '-' + file.originalname);
->>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
 
     }
 });
