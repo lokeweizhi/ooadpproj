@@ -6,9 +6,42 @@
     </head>
     <body>
         <% include ../partials/header %>
-        <h1 style="font-size: 25px; text-align: center">Notifications</h1>
+        <div class="container-fluid">
+            <h1 style="font-size: 25px; text-align: center">Notifications</h1>
+            <br>
+            <% for(var i=0; i < notificationList.length; i++){ %>
+                <center>
+                <div class="notif" style="margin-bottom: 15px; width: 50%; padding: 20px 0 20px 0; text-align: center; border: solid 1px black" data-id="<%= notificationList[i].id %>">
+                    <input style="margin-left: 15px;" type="image" class="deleteBtn" value="Delete" align="left" src="images/cancel.png" />
+                    <p style="font-size: 14px; margin-right: 3%; text-align: right"><%= moment(notificationList[i].createdAt).format('DD-MMM-YYYY') %></p>              
+                    <p><%= notificationList[i].msg %></p>
+                    <% if (notificationList[i].msg == "Your offer has been accepted") { %>
+                    <a href="/ewallet"><p>Click Here</p></a>
+                    <% } %>
+                    <br>
+                </div>
+                </center>
+            <% } %>
+        </div>
         <% include ../partials/javascript %>
         <script>
+        $('.deleteBtn').click(function () {
+            var notification_id = $(this).closest("div").data('id'); 
+            $.ajax({
+                url: '<%-urlPath%>' + '/' + notification_id,
+                type: 'DELETE',
+                success: function(result) {
+                    console.log(result.message);
+                    var itemToRemove = '.notif[data-id=' + notification_id + ']';
+                    $(itemToRemove).remove();
+                },
+                error: function(result) {
+                    alert("Unable to delete notification.");
+                    console.log(result.message);
+                }
+            });
+     
+        });
         </script>
         <% include ../partials/footer %>
     </body>
