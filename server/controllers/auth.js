@@ -156,6 +156,7 @@ exports.listRecord = function (req, res) {
         res.render('indivlisting', {
             title: "Listings",
             itemList: ListingRecord,
+            currentUser: req.user.username,
             hostPath: req.protocol + "://" + req.get("host"),
             urlPath: req.protocol + "://" + req.get("host") + req.url,
         });
