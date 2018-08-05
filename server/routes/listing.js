@@ -2,15 +2,28 @@ var express = require("express");
 var listingRouter = express.Router();
 
 var multer = require('multer');
-var upload = multer({ dest:'./public/uploads/', limits: {fileSize: 1500000, files:1} });
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        if (file.fieldname == "BundlePic") {
+            cb(null, 'public/uploads/bundleCover')
+        }
+        else if (file.fieldname == "itemImage"){
+            cb(null, 'public/uploads/itemImage')
+        }
 
+    },
+    filename: (req, file, cb) => {
+      cb(null,  Date.now() + '-' + file.originalname)
+
+    }
+});
+var upload = multer({storage: storage});
 var auth = require('../controllers/auth');
 var offers = require('../controllers/offers');
 
 listingRouter.get("/listing", auth.isLoggedIn, auth.list);
 listingRouter.get("/listingedit/:id", auth.isLoggedIn, auth.editRecord);
 listingRouter.get("/listing/search/:name", auth.isLoggedIn, auth.searchThru);
-listingRouter.get("/listing/search/price", auth.isLoggedIn, auth.searchPrice);
 listingRouter.post("/listingnew", auth.isLoggedIn, upload.single("itemImage"), auth.insert);
 listingRouter.post("/listingedit/:id", auth.isLoggedIn, auth.update);
 listingRouter.delete("/listing/:id", auth.isLoggedIn, auth.delete);
