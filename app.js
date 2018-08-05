@@ -127,7 +127,6 @@ io.on('connection', function(socket) {
 
 })
 app.get('/messages', function (req,res) {
-<<<<<<< HEAD
     ChatMsg.findAll({
         attributes: ['id','name','message','buyername','sellername'],
         where: {
@@ -139,17 +138,6 @@ app.get('/messages', function (req,res) {
             url: req.protocol + "://" + req.get("host") + req.url,
             user:req.user.username,
             data: chatMessages
-=======
-    makeOffer.findAll({where: {name:req.user.username}}).then((offers) => {
-        console.log("***************************************",offers);
-        ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {
-            res.render('chatMsg', {
-                url: req.protocol + "://" + req.get("host") + req.url,
-                user:req.user.username,
-                data: chatMessages,
-                offers: offers
-            });
->>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
         });
         console.log("***",req.body.by)
         res.render('makeOffer', {
