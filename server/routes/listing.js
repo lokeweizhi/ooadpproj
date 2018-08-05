@@ -30,5 +30,8 @@ listingRouter.delete("/listing/:id", auth.isLoggedIn, auth.delete);
 listingRouter.get("/listing/:id", auth.isLoggedIn, auth.listRecord);
 listingRouter.post("/listing/:id", auth.isLoggedIn, offers.create);
 listingRouter.get("/createlisting", auth.isLoggedIn, auth.dispform);
+listingRouter.get("/listingAdmin", auth.isLoggedIn, auth.listAdmin);
+listingRouter.get("/listingAdminedit/:id", auth.isLoggedIn, auth.editRecord);
+listingRouter.post("/listingAdminedit/:id", auth.isLoggedIn, auth.update)
 
 module.exports = listingRouter;
