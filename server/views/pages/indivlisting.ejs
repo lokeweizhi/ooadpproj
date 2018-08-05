@@ -11,6 +11,7 @@
 <body>
     <% include ../partials/header2 %>
     <!--I included it outside bc the table doesnt seem to work-->
+    <div CLASS="data">
     <img src="<%=hostPath%>/uploads/itemImage/<%= itemList.itemImage %>" alt="" height="200" width="200" style="align-content: center">
       <div>
         <p>Name:</p>
@@ -36,13 +37,17 @@
           <p style="display:none">Id</p>
           <p><%itemList.id%></p>
         </div>
-        <div data-id="<%= itemList.id %>">
-          <input type="button" class="editBtn" value="Edit">
-          <input type="button" class="deleteBtn"  value="Delete">
-        </div>
+          <% if (currentUser == itemList.by) { %>
+          <div data-id="<%= itemList.id %>">
+            <input type="button" class="editBtn" value="Edit">
+            <input type="button" class="deleteBtn"  value="Delete/Sold out">
+          </div>
+          <% } %>
+        
 
       <button type="button" class="editChat" onclick="location.href='/messages/<%= itemList.id %>'">Chat to Buy</button>
       <button type="submit" onclick="location.href='';">Make an offer</button>
+    </div>
     <!--//end-->
     
   <script>
@@ -52,22 +57,40 @@
     });
 
     $('.deleteBtn').click(function () {
-      var record_num = $(this).closest("div").data('id');
+      var record_num = '<%= itemList.id %>';
       $.ajax({
-        url: '<%-hostPath%>/' + record_num,
+        url: "<%-hostPath %>/listing/"+record_num,
         type: 'DELETE',
         success: function (result) {
           console.log(result.message);
-          var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
-					$(itemToRemove).remove();
-					location.href = "/listing"
+          var itemToRemove = '#data';
+          $(itemToRemove).remove();
+          location.href = "/profile"
         },
         error: function (result) {
-          alert("Unable to delete listing.");
+          alert("Unable to delete listing record.");
           console.log(result.message);
         }
       });
-		});
+    });
+    // $('.deleteBtn').click(function () {
+    //   var record_num = $(this).closest("div").data('id');
+    //   alert(record_num);
+    //   $.ajax({
+    //     url: '<%-hostPath%>/' + record_num,
+    //     type: 'DELETE',
+    //     success: function (result) {
+    //       console.log(result.message);
+    //       var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+		// 			$(itemToRemove).remove();
+		// 			location.href = "/listing"
+    //     },
+    //     error: function (result) {
+    //       alert("Unable to delete listing.");
+    //       console.log(result.message);
+    //     }
+    //   });
+		// });
 
   </script>
 <br>

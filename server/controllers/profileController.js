@@ -35,7 +35,6 @@ exports.list = function(req, res){
                     attributes: ['id', 'name','itemImage', 'group', 'hobby','category', 'by'],
                     where: {by: req.user.username}
                 }).then(function (listings) {
-                    console.log("**********************************",listings[0].itemImage)
                     res.render("profile", {
                         title: 'Adamire - @'+ req.user.username,
                         webTitle: 'Profile:',
@@ -192,6 +191,19 @@ exports.create = function (req, res) {
         }
         res.redirect('/profile');
     })
+}
+
+exports.delete =  function (req, res) {
+    var record_num = req.params.id;
+    console.log("*******************************deleting "+ record_num);
+    ListingModel.destroy({ where: { id: record_num } }).then((deletedRecord) => {
+        if (!deletedRecord) {
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        res.status(200).send({ message: "Deleted student record:" + record_num});
+    });
 }
 
 // Profile authorization middleware

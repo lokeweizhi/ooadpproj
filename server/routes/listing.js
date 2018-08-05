@@ -13,6 +13,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({storage: storage});
 var auth = require('../controllers/auth');
+var profile = require('../controllers/auth')
 var offers = require('../controllers/offers');
 
 listingRouter.get("/listing", auth.isLoggedIn, auth.list);
@@ -20,7 +21,7 @@ listingRouter.get("/listingedit/:id", auth.isLoggedIn, auth.editRecord);
 listingRouter.get("/listing/search/:name", auth.isLoggedIn, auth.searchThru);
 listingRouter.post("/listingnew", auth.isLoggedIn, upload.single("itemImage"), auth.insert);
 listingRouter.post("/listingedit/:id", auth.isLoggedIn, auth.update);
-listingRouter.delete("/listing/:id", auth.isLoggedIn, auth.delete);
+listingRouter.delete("/listing/:id", auth.isLoggedIn, profile.delete);
 listingRouter.get("/listing/:id", auth.isLoggedIn, auth.listRecord);
 listingRouter.post("/listing/:id", auth.isLoggedIn, offers.create);
 listingRouter.get("/createlisting", auth.isLoggedIn, auth.dispform);
