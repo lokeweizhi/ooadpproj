@@ -32,9 +32,10 @@ exports.list = function(req, res){
             }).then(function (totalReviews) {
                 //console.log("***********************totalReview",totalReviews)
                 ListingModel.findAll({
-                    attributes: ['id', 'name', 'group', 'hobby'],
-                    where:{by: req.user.username}
+                    attributes: ['id', 'name','itemImage', 'group', 'hobby','category', 'by'],
+                    where: {by: req.user.username}
                 }).then(function (listings) {
+                    console.log("**********************************",listings[0].itemImage)
                     res.render("profile", {
                         title: 'Adamire - @'+ req.user.username,
                         webTitle: 'Profile:',
@@ -150,7 +151,7 @@ exports.browseProfiles = function (req, res) {
                         where:{targetUsername: username}
                     }).then(function(profile){
                         ListingModel.findAll({
-                            attributes: ['id', 'name', 'group', 'hobby'],
+                            attributes: ['id', 'name','itemImage', 'group', 'hobby', 'category', 'by'],
                             where:{by: record_username}
                         }).then(function (listings) {
                             res.render('browseProfiles', {
