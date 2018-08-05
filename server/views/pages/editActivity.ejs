@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= title %>
+    </title>
+    <% include ../partials/stylesheet %>
+    <% include ../partials/javascript %>
+    <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
+    <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
+    <!--Bar rating-->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <script src="http://antenna.io/demo/jquery-bar-rating/jquery.barrating.js"></script>
+    <link href="http://antenna.io/demo/jquery-bar-rating/dist/themes/fontawesome-stars.css" rel="stylesheet"/> -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.1/themes/fontawesome-stars.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.1/themes/bars-reversed.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.1/jquery.barrating.min.js'></script>
+
+    <script type="text/javascript">
+    $(function() {
+        $('#serviceRating').barrating({
+            // theme: 'fontawesome-stars'
+            theme: 'bars-reversed',
+            initialRating: '0',
+            allowEmpty: true
+        });
+        $('#priceRating').barrating({
+            theme: 'bars-reversed',
+            initialRating: '0',
+            allowEmpty: true
+        });
+        $('#buyerRating').barrating({
+            theme: 'bars-reversed',
+            initialRating: '0',
+            allowEmpty: true
+        });
+    });
+    </script> 
+    <!--//Bar rating-->
+
+    <style>
+    .br-theme-bars-reversed .br-widget a {
+    background-color: pink;
+    }
+
+    .br-theme-bars-reversed .br-widget a.br-active,
+    .br-theme-bars-reversed .br-widget a.br-selected {
+    background-color: #E45D5D;
+    }
+
+    .br-theme-bars-reversed .br-widget .br-current-rating {
+    color: #E45D5D;
+    font-size: 20px;  
+    }    
+
+    .form-area
+    { 
+    background-color: #FAFAFA;
+	padding: 10px 40px 60px;
+	margin: 10px 0px 60px;
+	border: 1px solid GREY;
+	}
+
+    .btn-primary:hover{
+        background: #1C1C20;
+        border-bottom: 4px solid #333;
+    }
+
+	.btn-primary {
+		color: #fff;
+		background-color: #E45D5D;
+        border-color: #E45D5D;
+        border-bottom: 4px solid #B93838;
+	}    
+    </style>
+</head>
+
+<body>
+    <% include ../partials/header2 %>
+    <div class="login-main">
+        <div class="container">
+                <div class="wrap">
+                    <br>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="modal-header">
+                            <% if (transaction.contactName == currentUser) { %>
+                                <h2 style="font-weight: bold;"><%=webTitle%> on @<%=transaction.username%></h2>   
+                            <% } else if(transaction.username == currentUser) { %>
+                                <h2 style="font-weight: bold;"><%=webTitle%> on <%=transaction.contactName%></h2>
+                            <% } %> 
+                        </div>
+                        <div class="modal-body">
+                            <fieldset class="form-group">
+                                    <input type="text" class="form-control" id="id" name="id" value="<%=transaction.id%>" style= "display: none;">
+                                    <% if (transaction.contactName == currentUser) { %>
+                                    <div id="hide">
+                                        <label for="inlineFormInputGroupUsername">REVIEW USERNAME<span id="impt">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span id="verified"></span>
+                                            <div class="input-group-text">@</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="username" name="username" value="<%=transaction.username%>">
+                                        <label for="inputbuyerseller">Buyer/Seller</label>
+                                        <input type="text" id="buyerOrSeller" name="buyerOrSeller" class="form-control" placeholder="Buyer/Seller" value="Seller">
+                                    </div>
+                                    <style>
+                                    #hide {
+                                        display: none;
+                                    }
+                                    </style>
+                                    <% } else if(transaction.username == currentUser) { %>
+                                    <div id="hide">
+                                        <label for="inlineFormInputGroupUsername">REVIEW USERNAME<span id="impt">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span id="verified"></span>
+                                            <div class="input-group-text">@</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="username" name="username" value="<%=transaction.contactName%>">
+                                        <label for="inputbuyerseller">Buyer/Seller</label>
+                                        <input type="text" id="buyerOrSeller" name="buyerOrSeller" class="form-control" placeholder="Buyer/Seller" value="Buyer">
+                                    </div>
+                                    <% } %>
+                                    <style>
+                                        #hide {
+                                            display: none;
+                                        }
+                                    </style>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="inputitle">Title</label>
+                                <input type="text" id="title" name="title" class="form-control" placeholder="Title" value="<%=profile.title%>" required>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="inputContent">Give feedback</label>
+                                <textarea id="Content" name="content" rows="6" cols="5" class="form-control" placeholder="Feedback Description" value="" required><%=profile.content%></textarea>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <% if (transaction.contactName == currentUser) { %>
+                                    <div id="hide">
+                                    <label for="inputRating">Out of 5, how would you rate their service? :) </label>
+                                        <select id="serviceRating" name="serviceRating" display="none">
+                                            <option name="rating" value="0" style="display: none;">0</option>
+                                            <option name="rating" value="1">1</option>
+                                            <option name="rating" value="2">2</option>
+                                            <option name="rating" value="3">3</option>
+                                            <option name="rating" value="4">4</option>
+                                            <option name="rating" value="5">5</option>
+                                        </select>
+                                        <br>
+                                        <label for="inputRating">Out of 5, how would you rate their price? :) </label>
+                                        <select id="priceRating" name="priceRating" display="none">
+                                            <option value="0" style="display: none;">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        <br>
+                                    </div>
+                                    <label for="inputRating">Out of 5, how would you rate this buyer? :) </label>
+                                    <select id="buyerRating" name="buyerRating">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <style>
+                                    #hide{
+                                        display: none;
+                                    }
+                                    </style>  
+                                <% } else if(transaction.username == currentUser) { %>
+                                    <label for="inputRating">Out of 5, how would you rate their service? :) </label>
+                                    <select id="serviceRating" name="serviceRating">
+                                        <option name="rating" value="0">0</option>
+                                        <option name="rating" value="1">1</option>
+                                        <option name="rating" value="2">2</option>
+                                        <option name="rating" value="3">3</option>
+                                        <option name="rating" value="4">4</option>
+                                        <option name="rating" value="5">5</option>
+                                    </select>
+                                    <br>
+                                    <label for="inputRating">Out of 5, how would you rate their price? :) </label>
+                                    <select id="priceRating" name="priceRating">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <br>
+                                    <div id="hide">
+                                        <label for="inputRating">Out of 5, how would you rate this buyer? :) </label>
+                                        <select id="buyerRating" name="buyerRating" style="display: none; visibility: hidden">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>     
+                                    </div>        
+                                    <style>
+                                    #hide{
+                                        display: none;
+                                    }
+                                    </style>                       
+                                <% } %>
+                            </fieldset>
+                        </div>
+                        <div class="modal-footer">
+                            <center>
+                                <button type="submit" id="check1" class="btn btn-primary" onclick="saveChanges()">Submit Review</button>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <!--//Form-->
+                </div>
+            </div>
+    </div>
+    <br><br>
+    <% include ../partials/footer %>
+
+    <script type="text/javascript">
+    $("#check1").click(function (event) {                   
+        if ($("#title").val() && $("#Content").val()) {
+            event.preventDefault();
+            var form = $(this).parents('form');
+            swal({
+            title: "Are you sure?",
+            text: "Once sent, you cannot edit your review anymore!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, submit my review!",
+            cancelButtonText: "No, wait!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+            function(isConfirm) {
+            if (isConfirm) {
+                swal("Form Submitted!", "Your form has been recorded", "success");
+                form.submit();
+            } else {
+                swal("Cancelled", "Your form has not been submitted :)", "error");
+            }
+            });
+        }
+        else {
+            swal({
+            title: "Please input the selected field(s).",
+            text: "Sorry, unable to make a review due to selected field(s) not inputted.",
+            type: "warning", 
+            allowOutsideClick: false,
+            timer:5000,
+            });
+        }
+    });   
+    </script>
+    <script>
+    //     parseInt
+    function saveChanges() {
+        var url = "http://localhost:3000/editReview/<%=transaction.id%>";
+        serviceRating = $('#serviceRating').val(),
+        priceRating = $('#priceRating').val(),
+        buyerRating = $("#buyerRating").val()
+        var newValues = {
+            title: $("#title").val(),
+            content: $("#Content").val(),
+            serviceRating: serviceRating,
+            priceRating: priceRating,
+            buyerRating: buyerRating
+        }
+        
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: JSON.stringify(newValues),
+            dataType: "json",
+            contentType: "application/json",
+            success: function(result){
+                swal("Good job!", "Review updated successfully!", "success");
+                location.href = "http://localhost:3000/profile"
+            },
+            error: function(result){
+                console.log('Error')
+                discardChanges();
+            }
+        })
+    }    
+
+    $("#check1").click(function (event) {
+        
+        if ($("#title").val() && $("#Content").val()) {
+            swal({
+            title: "Good Job!",
+            text: "Settings updated successfully!",
+            type: "success", 
+            allowOutsideClick: false,
+            timer:5000,
+            });
+        saveChanges();
+        }
+        else {
+            swal({
+            title: "Please input the selected field(s).",
+            text: "Sorry, unable to update due to selected field(s) not inputted.",
+            type: "warning", 
+            allowOutsideClick: false,
+            timer:5000,
+            });
+        }
+    });
+    </script>
+</body>
+
+</html>

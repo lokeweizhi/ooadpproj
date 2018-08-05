@@ -11,7 +11,11 @@ var profileController = require('../controllers/profileController');
 profileRouter.get("/profile",profileController.hasAuthorization, profileController.list)
 profileRouter.post('/profile',profileController.hasAuthorization, upload.single('image'), profileController.uploadImage);
 profileRouter.get("/profile/:username",profileController.hasAuthorization, profileController.browseProfiles);
-profileRouter.delete("/profile/:profile_id",profileController.hasAuthorization, profileController.delete);
+
+// edit reviews in browse profile
+profileRouter.get("/editReview/:id", profileController.hasAuthorization, profileController.editRecord); 
+profileRouter.post("/editReview/:id", profileController.hasAuthorization,profileController.update);
+profileRouter.delete("/profile/:username/:profile_id",profileController.hasAuthorization, profileController.delete);
 
 profileRouter.post("/newReportRequest", profileController.hasAuthorization, profileController.create);
 

@@ -1,4 +1,5 @@
 var ReviewsModel = require('../models/reviewsModel');
+var listingsModel = require('../models/listingModel');
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
 
@@ -8,12 +9,17 @@ exports.list = function (req, res) {
     sequelize.query('SELECT * FROM reviews where averageSellerRating > 4.4 and sellerCount> 4 ORDER BY averageSellerRating desc',  
         { model: ReviewsModel },
     ).then(function (reviews) {
-        res.render('topSellers', {
-            title: "Adamire - Top Sellers",
-            sellersList: reviews,
-            user: req.user,
-            login: login,
-            urlPath: req.protocol + "://" + req.get("host") + req.url
+        listingsModel.findAll({
+            where:{name: req.body.username}
+        }).then(function(listings){
+            console.log("************************************listings:",listings);
+            res.render('topSellers', {
+                title: "Adamire - Top Sellers",
+                sellersList: reviews,
+                user: req.user,
+                login: login,
+                urlPath: req.protocol + "://" + req.get("host") + req.url
+            });
         });
     }).catch((err) => {
         return res.status(400).send({

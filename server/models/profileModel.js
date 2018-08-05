@@ -42,6 +42,9 @@ const Profile = sequelize.define('Profile', {
     targetUsername: {
         type:Sequelize.STRING,
     },
+    transactionId:{
+        type: Sequelize.INTEGER
+    }
     // user_id:{
     //     type: Sequelize.INTEGER,
     //     allowNull: false,
@@ -66,7 +69,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 5,
         buyerRating: 0,
         by: "linpeishan",
-        targetUsername: "JohannaJimeno"
+        targetUsername: "JohannaJimeno",
+        transactionId: 1
     }),
     Profile.upsert({
         id: 2,
@@ -78,7 +82,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 0,
         buyerRating: 5,
         by: "linpeishan",
-        targetUsername: "JohannaJimeno"
+        targetUsername: "JohannaJimeno",
+        transactionId: 2
     }),
     Profile.upsert({
         id: 3,
@@ -90,7 +95,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 5,
         buyerRating: 0,
         by: "linpeishan",
-        targetUsername: "JohannaJimeno"
+        targetUsername: "JohannaJimeno",
+        transactionId: 3
     }),
     Profile.upsert({
         id: 4,
@@ -102,7 +108,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 1,
         buyerRating: 0,
         by: "JohannaJimeno",
-        targetUsername: "linpeishan"
+        targetUsername: "linpeishan",
+        transactionId: 4
     }),
     Profile.upsert({
         id: 5,
@@ -114,7 +121,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 5,
         buyerRating: 0,
         by: "leeshangji",
-        targetUsername: "benjaminloke"
+        targetUsername: "benjaminloke",
+        transactionId: 5
     }),
     Profile.upsert({
         id: 6,
@@ -126,7 +134,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 4,
         buyerRating: 0,
         by: "benjaminloke",
-        targetUsername: "leeshangji"
+        targetUsername: "leeshangji",
+        transactionId: 6
     }),
     Profile.upsert({
         id: 7,
@@ -138,7 +147,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 1,
         buyerRating: 0,
         by: "benjaminloke",
-        targetUsername: "linpeishan"
+        targetUsername: "linpeishan",
+        transactionId: 7
     }),
     Profile.upsert({
         id: 8,
@@ -150,7 +160,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 5,
         buyerRating: 0,
         by: "leeshangji",
-        targetUsername: "benjaminloke"
+        targetUsername: "benjaminloke",
+        transactionId: 8
     }),
     Profile.upsert({
         id: 9,
@@ -162,7 +173,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 5,
         buyerRating: 0,
         by: "leeshangji",
-        targetUsername: "benjaminloke"
+        targetUsername: "benjaminloke",
+        transactionId: 9
     }),
     Profile.upsert({
         id: 10,
@@ -174,7 +186,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 5,
         buyerRating: 0,
         by: "leeshangji",
-        targetUsername: "benjaminloke"
+        targetUsername: "benjaminloke",
+        transactionId: 10
     }),
     Profile.upsert({
         id: 11,
@@ -186,7 +199,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 5,
         buyerRating: 0,
         by: "leeshangji",
-        targetUsername: "benjaminloke"
+        targetUsername: "benjaminloke",
+        transactionId: 11
     }),
     Profile.upsert({
         id: 12,
@@ -198,7 +212,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 4,
         buyerRating: 0,
         by: "benjaminloke",
-        targetUsername: "leeshangji"
+        targetUsername: "leeshangji",
+        transactionId: 12
     }),
     Profile.upsert({
         id: 13,
@@ -210,7 +225,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 4,
         buyerRating: 0,
         by: "benjaminloke",
-        targetUsername: "leeshangji"
+        targetUsername: "leeshangji",
+        transactionId: 13
     }),
     Profile.upsert({
         id: 14,
@@ -222,7 +238,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 4,
         buyerRating: 0,
         by: "benjaminloke",
-        targetUsername: "leeshangji"
+        targetUsername: "leeshangji",
+        transactionId: 14
     }),
     Profile.upsert({
         id: 15,
@@ -234,7 +251,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 4,
         buyerRating: 0,
         by: "benjaminloke",
-        targetUsername: "leeshangji"
+        targetUsername: "leeshangji",
+        transactionId: 15
     }),
     Profile.upsert({
         id: 16,
@@ -246,7 +264,8 @@ Profile.sync({ force: false, logging: console.log}).then(() => {
         priceRating: 4,
         buyerRating: 0,
         by: "benjaminloke",
-        targetUsername: "leeshangji"
+        targetUsername: "leeshangji",
+        transactionId: 16
     })
 });
 //Sat Aug 04 2018 18:19:52 GMT+0800 (Malay Peninsula Standard Time)

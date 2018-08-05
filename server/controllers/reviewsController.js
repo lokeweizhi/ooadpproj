@@ -142,7 +142,7 @@ exports.create = function (req, res) {
             // console.log("!!!!!!!!req.body.username:",req.body.username);
             // console.log("!!!!!!!!totalServiceRatings:",totalServiceRatings);
             // console.log("!!!!!!!!totalPriceRatings:",totalPriceRatings);
-            
+            console.log("********************req.params.id:",req.body.id);
             var ratingsData = { // aka reviews
                 username: req.body.username,
                 imageName: user.imageName,
@@ -164,6 +164,7 @@ exports.create = function (req, res) {
                 buyerRating: req.body.buyerRating,
                 by: req.user.username,
                 targetUsername: req.body.username,
+                transactionId: req.body.id
                 // user_id: req.user.id // stores user who submitted the reviews
             };
             if (req.body.buyerOrSeller == "Buyer"){

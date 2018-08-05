@@ -11,6 +11,7 @@ var Profile = require('../models/profileModel');
 var UsersModel = require('../models/users');
 var ReviewsModel = require('../models/reviewsModel');
 var ReportModel = require('../models/reportUserModel');
+var transaction = require('../models/transactions');
 
 var myDatabase = require('./database');
 var sequelize = myDatabase.sequelize;
@@ -114,6 +115,8 @@ exports.uploadImage = function(req,res){
 
 // delete reviews
 exports.delete = function (req, res) {
+    var username = req.params.username;
+    console.log("*********************************sjcwc",username);
     var record_num = req.params.profile_id;
     console.log("deleting reviews " + record_num);
     Profile.destroy({where: {id: record_num}}).then((deletedReview)=> {
@@ -138,36 +141,42 @@ exports.browseProfiles = function (req, res) {
         ReviewsModel.findAll({ // display multiple ratings
             attributes: ['id', 'username' ,'imageName', 'averageSellerRating', 'averageBuyerRating', 'sellerCount', 'buyerCount', 'verificationStatus']
         }).then(function (totalReviews) {
-            ReviewsModel.find({ // display Individual ratings
-                attributes: ['id','username', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount', 'verificationStatus'],
-                where: {username: record_username}
-            }).then(function(review){
-                UsersModel.find({
-                    where:{username: record_username
-                    }}).then(function(profilesRecord){
-                    var username = profilesRecord.username
-                    Profile.findAll({
-                        where:{targetUsername: username}
-                    }).then(function(profile){
-                        ListingModel.findAll({
-                            attributes: ['id', 'name','itemImage', 'group', 'hobby', 'category', 'by'],
-                            where:{by: record_username}
-                        }).then(function (listings) {
-                            res.render('browseProfiles', {
-                                title: "Adamire - @" + profilesRecord.username,
-                                webTitle: "User - " + profilesRecord.username,
-                                item: profilesRecord,
-                                profile: profile,
-                                itemList: listings,
-                                review: review,
-                                totalReviews: totalReviews,
-                                moment: moment,
-                                urlPath: req.protocol + "://" + req.get("host") + "/profile"
-                            });
-                        })
-                    }) 
+            transaction.findAll({
+                attributes: ['id','contactName', 'username']
+            }).then(function(transaction){
+                ReviewsModel.find({ // display Individual ratings
+                    attributes: ['id','username', 'averageSellerRating', 'totalServiceRatings', 'totalPriceRatings', 'averageBuyerRating','sellerCount', 'buyerCount', 'verificationStatus'],
+                    where: {username: record_username}
+                }).then(function(review){
+                    UsersModel.find({
+                        where:{username: record_username
+                        }}).then(function(profilesRecord){
+                        var username = profilesRecord.username
+                        Profile.findAll({
+                            where:{targetUsername: username}
+                        }).then(function(profile){
+                            ListingModel.findAll({
+                                attributes: ['id', 'name','itemImage', 'group', 'hobby', 'category', 'by'],
+                                where:{by: record_username}
+                            }).then(function (listings) {
+                                res.render('browseProfiles', {
+                                    title: "Adamire - @" + profilesRecord.username,
+                                    webTitle: "User - " + profilesRecord.username,
+                                    item: profilesRecord,
+                                    profile: profile,
+                                    itemList: listings,
+                                    review: review,
+                                    totalReviews: totalReviews,
+                                    moment: moment,
+                                    currentUser: req.user.username,
+                                    transaction: transaction,
+                                    urlPath: req.protocol + "://" + req.get("host") + "/profile"
+                                });
+                            })
+                        }) 
+                    })
                 })
-            })
+            });
         }).catch((err) => {
             return res.status(400).send({
                 message: err
@@ -204,6 +213,47 @@ exports.delete =  function (req, res) {
         }
         res.status(200).send({ message: "Deleted student record:" + record_num});
     });
+}
+
+exports.editRecord = function (req, res) {
+    var record_num = req.params.id;
+    transaction.findById(record_num).then(function (transaction) {
+        Profile.find({where:{transactionId: record_num}}).then(function(profile){
+            console.log("*****************************profile",profile);
+            res.render('editActivity', {
+                title: "Adamire - Review",
+                webTitle: "Review",
+                transaction: transaction,
+                currentUser: req.user.username,
+                profile: profile
+                //hostPath: req.protocol + "://" + req.get("host")
+            });
+        })
+    }).catch((err) => {
+        return res.status(400).send({
+            message: err
+        });
+    });
+};
+// Update student record in database
+exports.update = function (req, res) {
+    var record_num = req.params.id;
+    console.log("************************************req.body.title:",req.body.title,req.body.content,req.body.serviceRating,req.body.priceRating,req.body.buyerRating)
+    var updateData = {
+        title: req.body.title,
+        content: req.body.content,
+        serviceRating: req.body.serviceRating,
+        priceRating: req.body.priceRating,
+        buyerRating: req.body.buyerRating
+    }
+    Profile.update(updateData, { where: { id: record_num } }).then((updateRecord) => {
+        if (!updateRecord || updateRecord == 0) {
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        res.status(200).send({ message: "Updated record:" + record_num});
+    })
 }
 
 // Profile authorization middleware

@@ -103,11 +103,11 @@
                     <div class="left col-lg-4">
                         <div class="photo-left" style="position: relative;">
                             <img class="photo" src="../images/profileImages/<%= item.imageName %>"/>
-                            <button type="button" style="position: absolute;border:0; padding: 8px 8px;top: 90%;left: 50%;transform: translate(-50%, -50%);text-align: center; background-color: rgba(255,68,68,0.90);" data-toggle="modal" data-target="#sendDeactivationRequest" class="btn btn-danger">
+                            <!-- <button type="button" style="position: absolute;border:0; padding: 8px 8px;top: 90%;left: 50%;transform: translate(-50%, -50%);text-align: center; background-color: rgba(255,68,68,0.90);" data-toggle="modal" data-target="#sendDeactivationRequest" class="btn btn-danger">
                                 Report User
-                            </button>
+                            </button> -->
                             <!--Modal-->
-                            <div class="modal fade" id="sendDeactivationRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <!-- <div class="modal fade" id="sendDeactivationRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <form action="/newReportRequest" method="post" id="myForm">
@@ -138,7 +138,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--// Modal-->
                         </div>
                         <h4 class="name" id="username" name="username"><span id="verified"></span><%=item.username %></h4>
@@ -280,10 +280,10 @@
                                             <ul class="list list-group">
                                             <% i=0 %>
                                                 <% profile.forEach(function(review){ %>
-                                                    <% if (review.buyerOrSeller == "Seller") { %>
-                                                    <li class="list--list-item list-group-item" data-gender="<%= review.buyerOrSeller %>">
+                                                    <% if (review.buyerOrSeller == "Seller") { %>                                                    
+                                                    <li class="list--list-item list-group-item"  data-gender="<%= review.buyerOrSeller %>" id='sth<%=review.id%>' data-id="<%=review.id%>" data-user="<%=review.targetUsername%>" data-transactionId="<%=review.transactionId%>">
                                                     <% } else if(review.buyerOrSeller == "Buyer") {%>
-                                                    <li class="list--list-item list-group-item" data-gender="<%= review.buyerOrSeller %>">
+                                                    <li class="list--list-item list-group-item" data-gender="<%= review.buyerOrSeller %>" id='sth<%=review.id%>' data-id="<%=review.id%>" data-user="<%=review.targetUsername%>" data-transactionId="<%=review.transactionId%>">
                                                     <% } %>
                                                         <!--User's dp-->
                                                         <% totalReviews.forEach(function(imageName){ %>
@@ -301,35 +301,14 @@
                                                         <h4 style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;text-decoration: underline;">
                                                                 <%= review.title %>
                                                                 <div class="float-right">
-                                                                    <% if (review.buyerOrSeller == "Seller") { %>
-                                                                        <p class="list-group-item-text" id="sRating">
-                                                                            <div class="sellerRating<%=i%>" style="display: none;">
-                                                                                <span  class="sellerRating"><%= review.serviceRating %></span>
-                                                                                <span class="number-rating"></span>
-                                                                            </div>                                                  
-                                                                        </p>
-                                                                        <p class="list-group-item-text" id="bRating">
-                                                                            <div class="buyerRating<%=i%>">
-                                                                                <span  class="buyerRating"><%= review.buyerRating %> / 5</span>
-                                                                            </div>                                                  
-                                                                        </p>
-                                                                        <% i+=1 %>
-                                                                    <% } else if (review.buyerOrSeller == "Buyer") {%>
-                                                                        <p class="list-group-item-text" id="sRating">
-                                                                            <div class="sellerRating<%=i%>">
-                                                                                <span  class="sellerRating"><%= Math.round(((review.serviceRating*0.5)+(review.priceRating*0.5)) * 10) / 10 %> / 5</span>
-                                                                            </div>                                                
-                                                                        </p>
-                                                                        <p class="list-group-item-text" id="bRating">
-                                                                            <div class="buyerRating<%=i%>" style="display: none;">
-                                                                                <div class="stars-outer">
-                                                                                <div class="stars-inner"></div>
-                                                                                </div>
-                                                                                <span  class="buyerRating"><%= review.buyerRating %></span>
-                                                                            </div>                                                  
-                                                                        </p>
-                                                                        <% i+=1 %>
+                                                                    <% if (currentUser == review.by) { %>
+                                                                        <button type="button" class="btn btn-warning editBtn">Edit Review</button>
+                                                                        <!-- <button type="button" class="btn btn-danger deleteBtn">Delete</button> -->
+                                                                        
+                                                                        
+                                                                        
                                                                     <% } %>
+                                                                        
                                                                 </div>
                                                             </h4>                                                                                                                    
                                                         <!--//User's rating-->
@@ -340,15 +319,79 @@
                                                             <small class="text-muted">
                                                                 <strong>-<span class="by" style="cursor: pointer;font-size: 0.85em;font-weight: 700;font-style: italic;" ><%= review.by %></strong>
                                                                 <span class="badge badge-success">Verified</span>
-                                                                <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= moment(review.created).format( 'DD-MMM-YYYY HH:mm:ss') %>
+                                                                <div style="font-size: 0.85em;font-style: italic;"><%= moment(review.created).format( 'DD-MMM-YYYY HH:mm:ss') %>
+                                                                <!-- <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= moment(review.created).format( 'DD-MMM-YYYY HH:mm:ss') %> -->
+                                                                <div class="float-right">
+                                                                <% if (review.buyerOrSeller == "Seller") { %>
+                                                                    <p class="list-group-item-text" id="sRating">
+                                                                        <div class="sellerRating<%=i%>" style="display: none;">
+                                                                            <span  class="sellerRating"><%= review.serviceRating %></span>
+                                                                            <span class="number-rating"></span>
+                                                                        </div>                                                  
+                                                                    </p>
+                                                                    <p class="list-group-item-text" id="bRating">
+                                                                        <div class="buyerRating<%=i%>">
+                                                                            <span  class="buyerRating"><%= review.buyerRating %> / 5</span>
+                                                                        </div>                                                  
+                                                                    </p>
+                                                                    <% i+=1 %>
+                                                                <% } else if (review.buyerOrSeller == "Buyer") {%>
+                                                                    <p class="list-group-item-text" id="sRating">
+                                                                        <div class="sellerRating<%=i%>">
+                                                                            <span  class="sellerRating"><%= Math.round(((review.serviceRating*0.5)+(review.priceRating*0.5)) * 10) / 10 %> / 5</span>
+                                                                        </div>                                                
+                                                                    </p>
+                                                                    <p class="list-group-item-text" id="bRating">
+                                                                        <div class="buyerRating<%=i%>" style="display: none;">
+                                                                            <div class="stars-outer">
+                                                                            <div class="stars-inner"></div>
+                                                                            </div>
+                                                                            <span  class="buyerRating"><%= review.buyerRating %></span>
+                                                                        </div>                                                  
+                                                                    </p>
+                                                                    <% i+=1 %>
+                                                                <% } %>
+                                                                </div>
                                                                 </div>
                                                             </small>
                                                             <%} else {%>
                                                             <small class="text-muted">
                                                                 <strong>-<span class="by" style="cursor: pointer;font-size: 0.85em;font-weight: 700;font-style: italic;" ><%= review.by %></strong>
-                                                                <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= moment(review.created).format( 'DD-MMM-YYYY HH:mm:ss') %>
-                                                                </div>
-                                                            </small>
+                                                                    <div style="font-size: 0.85em;font-style: italic;"><%= moment(review.created).format( 'DD-MMM-YYYY HH:mm:ss') %>
+                                                                        <!-- <div class="float-right" style="font-size: 0.85em;font-style: italic;"><%= moment(review.created).format( 'DD-MMM-YYYY HH:mm:ss') %> -->
+                                                                        <div class="float-right">
+                                                                        <% if (review.buyerOrSeller == "Seller") { %>
+                                                                            <p class="list-group-item-text" id="sRating">
+                                                                                <div class="sellerRating<%=i%>" style="display: none;">
+                                                                                    <span  class="sellerRating"><%= review.serviceRating %></span>
+                                                                                    <span class="number-rating"></span>
+                                                                                </div>                                                  
+                                                                            </p>
+                                                                            <p class="list-group-item-text" id="bRating">
+                                                                                <div class="buyerRating<%=i%>">
+                                                                                    <span  class="buyerRating"><%= review.buyerRating %> / 5</span>
+                                                                                </div>                                                  
+                                                                            </p>
+                                                                            <% i+=1 %>
+                                                                        <% } else if (review.buyerOrSeller == "Buyer") {%>
+                                                                            <p class="list-group-item-text" id="sRating">
+                                                                                <div class="sellerRating<%=i%>">
+                                                                                    <span  class="sellerRating"><%= Math.round(((review.serviceRating*0.5)+(review.priceRating*0.5)) * 10) / 10 %> / 5</span>
+                                                                                </div>                                                
+                                                                            </p>
+                                                                            <p class="list-group-item-text" id="bRating">
+                                                                                <div class="buyerRating<%=i%>" style="display: none;">
+                                                                                    <div class="stars-outer">
+                                                                                    <div class="stars-inner"></div>
+                                                                                    </div>
+                                                                                    <span  class="buyerRating"><%= review.buyerRating %></span>
+                                                                                </div>                                                  
+                                                                            </p>
+                                                                            <% i+=1 %>
+                                                                        <% } %>
+                                                                        </div>
+                                                                        </div>
+                                                                    </small>
                                                             <% } %>
                                                             <style>
                                                                 .by:hover {
@@ -509,30 +552,16 @@
         <script src="/javascripts/profile.js"></script>  
         <script>
         // for delete button
-        // $('.deleteBtn').click(function() {
-        //     var profile_id = $(this).data('id');      
-        //     $.ajax({
-        //             url: '<%-urlPath%>'+'/'+profile_id,
-        //             type: 'DELETE',
-        //             success: function(result) {
-        //                 console.log(result.message);
-        //                 var itemToRemove = '.list-group-item[data-id='+ profile_id+']';
-        //                 $(itemToRemove).remove();
-        //                 calculateTotalRatings(); // to calculate the average rating
-        //                 verified(); // check whether if the user is still verified
-        //             },
-        //             error: function(result){
-        //                 alert("Unable to delete review.");
-        //                 console.log(result.message);
-        //             } 
-        //         });  
-        //     });
+        
 
         // redirects to the next user
         $('.by').click(function () {
             var record_username = $(this).closest('.list-group-item').find('.by').text();
             location.href = "<%-urlPath %>/"+record_username;
         });
+
+
+
         </script>
         <script> 
         // display final avg stars(indv) & reviews
@@ -640,16 +669,39 @@
                 span.innerHTML = "Verified";
                 var isVerified = document.getElementById("isVerified");
                 isVerified.appendChild(span);
-                // ========================
-                // var i = document.createElement("i");
-                // i.className = "fa fa-check-circle-o";
-                // i.style.cssText = "font-size:24px;color:blue";
-                // var verified = document.getElementById("verified");
-                // verified.appendChild(i);
             } 
         }
         verified();
         </script> 
+        <script>
+        $('.deleteBtn').click(function() {
+            // var profile_id = $(this).data('id'); 
+            var profile_id = $(this).closest('.list-group-item').data('id')  
+            var username =   $(this).closest('.list-group-item').data('user')
+            // $(this).closest('.list-group-item').find('.by').text()
+            // alert(profile_id)
+            // alert(username)
+            // alert('<%-urlPath%>'+'/'+ username +'/'+profile_id)
+            $.ajax({
+                    url: '<%-urlPath%>'+'/'+ username +'/'+profile_id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        console.log(result.message);
+                        var itemToRemove = '#sth'+ profile_id;
+                        $(itemToRemove).remove();
+                    },
+                    error: function(result){
+                        alert("Unable to delete review.");
+                        console.log("********************help",result.message);
+                    } 
+                });  
+            });
+            $('.editBtn').click(function () {
+                var username =  $(this).closest('.list-group-item').data('transactionid');
+                alert(username)
+                location.href = "http://localhost:3000/editReview/"+username;
+            });
+        </script>
 </body>
 
 </html>
