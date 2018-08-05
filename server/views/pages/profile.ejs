@@ -208,9 +208,8 @@
                                                                     <img src="images/itemImage/<%=itemList[i].itemImage%>" alt="<%= itemList[i].name %>" height="500" width="500"  alt="<%= itemList[i].name %>"/>
                                                                 </center>
                                                             </h5>
-                                                            <h6 class="card-subtitle mb-2 text-secondary center itemName" style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;">
+                                                            <h6 class="card-subtitle mb-2 text-secondary center itemName" style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em; cursor: pointer" onclick="location.href='/listing/<%= itemList[i].id %>'">
                                                                 <%= itemList[i].name %>
-                                                                
                                                             </h6>
                                                             <p class="card-text text-muted">
                                                                 <%if (user.location == "Singapore") {%>
@@ -466,6 +465,9 @@
             var record_username = $(this).closest('.list-group-item').find('.by').text();
             location.href = "<%-urlPath %>/"+record_username;
         });
+        // $('.itemName').click(function () {
+        //     var itemNumber = 
+        // })
         </script>
         <script> 
         // display final avg stars(indv) & reviews
