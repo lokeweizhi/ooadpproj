@@ -133,7 +133,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary reportButton" id="btn-submit">Submit</button>
+                                                <button type="submit" id="check1" class="btn btn-primary reportButton" id="btn-submit">Submit</button>
                                             </div>
                                         </form>
                                     </div>
@@ -210,8 +210,17 @@
                                                                 </center>
                                                             </h5>
                                                             <h6 class="card-subtitle mb-2 text-secondary center itemName" style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em; cursor: pointer" onclick="location.href='/listing/<%= itemList[i].id %>'">
-                                                                <%= itemList[i].name %>
+                                                                <a><%= itemList[i].name %></a>
                                                             </h6>
+                                                            <style>
+                                                                .itemName {
+                                                                    font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;;
+                                                                }
+                                                                .itemName > a:hover {
+                                                                    text-decoration: underline !important;
+                                                                    color: #428bca !important
+                                                                }
+                                                            </style>
                                                             <p class="card-text text-muted">
                                                                 <%if (item.location == "Singapore") {%>
                                                                     <p class="text-muted"  style="font-size: 0.875em;">SGD <strong><%= itemList[i].group %></strong></p>
@@ -357,6 +366,12 @@
                                                                 </div>
                                                             </small>
                                                             <% } %>
+                                                            <style>
+                                                                .by:hover {
+                                                                    text-decoration: underline !important;
+                                                                    color: #428bca !important
+                                                                }
+                                                            </style>
                                                             <% } %>
                                                         <% }) %>
                                                         <!-- <h3 class="name"><%= review.by %></h3>
@@ -446,29 +461,43 @@
         });
         </script>
         <script>
-        $('.reportButton').on('click', function (e) {
-            e.preventDefault();
-            var form = $(this).parents('form');
-            swal({
-            title: "Are you sure?",
-            text: "Once sent, you cannot edit your report anymore!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Yes, report user!",
-            cancelButtonText: "No, wait!",
-            closeOnConfirm: false,
-            closeOnCancel: false
-            },
-            function(isConfirm) {
-            if (isConfirm) {
-                swal("Form Submitted!", "Your form has been sent to the admin.", "success");
-                form.submit();
-            } else {
-                swal("Cancelled", "Your form has not been submitted :)", "error");
+        $("#check1").click(function (event) {                   
+            if ($("#reportRequest").val()) {
+                event.preventDefault();
+                var form = $(this).parents('form');
+                swal({
+                title: "Are you sure?",
+                text: "Once sent, you cannot edit your report anymore!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, report user!",
+                cancelButtonText: "No, wait!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+                },
+                function(isConfirm) {
+                if (isConfirm) {
+                    swal("Form Submitted!", "Your form has been sent to the admin.", "success");
+                    form.submit();
+                } else {
+                    swal("Cancelled", "Your form has not been submitted :)", "error");
+                }
+                });
             }
-            });
-        })
+            else {
+                swal({
+                title: "Please input the selected field(s).",
+                text: "Sorry, unable to make a report due to selected field(s) not inputted.",
+                type: "warning", 
+                allowOutsideClick: false,
+                timer:5000,
+                });
+            }
+        });  
+
+        //================================================
+
         
         </script>
         

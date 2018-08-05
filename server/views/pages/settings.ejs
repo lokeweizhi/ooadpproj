@@ -65,12 +65,40 @@
                                     </div>
                                 </div>
                                 <br>
-                                <center><input type="submit" onclick=saveChanges() value="save changes"></center>
+                                <center><input type="submit" id="check1" value="save changes"></center>
                         </div>
+                        <script>
+                        
+                        $("#check1").click(function (event) {
+                            
+                            if ($("#location").val()) {
+                                swal({
+                                title: "Good Job!",
+                                text: "Settings updated successfully!",
+                                type: "success", 
+                                allowOutsideClick: false,
+                                timer:5000,
+                                });
+                            saveChanges();
+                            }
+                            else {
+                                swal({
+                                title: "Please input the selected field(s).",
+                                text: "Sorry, unable to update due to selected field(s) not inputted.",
+                                type: "warning", 
+                                allowOutsideClick: false,
+                                timer:5000,
+                                });
+                            }
+                        });
+                                              
+                        
+                        </script>
                     <!--//Public-->
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <!--Personal-->
+                    <form method="post">
                         <div class="container">
                             <div class="form-row">
                                 <div class="form-group col-md-5">
@@ -106,7 +134,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputPhoneNumber">PHONE NUMBER<span id="impt">*</span></label>
-                                    <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" value=<%=user.phoneNumber %> required="">
+                                    <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" value=<%=user.phoneNumber %> required>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -114,35 +142,103 @@
                                 <!--Modal-->
                                 <a data-toggle="modal" data-target="#sendDeactivationRequest" style="text-decoration: underline;cursor: pointer;">Deactivate Account
                                 </a>
-                                    <div class="modal fade" id="sendDeactivationRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <form action="/newDeactivationRequest" method="post">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                        <h4>Send deactivation request to admin</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <fieldset class="form-group">
-                                                            <textarea id="deactivationRequest" name="reasons" rows="5" cols="40" class="form-control" placeholder="Feedback Description" required=""></textarea>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                 <!--Modal-->
+                                <div class="modal fade" id="sendDeactivationRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <form action="/newDeactivationRequest" method="post">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h4>Send deactivation request to admin</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <fieldset class="form-group">
+                                                        <textarea id="deactivationRequest" name="reasons" rows="5" cols="40" class="form-control" placeholder="Feedback Description" required=""></textarea>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id="deactivationSubmit">Submit</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
+                                </div>
+                                    <!--//Modal-->   
                                 </div>
                                 <!--//modal-->                        
                             </div>
                             <br>
-                            <input type="submit" onclick=saveChanges() value="save changes">   
+                            <input type="submit" id="check2" value="save changes">   
+                            <script>
+                            // $("#deactivationSubmit").click(function (event) {                   
+                            //     if ($("#deactivationRequest").val()) {
+                            //         event.preventDefault();
+                            //         var form = $(this).parents('form');
+                            //         swal({
+                            //         title: "Are you sure?",
+                            //         text: "Once sent, you cannot edit your deactivation request anymore and it will be sent to the admin!",
+                            //         type: "warning",
+                            //         showCancelButton: true,
+                            //         confirmButtonClass: "btn-danger",
+                            //         confirmButtonText: "Yes, submit my deactivation request!",
+                            //         cancelButtonText: "No, wait!",
+                            //         closeOnConfirm: false,
+                            //         closeOnCancel: false
+                            //         },
+                            //         function(isConfirm) {
+                            //         if (isConfirm) {
+                            //             swal("Form Submitted!", "Your form has been recorded", "success");
+                            //             form.submit();
+                            //         } else {
+                            //             swal("Cancelled", "Your form has not been submitted :)", "error");
+                            //         }
+                            //         });
+                            //     }
+                            //     else {
+                            //         swal({
+                            //         title: "Please input the selected field(s).",
+                            //         text: "Sorry, unable to update due to selected field(s) not inputted.",
+                            //         type: "warning", 
+                            //         allowOutsideClick: false,
+                            //         timer:5000,
+                            //         });
+                            //     }
+                            // });                                  
+                            //========================================================
+
+                            </script>
                         </div>
+                    </form>
+                    
+                        <script>
+                        $("#check2").click(function (event) {
+                            
+                            if ($("#firstName").val() && $("#firstName").val() && $("#email").val() && $("#phoneNumber").val()) {
+                                swal({
+                                title: "Good Job!",
+                                text: "Settings updated successfully!",
+                                type: "success", 
+                                allowOutsideClick: false,
+                                timer:5000,
+                                });
+                            saveChanges();
+                            }
+                            else {
+                                swal({
+                                title: "Please input the selected field(s).",
+                                text: "Sorry, unable to update due to selected field(s) not inputted.",
+                                type: "warning", 
+                                allowOutsideClick: false,
+                                timer:5000,
+                                });
+                            }
+                        });
+                                                
+                        
+                        </script>
                     <!--//Personal-->
                 </div>
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
@@ -163,7 +259,34 @@
                                     <br>
                                 </div>
                             </div>
-                            <input type="submit" onclick=saveChanges() value="save changes">  
+                            <input type="submit" id="check3" value="save changes">  
+
+                            <script>
+                            $("#check3").click(function (event) {
+                                
+                                if ($("#password").val() && $("#confirmPassword").val() && ($("#password").val() == $("#confirmPassword").val()) ) {
+                                    swal({
+                                    title: "Good Job!",
+                                    text: "Settings updated successfully!",
+                                    type: "success", 
+                                    allowOutsideClick: false,
+                                    timer:5000,
+                                    });
+                                saveChanges();
+                                }
+                                else {
+                                    swal({
+                                    title: "Passwords don't match.",
+                                    text: "Sorry, unable to update password.",
+                                    type: "warning", 
+                                    allowOutsideClick: false,
+                                    timer:5000,
+                                    });
+                                }
+                            });
+                                                    
+                            
+                            </script>
                         </div>           
                     <!--//Change Password-->
                 </div>
@@ -181,6 +304,9 @@
     // var tarr = src.split('/');     
     // var file = tarr[4]; //animal-avian-bald-eagle-1131774.jpg
         function saveChanges() {
+            // check for validation
+            
+            // validation ends
             var url = "<%=hostPath%>/settings";
             // firstName, lastName, email, phoneNumber, password, aboutMe, location
             var newValues = {
