@@ -197,18 +197,19 @@ exports.searchThru = function(req, res) {
 })
 }
 
-exports.searchPrice = function(req, res) {
-    var price = req.body.minAmount + " and " + req.body.maxAmount;
-    sequelizeInstance.query('SELECT * FROM listings WHERE price between :price',
+exports.searchCategory = function(req, res) {
+    var categoryName = '%' + req.params.category + '%';
+    sequelizeInstance.query('SELECT * FROM listings WHERE category LIKE :category',
 {
-    replacements: { price: price }, type: sequelizeInstance.QueryTypes.SELECT
+    replacements: { category: categoryName}, type: sequelizeInstance.QueryTypes.SELECT
 }).then(listings => {
     console.log(listings)
-    res.render('listing', {
-        title: "Searched Listings",
+    res.redner('listing', {
+        title: "Listings",
         itemList: listings,
-        urlPath: req.protocol + "://" + req.get("host") + "/listing"
-    });
+        urlPath: req.protocol + "://" + req.get("host") + "/listing",
+        hostPath: req.protocol + "://" + req.get("host")
+    })
 })
 }
 

@@ -41,7 +41,7 @@
     
   <script>
        $('.editBtn').click(function () {
-      var record_num = req.params.id;
+      var record_num = req.params.id; //cant edit from indiv page yet
       location.href = "<%-hostPath %>/edit/"+record_num;
     });
 
