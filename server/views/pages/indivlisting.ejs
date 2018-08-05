@@ -11,7 +11,7 @@
 <body>
     <% include ../partials/header2 %>
     <!--I included it outside bc the table doesnt seem to work-->
-      <h4><%=itemList.img%></h4>
+    <img src="<%=hostPath%>/uploads/itemImage/<%= itemList.itemImage %>" alt="" height="200" width="200" style="align-content: center">
       <div>
         <p>Name:</p>
         <p><%=itemList.name%></p>
@@ -40,6 +40,28 @@
     <!--//end-->
     
   <script>
+       $('.editBtn').click(function () {
+      var record_num = $(this).closest("tr").data('id');
+      location.href = "<%-hostPath %>edit/"+record_num;
+    });
+
+    $('.deleteBtn').click(function () {
+      var record_num = $(this).closest("tr").data('id');
+      $.ajax({
+        url: '<%-hostPath%>/delete/' + record_num,
+        type: 'DELETE',
+        success: function (result) {
+          console.log(result.message);
+          var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+					$(itemToRemove).remove();
+					location.href = "/listing"
+        },
+        error: function (result) {
+          alert("Unable to delete listing.");
+          console.log(result.message);
+        }
+      });
+		});
 
   </script>
 <br>

@@ -12,7 +12,7 @@ const ListingModel = sequelize.define('Listings', {
         type: Sequelize.STRING,
         trim: true
     },
-    img: {
+    itemImage: {
         type: Sequelize.STRING,
     },
     group: {
@@ -39,7 +39,8 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         group: 100,
         hobby: "Used",
         category: "Art & Design",
-        by: "benjaminloke"
+        by: "benjaminloke",
+        itemImage:"013440_131775336_thumbnail.jpg"
     });
     ListingModel.upsert({
         id:2,
@@ -47,15 +48,18 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         group: 32,
         hobby: "New",
         category: "Humanities",
-        by: "benjaminloke"
+        by: "benjaminloke",
+        itemImage:"132433_152214455_thumbnail.jpg"
+        
     });
     ListingModel.upsert({
         id:3,
         name: "2018 A Level Exercise Books",
         group: 12,
         hobby: "New",
-        category: "Maathematics",
-        by: "benjaminloke"
+        category: "Mathematics",
+        by: "benjaminloke",
+        itemImage:"135020_148470207_thumbnail.jpg"
     });
 })
 

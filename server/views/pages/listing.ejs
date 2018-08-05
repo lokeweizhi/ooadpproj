@@ -9,92 +9,106 @@
   <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
   <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
 </head>
-
+<style>
+  div.col-lg-4{
+	
+	height: 490px;
+	margin: 0;
+  margin-right: 20px;
+	width: 350px;
+}
+</style>
 <body>
     <% include ../partials/header %>
-    <fieldset>
-      <div class="x-c">
-        <label for="searchItem">Search for an item</label>
-        <form id="searchItem">
-            <input type="text" class="search" id="userInput" placeholder="Search!" title="Search For An Item!">
-        </form>
-      </div>
-    </fieldset>
-    <fieldset class="priceField">
-      <div class="bf-d">
-        <div>Price</div>
-      </div>
-      <div>
-        <p>
-          <label for="amount">Price Range</label>
-          <input type="number" id="minAmount" placeholder="Minimum" style="border: 0; color:black;"/>
-          <input type="number" id="maxAmount" placeholder="Maximum" style="border: 0; color:black;"/>
-        </p>
+    
+  <div class="container">
+      <fieldset>
+          <label for="searchItem">Search for an item</label>
+          <form id="searchItem">
+             <input type="text" class="search" id="userInput" placeholder="Search!" title="Search For An Item!">
+          </form>
         <div>
-          <input type="button" id="search" value="Search"/>
+            <input type="button" id="search" value="Search"/>
         </div>
-      </div>
-    </fieldset>
-
+      </fieldset>
+    </div>
     <div class="container-fluid">
       <div class="col-lg-5">
         <button class="btn btn-secondary pull-right" onclick="location.href='/createlisting';">New Listing</button>
       </div>
-    </div>
-
-  <div class="container-fluid">
-      <% for(var i=0; i < itemList.length; i++){ %>
-        <div data-id="<%= itemList[i].id %>">
-          <div class="col-lg-4" id="onelisting">
-            <div id="itemName">
-              <%= itemList[i].name %>
-            </div>
-            <div>
-              <%= itemList[i].img %>
-            </div>
-            <div>
-              <%= itemList[i].group %>
-            </div>
-            <div>
-              <%= itemList[i].hobby %>
-            </div>
-            <div>
-              <%= itemList[i].category %>
-            </div>
-            <input type="button" class="editBtn" value="Edit">
-            <input type="button" class="deleteBtn"  value="Delete">
-          </div>
-        <% } %>
-        </div>
   </div>
+
+  <% for(var i=0; i < itemList.length; i++){ %>
+		
+    <div class="col-lg-4 product_col" >
+      
+        <div class="product">
+          <div class="product_image">
+            <br>
+            <img src="<%=hostPath%>/uploads/itemImage/<%= itemList[i].itemImage %>" alt="" height="200" width="200" style="align-content: center">
+          </div>
+        
+          <div class="product_content clearfix">
+            <div class="product_info">
+                
+                    <a href="http://localhost:3000/listing/<%=itemList[i].id%>"><%= itemList[i].name %></a>
+                  
+              <div class="product_price">by:<%= itemList[i].by %></div>
+            </div>
+          <br>
+            <div class="product_options">
+                <table>
+                    <tr  data-id="<%= itemList[i].itemId %>">
+                      
+              <td>
+                <input type="button" class="editBtn btn btn-primary" value="Edit" text-align="flex-center">
+                <input type="button" class="deleteBtn btn btn-primary" onclick="return confirm('Please confirm listing deletion');"  value="Delete"  text-align="flex-center">
+              </td>
+            
+            </tr>
+              </table>
+            </div>
+          
+        
+      </div>
+      </div>
+    
+      </div>
+  
+      <% } %>
+    
+
+        
+    </div>
+    </div>
+  </div>
+</div>
    
 
 
   <script>
-    $('.editBtn').click(function () {
-      var record_num = $(this).data('<%= itemList.id'); // id not defined
+   $('.editBtn').click(function () {
+      var record_num = $(this).closest("tr").data('id');
       location.href = "<%-urlPath %>edit/"+record_num;
     });
 
     $('.deleteBtn').click(function () {
-      var record_num = $(this).closest("div").data('id');
+      var record_num = $(this).closest("tr").data('id');
       $.ajax({
-        url: '<%-urlPath%>/' + record_num,
+        url: '<%-urlPath%>/delete/' + record_num,
         type: 'DELETE',
         success: function (result) {
           console.log(result.message);
           var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
-          $(itemToRemove).remove();
-          redirectToListing();
+					$(itemToRemove).remove();
+					location.href = "/listing"
         },
         error: function (result) {
-          alert("Unable to delete record.");
+          alert("Unable to delete listing.");
           console.log(result.message);
-          redirectToListing();
         }
       });
-    });
-
+		});
     /* $('#search').click(function(){
       for(var i=0; i < itemList.length; i++){
       $('#onelisting').show();
@@ -107,8 +121,6 @@
     //search function
     $('#search').click(function(){
       var searchValue = $('#userInput').val();
-      var mini = $('#minAmount').val();
-      var maxi = $('#maxAmount').val();
       location.href = "<%-urlPath %>/search/" + searchValue;
     });
 

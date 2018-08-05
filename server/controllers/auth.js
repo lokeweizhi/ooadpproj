@@ -3,8 +3,9 @@ var fs = require('fs');
 var mime = require('mime');
 var gravatar = require('gravatar');
 var passport = require('passport');
-//set image file types
-var IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
+
+
+
 
 // Signin GET
 exports.signin = function(req, res) {
@@ -40,10 +41,11 @@ var sequelizeInstance = myDatabase.sequelizeInstance;
 
 exports.list = function (req, res) {
     ListingModel.findAll({
-        attributes: ['id', 'name', 'group', 'hobby', 'category']
+        attributes: ['id', 'name', 'group', 'hobby', 'category','by','itemImage']
     }).then(function (listings) {
         res.render('listing', {
             title: "Listings",
+            hostPath: req.protocol + "://" + req.get("host"),
             itemList: listings,
             urlPath: req.protocol + "://" + req.get("host") + req.url
         });
@@ -54,53 +56,20 @@ exports.list = function (req, res) {
     });
 };
 exports.insert = function (req, res) {
-    console.log("****************req.body.name: "+req.body.name);
-    console.log("*************************", tempPath);
-    
     var listingData = {
         name: req.body.name,
+        itemImage: req.file.filename,
         group: req.body.group,
         hobby: req.body.hobby,
         category: req.body.category,
         by: req.user.username,
     }
     ListingModel.create(listingData).then((newRecord, created) => {
-        var filename = req.body.name + JSON.stringify(newRecord.id);
-        var src;
-        var dest;
-        var targetPath;
-        var tempPath = req.file.path;
-        console.log(req.file);
-        //get the mime type of file
-        var type = mime.lookup(req.file.mimetype);
-        //get file extension
-        var extension =  req.file.path.split(/[. ]+/).pop();
-        //check support fuile types
-        if(IMAGE_TYPES.indexOf(type) == -1) {
-            return res.status(415).send('Supported image formats: jpeg, jpg, png');
-        }
-        targetPath = './public/uploads/' + filename;
-        src = fs.createReadStream(tempPath);
-        dest = fs.createWriteStream(targetPath);
-        src.pipe(dest);
         if (!newRecord) {
             return res.send(400, {
                 message: "error"
             });
         }
-        //save file process
-        src.on('end', function () {
-            //create a new instance of the image
-            var imageData = {
-                img: req.body.img,
-            }
-            fs.unlink(tempPath, function (err) {
-                if(err) {
-                    return res.status(500).send('Internal Server Error');
-                }
-            })
-        })
-        
     }).then(function(){
         res.redirect('/listing');
     })
@@ -194,7 +163,7 @@ exports.listRecord = function (req, res) {
 
 exports.dispform = function (req, res) {
     ListingModel.findAll({
-        attributes: ['id', 'name', 'group', 'hobby']
+        attributes: ['id', 'name', 'group', 'hobby','itemImage']
     }).then(function (listings) {
         res.render('createlisting', {
             title: "Listings",
@@ -210,16 +179,16 @@ exports.dispform = function (req, res) {
 
 exports.searchThru = function(req, res) {
     var itemName = '%' + req.params.name + '%';
-    var price = '%' + req.params.group + '%';
-    sequelizeInstance.query('SELECT * FROM listings WHERE name LIKE :name AND group between ',
+    sequelizeInstance.query('SELECT * FROM listings WHERE name LIKE :name',
 {
-    replacements: { name: itemName, price: price }, type: sequelizeInstance.QueryTypes.SELECT
+    replacements: { name: itemName}, type: sequelizeInstance.QueryTypes.SELECT
 }).then(listings => {
     console.log(listings)
     res.render('listing', {
         title: "Searched Listings",
         itemList: listings,
-        urlPath: req.protocol + "://" + req.get("host") + "/listing"
+        urlPath: req.protocol + "://" + req.get("host") + "/listing",
+        hostPath: req.protocol + "://" + req.get("host")
     });
 })
 }
