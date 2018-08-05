@@ -39,7 +39,7 @@
       <input type="button" class="editBtn" value="Edit">
       <input type="button" class="deleteBtn"  value="Delete">
 
-      <button type="button" class="editChat" onclick="location.href='';">Chat to Buy</button>
+      <button type="button" class="editChat" onclick="location.href='/messages/<%= itemList.id %>'">Chat to Buy</button>
       <button type="submit" onclick="location.href='';">Make an offer</button>
     <!--//end-->
     
@@ -79,10 +79,4 @@
 <% include ../partials/footer %>
 <% include ../partials/javascript %>
 </body>
-<script>
-      $('.editChat').click(function () {
-      var record_num = getElementById(Id)
-      location.href = "<%-urlPath %>chatMsg/"+record_num;
-    });
-</script>
 </html>
