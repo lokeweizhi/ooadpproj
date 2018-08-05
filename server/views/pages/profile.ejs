@@ -205,11 +205,12 @@
                                                         <div class="card-body">
                                                             <h5 class="card-title" >
                                                                 <center>
-                                                                    <img src="https://media.karousell.com/media/photos/products/2017/11/11/o_level_tys_physics_1510369822_8dc76a17.jpg" alt="<%= itemList[i].name %>"/>
+                                                                    <img src="images/itemImage/<%=itemList[i].itemImage%>" alt="<%= itemList[i].name %>" height="500" width="500"  alt="<%= itemList[i].name %>"/>
                                                                 </center>
                                                             </h5>
                                                             <h6 class="card-subtitle mb-2 text-secondary center itemName" style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;">
                                                                 <%= itemList[i].name %>
+                                                                
                                                             </h6>
                                                             <p class="card-text text-muted">
                                                                 <%if (user.location == "Singapore") {%>

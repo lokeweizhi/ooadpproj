@@ -85,7 +85,7 @@ exports.editRecord = function (req, res) {
     ListingModel.findById(record_num).then(function (ListingRecord) {
         res.render('editRecord', {
             title: "Edit Listings",
-            itemList: ListingRecord,
+            item: ListingRecord,
             hostPath: req.protocol + "://" + req.get("host")
         });
     }).catch((err) => {
@@ -211,3 +211,20 @@ exports.searchPrice = function(req, res) {
     });
 })
 }
+
+exports.listAdmin = function (req, res) {
+    ListingModel.findAll({
+        attributes: ['id', 'name', 'group', 'hobby', 'category','by','itemImage']
+    }).then(function (listings) {
+        res.render('manageListingsAdmin', {
+            title: "Listings (Admin)",
+            hostPath: req.protocol + "://" + req.get("host"),
+            itemList: listings,
+            urlPath: req.protocol + "://" + req.get("host") + req.url
+        });
+    }).catch((err) => {
+        return res.status(400).send({
+            message: err
+        });
+    });
+};

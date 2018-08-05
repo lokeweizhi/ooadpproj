@@ -1,71 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>
-        <%= title %>
-    </title>
-    <% include ../partials/stylesheet %>
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src='/javascripts/jquery.min.js'></script>
-    <script src='/javascripts/bootstrap.min.js'></script>
+  <title>
+    <%= title %>
+  </title>
+  <% include ../partials/stylesheet %>
+  <% include ../partials/javascript %>
+  <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
+  <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
 </head>
-
+<style>
+  div.col-lg-4{
+	
+	height: 490px;
+	margin: 0;
+  margin-right: 20px;
+	width: 350px;
+}
+</style>
 <body>
-    <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Edit Listing</h4>
+    <% include ../partials/header %>
+    
+  <div class="container">
+      <fieldset>
+          <label for="searchItem">Search for an item</label>
+          <form id="searchItem">
+             <input type="text" class="search" id="userInput" placeholder="Search!" title="Search For An Item!">
+          </form>
+        <div>
+            <input type="button" id="search" value="Search"/>
+        </div>
+      </fieldset>
     </div>
-    <div class="modal-body">
-        <fieldset class="form-group">
-            <label for="inputName">Item Name</label>
-            <input type="text" id="inputName" name="studentName" class="form-control" placeholder="Student Name" required="true" value="<%=item.name%>">
-        </fieldset>
-        <fieldset class="form-group">
-            <label for="inputGroup">Price</label>
-            <input type="text" id="inputGroup" name="group" class="form-control" placeholder="Group" required="true" value="<%=item.group%>">
-        </fieldset>
-        <fieldset class="form-group">
-            <label for="inputHobby">Condition</label>
-            <input type="text" id="inputHobby" name="hobby" class="form-control" placeholder="Hobby" required="true" value="<%=item.hobby%>">
-        </fieldset>
-    </div>
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" onclick=saveChanges()>Save Changes</button>
-        <button type="button" class="btn btn-secondary" onclick=discardChanges()>Cancel</button>
-    </div>
-    <script>
-        function saveChanges() {
-            var url = "<%=hostPath%>/edit/<%=item.id%>";
-            var newValues = {
-                studentId: $("#inputStudentID").val(),
-                name: $("#inputName").val(),
-                group: $("#inputGroup").val(),
-                hobby: $("#inputHobby").val()
-            }
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: JSON.stringify(newValues),
-                dataType: "json",
-                contentType: "application/json",
-                success: function(result){
-                    alert("Student record updated successfully");
-                    location.href = "<%=hostPath%>"
-                },
-                error: function(result){
-                    alert("Error updating student record");
-                    discardChanges();
-                }
-            })
-        }
+    <div class="container-fluid">
+      <div class="col-lg-5">
+        <button class="btn btn-secondary pull-right" onclick="location.href='/createlisting';">New Listing</button>
+      </div>
+  </div>
 
-        function discardChanges() {
-            location.href = "<%=hostPath%>"
+  <% for(var i=0; i < itemList.length; i++){ %>
+		
+    <div class="col-lg-4 product_col" >
+      
+        <div class="product">
+          <div class="product_image">
+            <br>
+            <img src="<%=hostPath%>/uploads/itemImage/<%= itemList[i].itemImage %>" alt="" height="200" width="200" style="align-content: center">
+          </div>
+        
+          <div class="product_content clearfix">
+            <div class="product_info">
+                
+                    <a href="http://localhost:3000/listing/<%=itemList[i].id%>"><%= itemList[i].name %></a>
+                  
+              <div class="product_price">by:<%= itemList[i].by %></div>
+            </div>
+          <br>
+            <div class="product_options">
+                <table>
+                    <tr  data-id="<%= itemList[i].id %>">
+                      
+              <td>
+                <input type="button" class="editBtn btn btn-primary" value="Edit" text-align="flex-center">
+                <input type="button" class="deleteBtn btn btn-primary" onclick="return confirm('Please confirm listing deletion');"  value="Delete"  text-align="flex-center">
+              </td>
+            
+            </tr>
+              </table>
+            </div>
+          
+        
+      </div>
+      </div>
+    
+      </div>
+  
+      <% } %>
+    
+
+        
+    </div>
+    </div>
+  </div>
+</div>
+   
+
+
+  <script>
+   $('.editBtn').click(function () {
+      var record_num = $(this).closest("tr").data('id');
+      location.href = "<%-urlPath %>edit/"+record_num;
+    });
+
+    $('.deleteBtn').click(function () {
+      var record_num = $(this).closest("tr").data('id');
+      $.ajax({
+        url: '<%-urlPath%>/delete/' + record_num,
+        type: 'DELETE',
+        success: function (result) {
+          console.log(result.message);
+          var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+					$(itemToRemove).remove();
+					location.href = "/listing"
+        },
+        error: function (result) {
+          alert("Unable to delete listing.");
+          console.log(result.message);
         }
-    </script>
+      });
+		});
+    /* $('#search').click(function(){
+      for(var i=0; i < itemList.length; i++){
+      $('#onelisting').show();
+      var txt = $('#userInput').val();
+      $('#onelisting:not(:contains("'+txt+'"))').hide();
+      }
+    });
+    */
+
+    //search function
+    $('#search').click(function(){
+      var searchValue = $('#userInput').val();
+      location.href = "<%-urlPath %>/search/" + searchValue;
+    });
+
+    //search for price
+    /*$('#searchPrice').click(function(){
+      var maxPrice = $('#amount').val();
+      location.href = "<%-urlPath %>/search/" + maxPrice;
+    })
+
+    function redirectToListing(){
+      location.href = "<%-urlPath %>"
+    }
+    */
+  </script>
 
 <% include ../partials/footer %>
-<% include ../partials/javascript %>
 </body>
 
 </html>

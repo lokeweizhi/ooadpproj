@@ -59,7 +59,7 @@ for (i=0;i<length;i++)
     title = title.trim();
     if (title.length > 20){
         console.log("title.length:",title.length)
-        var shortText = jQuery.trim(title).substring(0, 18).trim(this) + "...";
+        var shortText = jQuery.trim(title).substring(0, 12).trim(this) + "...";
     }else{
         shortText = title;
     }
