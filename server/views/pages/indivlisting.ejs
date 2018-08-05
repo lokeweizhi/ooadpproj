@@ -30,14 +30,16 @@
       </div>
         <div>
           <p>By:</p>
-          <p><%=itemList.by%></p>
+          <p><a href="http://localhost:3000/profile/<%itemList.by%>"><%=itemList.by%></a></p>
         </div>
         <div>
           <p style="display:none">Id</p>
           <p><%itemList.id%></p>
         </div>
-      <input type="button" class="editBtn" value="Edit">
-      <input type="button" class="deleteBtn"  value="Delete">
+        <div data-id="<%= itemList.id %>">
+          <input type="button" class="editBtn" value="Edit">
+          <input type="button" class="deleteBtn"  value="Delete">
+        </div>
 
       <button type="button" class="editChat" onclick="location.href='';">Chat to Buy</button>
       <button type="submit" onclick="location.href='';">Make an offer</button>
@@ -45,14 +47,14 @@
     
   <script>
        $('.editBtn').click(function () {
-      var record_num = req.params.id; //cant edit from indiv page yet
-      location.href = "<%-hostPath %>/edit/"+record_num;
+      var record_num = $(this).closest("div").data("id"); 
+      location.href = "<%-hostPath %>/listingedit/"+record_num;
     });
 
     $('.deleteBtn').click(function () {
-      var record_num = $(this).closest("tr").data('id');
+      var record_num = $(this).closest("div").data('id');
       $.ajax({
-        url: '<%-hostPath%>/delete/' + record_num,
+        url: '<%-hostPath%>/' + record_num,
         type: 'DELETE',
         success: function (result) {
           console.log(result.message);

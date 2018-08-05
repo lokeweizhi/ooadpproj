@@ -53,7 +53,7 @@
                 
                     <a href="http://localhost:3000/listing/<%=itemList[i].id%>"><%= itemList[i].name %></a>
                   
-              <div class="product_price">by:<%= itemList[i].by %></div>
+              <div class="product_price">by:<a href="http://localhost:3000/profile/<%itemList.by%>"><%= itemList[i].by %></a></div>
             </div>
           <br>
             <div class="product_options">

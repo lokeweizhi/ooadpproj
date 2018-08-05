@@ -156,7 +156,8 @@ exports.listRecord = function (req, res) {
         res.render('indivlisting', {
             title: "Listings",
             itemList: ListingRecord,
-            hostPath: req.protocol + "://" + req.get("host")
+            hostPath: req.protocol + "://" + req.get("host"),
+            urlPath: req.protocol + "://" + req.get("host") + req.url,
         });
     }).catch((err) => {
         return res.status(400).send({
