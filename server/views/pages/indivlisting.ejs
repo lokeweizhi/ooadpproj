@@ -11,28 +11,10 @@
 <body>
     <% include ../partials/header2 %>
     <!--I included it outside bc the table doesnt seem to work-->
-<<<<<<< HEAD
     <img src="<%=hostPath%>/uploads/itemImage/<%= itemList.itemImage %>" alt="" height="200" width="200" style="align-content: center">
-=======
->>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
       <div>
         <p>Name:</p>
         <p><%=itemList.name%></p>
-      </div>
-      <div>
-<<<<<<< HEAD
-        <img src="<%=itemList.itemImage %>" style="width: 200px; height: 200px;">
-=======
-<<<<<<< HEAD
-        <img src="images/itemImage/<%=itemList.itemImage %>"
-=======
-<<<<<<< HEAD
-        <img src="<%=itemList.itemImage %>" style="width: 200px; height: 200px;">
-=======
-        <img src="<%=itemList.itemImage %>"
->>>>>>> 8c09f2995f3132434a0e1b46423b72d042b8f9d0
->>>>>>> fccaf45afffa782d8dd96e8144575bf3d249e354
->>>>>>> 4b861e7277ef9926fb318bc85e6de714a6568b61
       </div>
         <div>
           <p>Price:</p>
@@ -53,34 +35,11 @@
       <input type="button" class="editBtn" value="Edit">
       <input type="button" class="deleteBtn"  value="Delete">
 
-      <button type="button" onclick="location.href='/messages';">Chat to Buy</button>
+      <button type="button" onclick="location.href='';">Chat to Buy</button>
       <button type="submit" onclick="location.href='';">Make an offer</button>
     <!--//end-->
-
     
   <script>
-       $('.editBtn').click(function () {
-      var record_num = $(this).closest("tr").data('id');
-      location.href = "<%-hostPath %>edit/"+record_num;
-    });
-
-    $('.deleteBtn').click(function () {
-      var record_num = $(this).closest("tr").data('id');
-      $.ajax({
-        url: '<%-hostPath%>/delete/' + record_num,
-        type: 'DELETE',
-        success: function (result) {
-          console.log(result.message);
-          var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
-					$(itemToRemove).remove();
-					location.href = "/listing"
-        },
-        error: function (result) {
-          alert("Unable to delete listing.");
-          console.log(result.message);
-        }
-      });
-		});
 
   </script>
 <br>

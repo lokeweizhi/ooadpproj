@@ -39,14 +39,9 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         itemImage: "/uploads/itemImage/o level book.jpg",
         group: 100,
         hobby: "Used",
-<<<<<<< HEAD
         category: "Art & Design",
         by: "benjaminloke",
         itemImage:"013440_131775336_thumbnail.jpg"
-=======
-        category: "Mathematics",
-        by: "benjaminloke"
->>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
     });
     ListingModel.upsert({
         id:2,
@@ -54,15 +49,10 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         itemImage: "/uploads/itemImage/165811_55859657_thumbnail.jpg",
         group: 32,
         hobby: "New",
-<<<<<<< HEAD
         category: "Humanities",
         by: "benjaminloke",
         itemImage:"132433_152214455_thumbnail.jpg"
         
-=======
-        category: "Mathematics",
-        by: "benjaminloke"
->>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
     });
     ListingModel.upsert({
         id:3,
@@ -70,14 +60,9 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         itemImage: "/uploads/itemImage/secondary_1_topical_science_practice_book_1462534369_6010a887.jpg",
         group: 12,
         hobby: "New",
-<<<<<<< HEAD
         category: "Mathematics",
         by: "benjaminloke",
         itemImage:"135020_148470207_thumbnail.jpg"
-=======
-        category: "Science",
-        by: "benjaminloke"
->>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
     });
     ListingModel.upsert({
         id:4,
