@@ -85,7 +85,7 @@ exports.editRecord = function (req, res) {
     ListingModel.findById(record_num).then(function (ListingRecord) {
         res.render('editRecord', {
             title: "Edit Listings",
-            itemList: ListingRecord,
+            item: ListingRecord,
             hostPath: req.protocol + "://" + req.get("host")
         });
     }).catch((err) => {

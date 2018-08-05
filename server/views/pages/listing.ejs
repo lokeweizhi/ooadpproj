@@ -58,7 +58,7 @@
           <br>
             <div class="product_options">
                 <table>
-                    <tr  data-id="<%= itemList[i].itemId %>">
+                    <tr  data-id="<%= itemList[i].id %>">
                       
               <td>
                 <input type="button" class="editBtn btn btn-primary" value="Edit" text-align="flex-center">
@@ -89,7 +89,7 @@
   <script>
    $('.editBtn').click(function () {
       var record_num = $(this).closest("tr").data('id');
-      location.href = "<%-urlPath %>/edit/"+record_num;
+      location.href = "<%-urlPath %>edit/"+record_num;
     });
 
     $('.deleteBtn').click(function () {
@@ -104,7 +104,7 @@
 					location.href = "/listing"
         },
         error: function (result) {
-          alert("Unable to delete student record.");
+          alert("Unable to delete listing.");
           console.log(result.message);
         }
       });

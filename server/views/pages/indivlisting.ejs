@@ -40,6 +40,28 @@
     <!--//end-->
     
   <script>
+       $('.editBtn').click(function () {
+      var record_num = req.params.id;
+      location.href = "<%-hostPath %>/edit/"+record_num;
+    });
+
+    $('.deleteBtn').click(function () {
+      var record_num = $(this).closest("tr").data('id');
+      $.ajax({
+        url: '<%-hostPath%>/delete/' + record_num,
+        type: 'DELETE',
+        success: function (result) {
+          console.log(result.message);
+          var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+					$(itemToRemove).remove();
+					location.href = "/listing"
+        },
+        error: function (result) {
+          alert("Unable to delete listing.");
+          console.log(result.message);
+        }
+      });
+		});
 
   </script>
 <br>
