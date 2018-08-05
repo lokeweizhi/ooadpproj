@@ -11,42 +11,44 @@
 <body>
     <% include ../partials/header2 %>
     <!--I included it outside bc the table doesnt seem to work-->
-    <div CLASS="data">
-    <img src="<%=hostPath%>/uploads/itemImage/<%= itemList.itemImage %>" alt="" height="200" width="200" style="align-content: center">
+    <br>
+    <div class="container data">
+    <div class="col-sm-6">
+      <img src="<%=hostPath%>/uploads/itemImage/<%= itemList.itemImage %>" alt="" height="500" width="500" style="align-content: center">
+    </div>
+    <div class="col-sm-6">
       <div>
-        <p>Name:</p>
-        <p><%=itemList.name%></p>
+        <p style="font-size: 30px;"><%=itemList.name%></p>
+      </div>
+      <hr>
+      <div>
+        <p style="font-size: 20px;"><i class="fa fa-tag"></i> S$<%=itemList.group%></p>
+      </div>
+      <div>
+        <p style="font-size: 20px;"><i class="fa fa-balance-scale"></i> <%=itemList.hobby%></p>
+      </div>
+      <div>
+        <p style="font-size: 20px;"><i class="fa fa-list-ul"></i> <%=itemList.category%></p>
       </div>
         <div>
-          <p>Price:</p>
-          <p><%=itemList.group%></p>
-        </div>
-      <div>
-        <p>Condition:</p>
-        <h4><%=itemList.hobby%></h4>
-      </div>
-      <div>
-        <p>Category:</p>
-        <h4><%=itemList.category%></h4>
-      </div>
-        <div>
-          <p>By:</p>
-          <p><a href="http://localhost:3000/profile/<%=itemList.by%>"><%=itemList.by%></a></p>
+          <p style="font-size: 20px;"><i class="fa fa-address-card-o"></i> <a href="http://localhost:3000/profile/<%=itemList.by%>"> <%=itemList.by%></a></p>
         </div>
         <div>
           <p style="display:none">Id</p>
           <p><%itemList.id%></p>
         </div>
           <% if (currentUser == itemList.by) { %>
-          <div data-id="<%= itemList.id %>">
-            <input type="button" class="editBtn" value="Edit">
-            <input type="button" class="deleteBtn"  value="Delete/Sold out">
-          </div>
+            <br><br>
+            <div data-id="<%= itemList.id %>">
+              <input type="button" style="font-size: 20px; background-color: #bbb;" class="editBtn" value="Edit">
+              <input type="button" style="font-size: 20px; background-color: rgb(212, 23, 16)" class="deleteBtn" value="Delete / Sold out">
+            </div>
+          <% } else { %>
+            <br><br>
+            <button type="button" class="editChat" style="font-size: 20px; background-color: #bbb;" onclick="location.href='/messages/<%= itemList.id %>'">Chat</button>
+            <button type="submit" style="font-size: 20px; background-color: springgreen;" onclick="location.href='';">Make Offer</button>
           <% } %>
-        
-
-      <button type="button" class="editChat" onclick="location.href='/messages/<%= itemList.id %>'">Chat to Buy</button>
-      <button type="submit" onclick="location.href='';">Make an offer</button>
+      </div>
     </div>
     <!--//end-->
     
@@ -93,14 +95,7 @@
 		// });
 
   </script>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br>
 <% include ../partials/footer %>
 <% include ../partials/javascript %>
 </body>

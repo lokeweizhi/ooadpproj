@@ -10,82 +10,56 @@
   <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
 </head>
 <style>
-  div.col-lg-4{
-	
-	height: 490px;
-	margin: 0;
-  margin-right: 20px;
-	width: 350px;
-}
+  .product {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  .product:hover {
+    box-shadow: 0px 8px 16px 0px #888888;
+    cursor: pointer;
+  }
+  a.removeLink:link {color: black;}
+  a.removeLink:visited {color: black;}   /* visited link */
+  a.removeLink:hover {color: black;text-decoration: none; cursor: default;}   /* mouse over link */
+  a.removeLink:active {color: black;} 
 </style>
 <body>
     <% include ../partials/header %>
-    
+  <br>
   <div class="container">
+    <div class="col-sm-5">
       <fieldset>
-          <label for="searchItem">Search for an item</label>
-          <form id="searchItem">
-             <input type="text" class="search" id="userInput" placeholder="Search!" title="Search For An Item!">
-          </form>
-        <div>
-            <input type="button" id="search" value="Search"/>
-        </div>
+        <label for="searchItem" style="font-size: 24px;">Search for an item</label>
+        <form id="searchItem">
+            <input type="text" class="search" id="userInput" placeholder="Search!" title="Search For An Item!"><input type="button" id="search" value="Search"/>
+        </form>
       </fieldset>
     </div>
-    <div class="container-fluid">
-      <div class="col-lg-5">
-        <button class="btn btn-secondary pull-right" onclick="location.href='/createlisting';">New Listing</button>
-      </div>
-  </div>
+    <div class="col-sm-7">
+        <br>
+        <button class="btn btn-success pull-right" style="color:white" onclick="location.href='/createlisting';"><i style="color:white" class="fa fa-plus"></i> Listing</button>
+    </div>
+    <br><br><br><br>
 
   <% for(var i=0; i < itemList.length; i++){ %>
-		
-    <div class="col-lg-4 product_col" >
-      
-        <div class="product">
-          <div class="product_image">
-            <br>
-            <img src="uploads/itemImage/<%= itemList[i].itemImage %>" alt="" height="200" width="200" style="align-content: center">
-          </div>
-        
-          <div class="product_content clearfix">
-            <div class="product_info">
-                
-                    <a href="http://localhost:3000/listing/<%=itemList[i].id%>"><%= itemList[i].name %></a>
-                  
-              <div class="product_price">by:<a href="http://localhost:3000/profile/<%=itemList[i].by%>"><%= itemList[i].by %></a></div>
-            </div>
-          <br>
-            <div class="product_options">
-          <table>
-            <tr  data-id="<%= itemList[i].id %>">
-                      
-              <td>
-                <input type="button" class="editBtn btn btn-primary" value="Edit" text-align="flex-center">
-                <input type="button" class="deleteBtn btn btn-primary" onclick="return confirm('Please confirm listing deletion');"  value="Delete"  text-align="flex-center">
-              </td>
-            
-            </tr>
-          </table>
-          </div>
-          
-        
+    <div class="col-sm-3 product_col" >
+      <div class="product">
+        <div class="product_image">
+            <a href="http://localhost:3000/listing/<%=itemList[i].id%>"><img src="uploads/itemImage/<%= itemList[i].itemImage %>" alt="" height="200" width="200" style="align-content: center"></a>
+        </div>
+        <p><a class="removeLink" href="http://localhost:3000/listing/<%=itemList[i].id%>"><b><%= itemList[i].name %></b></a></p>
+                    
+        <div class="product_price">By:<a href="http://localhost:3000/profile/<%itemList.by%>"> <%= itemList[i].by %></a></div>
+        <div style="display:none;"><%= itemList[i].id %></div>      
       </div>
-      </div>
-    
-      </div>
-  
-      <% } %>
-    
-
-        
     </div>
-    </div>
+  <% } %>
   </div>
-</div>
-   
-
-
+  <br><br>
+  <div><% include ../partials/footer %></div>
+  
   <script>
    $('.editBtn').click(function () {
       var record_num = $(this).closest("tr").data('id');
@@ -135,8 +109,6 @@
     }
     */
   </script>
-
-<% include ../partials/footer %>
 </body>
 
 </html>
