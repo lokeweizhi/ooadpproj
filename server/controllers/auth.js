@@ -86,7 +86,7 @@ exports.editRecord = function (req, res) {
         res.render('editRecord', {
             title: "Edit Listings",
             item: ListingRecord,
-            hostPath: req.protocol + "://" + req.get("host")
+            hostPath: req.protocol + "://" + req.get("host"),
         });
     }).catch((err) => {
         return res.status(400).send({
@@ -196,8 +196,8 @@ exports.searchThru = function(req, res) {
         urlPath: req.protocol + "://" + req.get("host") + "/listing",
         hostPath: req.protocol + "://" + req.get("host")
     });
-})
-}
+});
+};
 
 exports.searchCategory = function(req, res) {
     var categoryName = '%' + req.params.category + '%';
@@ -206,14 +206,14 @@ exports.searchCategory = function(req, res) {
     replacements: { category: categoryName}, type: sequelizeInstance.QueryTypes.SELECT
 }).then(listings => {
     console.log(listings)
-    res.redner('listing', {
+    res.render('categoryListing', {
         title: "Listings",
         itemList: listings,
         urlPath: req.protocol + "://" + req.get("host") + "/listing",
         hostPath: req.protocol + "://" + req.get("host")
-    })
-})
-}
+    });
+});
+};
 
 exports.listAdmin = function (req, res) {
     ListingModel.findAll({
