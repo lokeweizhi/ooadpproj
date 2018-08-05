@@ -4,13 +4,7 @@ var listingRouter = express.Router();
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        if (file.fieldname == "BundlePic") {
-            cb(null, 'public/uploads/bundleCover')
-        }
-        else if (file.fieldname == "itemImage"){
             cb(null, 'public/uploads/itemImage')
-        }
-
     },
     filename: (req, file, cb) => {
       cb(null,  Date.now() + '-' + file.originalname)
@@ -30,5 +24,11 @@ listingRouter.delete("/listing/:id", auth.isLoggedIn, auth.delete);
 listingRouter.get("/listing/:id", auth.isLoggedIn, auth.listRecord);
 listingRouter.post("/listing/:id", auth.isLoggedIn, offers.create);
 listingRouter.get("/createlisting", auth.isLoggedIn, auth.dispform);
+listingRouter.get("/listingAdmin", auth.isLoggedIn, auth.listAdmin);
+listingRouter.get("/listingAdminedit/:id", auth.isLoggedIn, auth.editRecord);
+listingRouter.post("/listingAdminedit/:id", auth.isLoggedIn, auth.update)
+
+//category routing
+listingRouter.get("/listing/:category", auth.isLoggedIn, auth.searchCategory);
 
 module.exports = listingRouter;

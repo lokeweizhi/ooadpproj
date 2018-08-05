@@ -149,7 +149,7 @@ app.get('/messages', function (req,res) {
                 data: chatMessages,
                 offers: offers
             });
->>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
+>>>>>>> 7efc2b77e4ba6ba44f7808a9c8123f8ab82cf0c2
         });
         console.log("***",req.body.by)
         res.render('makeOffer', {

@@ -22,7 +22,7 @@
         </fieldset>
         <fieldset class="form-group">
             <label for="inputImage">Change Picture</label>
-            <input type="file" id="inputimage" name="itemImage" class="form-control" placeholder="Upload Here" required="true" value="<%=item.itemImage">
+            <input type="file" id="inputimage" name="itemImage" class="form-control" placeholder="Upload Here" required="true" value="<%=item.itemImage%>">
         </fieldset>
         <fieldset class="form-group">
             <label for="inputGroup">Price</label>
@@ -67,11 +67,11 @@
                 dataType: "json",
                 contentType: "application/json",
                 success: function(result){
-                    alert("Student record updated successfully")
+                    alert("Listing updated successfully")
                     location.href = "<%=hostPath%>/listing"
                 },
                 error: function(result){
-                    alert("Error updating student record");
+                    alert("Error updating Listing");
                     console.log("LAWIGLAWNGLIAWNGLIAWNGLIANGLIKAGLIKAWNGL");
                     console.log(result);
                     discardChanges();
@@ -81,7 +81,7 @@
         }
 
         function discardChanges() {
-            location.href = "<%=hostPath%>/listing"
+            location.href = "<%=hostPath%>/listing%>"
         }
     </script>
 
