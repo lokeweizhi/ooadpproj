@@ -193,43 +193,43 @@
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>Art & Design</h4>
+                                    <h4 id="categoryVal">Art & Design</h4>
                                     <ul>
-                                        <li><a href="#">View More</a></li>
+                                        <li><a href="/listing/Art & Design" id="viewMore">View More</a></li>
                                     </ul>	
                                 </div>
                                 <div class="h_nav">
-                                    <h4 class="top">Humanities</h4>
+                                    <h4 class="top" id="categoryVal">Humanities</h4>
                                     <ul>
-                                        <li><a href="#">View More</a></li>
-                                    </ul>	
-                                </div>
-                            </div>
-                            <div class="col1">
-                                <div class="h_nav">
-                                    <h4>Languages</h4>
-                                    <ul>
-                                        <li><a href="#">View More</a></li>
-                                    </ul>	
-                                </div>
-                                <div class="h_nav">
-                                    <h4 class="top">Mathematics</h4>
-                                    <ul>
-                                        <li><a href="#">View More</a></li>
+                                        <li><a href="/listing/Humanities" id="viewMore">View More</a></li>
                                     </ul>	
                                 </div>
                             </div>
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>Science</h4>
+                                    <h4 id="categoryVal">Languages</h4>
                                     <ul>
-                                        <li><a href="#">View More</a></li>
+                                        <li><a href="/listing/Languages" id="viewMore">View More</a></li>
+                                    </ul>	
+                                </div>
+                                <div class="h_nav">
+                                    <h4 class="top" id="categoryVal">Mathematics</h4>
+                                    <ul>
+                                        <li><a href="/listing/Mathematics" id="viewMore">View More</a></li>
+                                    </ul>	
+                                </div>
+                            </div>
+                            <div class="col1">
+                                <div class="h_nav">
+                                    <h4 id="categoryVal">Science</h4>
+                                    <ul>
+                                        <li><a href="/listing/Science" id="viewMore">View More</a></li>
                                         </ul>	
                                 </div>
                                 <div class="h_nav">
-                                    <h4 class="top">Other SUbjects</h4>
+                                    <h4 class="top" id="categoryVal">Other Subjects</h4>
                                     <ul>
-                                        <li><a href="#">View More</a></li>
+                                        <li><a href="/listing/Other Subjects" id="viewMore">View More</a></li>
                                     </ul>	
                                 </div>
                             </div>
@@ -272,5 +272,11 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+//category routing
+$('#viewMore').click(function(){
+      var categoryValue = $('#categoryVal').val();
+      location.href = "http://localhost:3000/listing" + searchValue;
+    });
 </script>
 <!--//all header-->
