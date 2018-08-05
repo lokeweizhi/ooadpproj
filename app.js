@@ -127,6 +127,19 @@ io.on('connection', function(socket) {
 
 })
 app.get('/messages', function (req,res) {
+<<<<<<< HEAD
+    ChatMsg.findAll({
+        attributes: ['id','name','message','buyername','sellername'],
+        where: {
+            [Op.or]: [{buyername: req.user.username}, {sellername: req.user.username}]
+        }
+    }).then((chatMessages) => {
+        
+        res.render('chatMsg', {
+            url: req.protocol + "://" + req.get("host") + req.url,
+            user:req.user.username,
+            data: chatMessages
+=======
     makeOffer.findAll({where: {name:req.user.username}}).then((offers) => {
         console.log("***************************************",offers);
         ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {
@@ -136,6 +149,7 @@ app.get('/messages', function (req,res) {
                 data: chatMessages,
                 offers: offers
             });
+>>>>>>> 7efc2b77e4ba6ba44f7808a9c8123f8ab82cf0c2
         });
         console.log("***",req.body.by)
         res.render('makeOffer', {

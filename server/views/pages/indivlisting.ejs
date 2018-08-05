@@ -32,10 +32,14 @@
           <p>By:</p>
           <p><%=itemList.by%></p>
         </div>
+        <div>
+          <p style="display:none">Id</p>
+          <p><%itemList.id%></p>
+        </div>
       <input type="button" class="editBtn" value="Edit">
       <input type="button" class="deleteBtn"  value="Delete">
 
-      <button type="button" onclick="location.href='';">Chat to Buy</button>
+      <button type="button" class="editChat" onclick="location.href='';">Chat to Buy</button>
       <button type="submit" onclick="location.href='';">Make an offer</button>
     <!--//end-->
     
@@ -76,5 +80,9 @@
 <% include ../partials/javascript %>
 </body>
 <script>
+      $('.editChat').click(function () {
+      var record_num = getElementById(Id)
+      location.href = "<%-urlPath %>chatMsg/"+record_num;
+    });
 </script>
 </html>
