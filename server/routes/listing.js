@@ -30,6 +30,6 @@ listingRouter.get("/listingAdminedit/:id", auth.isLoggedIn, auth.editRecord);
 listingRouter.post("/listingAdminedit/:id", auth.isLoggedIn, auth.update)
 
 //category routing
-listingRouter.get("/listing/:category", auth.isLoggedIn, auth.searchCategory);
+listingRouter.get("/listings/:category", auth.isLoggedIn, auth.searchCategory);
 
 module.exports = listingRouter;
