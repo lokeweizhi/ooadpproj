@@ -112,6 +112,10 @@ var chatConnections = 0;
 var ChatMsg = require('./server/models/chatMsg');
 var makeOffer = require('./server/models/makeOffer');
 
+var myDatabase = require('./server/controllers/database');
+var sequelize = myDatabase.sequelize;
+const Op = sequelize.Op;
+
 io.on('connection', function(socket) {
     chatConnections++;
     console.log("Num of chat users connected: "+chatConnections);
@@ -123,6 +127,19 @@ io.on('connection', function(socket) {
 
 })
 app.get('/messages', function (req,res) {
+<<<<<<< HEAD
+    ChatMsg.findAll({
+        attributes: ['id','name','message','buyername','sellername'],
+        where: {
+            [Op.or]: [{buyername: req.user.username}, {sellername: req.user.username}]
+        }
+    }).then((chatMessages) => {
+        
+        res.render('chatMsg', {
+            url: req.protocol + "://" + req.get("host") + req.url,
+            user:req.user.username,
+            data: chatMessages
+=======
     makeOffer.findAll({where: {name:req.user.username}}).then((offers) => {
         console.log("***************************************",offers);
         ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {
@@ -132,13 +149,25 @@ app.get('/messages', function (req,res) {
                 data: chatMessages,
                 offers: offers
             });
+>>>>>>> e8c28ea74d46790a9b51fa7dd75c637ab33ffa10
+        });
+        console.log("***",req.body.by)
+        res.render('makeOffer', {
+            url: req.protocol + "://" + req.get("host") + req.url,
+            data:makeOffer,
+            by:req.body.by,
+            name:req.body.name,
+            hobby:req.body.hobby,
+            img:req.body.img,
         });
     });
 });
 app.post('/messages', function (req,res) {
     var chatData = {
         name: req.body.name,
-        message: req.body.message
+        message: req.body.message,
+        buyername: req.user.username,
+        sellername:req.body.username,
     }
     //Save into database
     ChatMsg.create(chatData).then((newMessage) => {
@@ -149,7 +178,6 @@ app.post('/messages', function (req,res) {
         res.sendStatus(200)
     })
 });
-
 //Post offer price into database
 var OfferPrice = require('./server/models/makeOffer');
 app.post('/makeOffer', function (req,res) {

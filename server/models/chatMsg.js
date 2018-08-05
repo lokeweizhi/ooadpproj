@@ -10,14 +10,20 @@ const ChatMsg = sequelize.define('ChatMsg', {
         primaryKey: true
     },
     name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
     },
     message: {
         type: Sequelize.STRING,
         allowNull: false,
         defaultValue: '',
         trim: true
-    }
+    },
+    buyername : {
+        type: Sequelize.STRING,
+    },
+    sellername: {
+        type: Sequelize.STRING,
+    },
 });
 
 //force: true will drop the table if it already exists
