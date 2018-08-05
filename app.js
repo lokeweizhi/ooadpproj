@@ -115,6 +115,11 @@ var io = require('socket.io')(httpServer);
 var chatConnections = 0;
 var ChatMsg = require('./server/models/chatMsg');
 var makeOffer = require('./server/models/makeOffer');
+var listings = require('./server/models/listingModel')
+
+var myDatabase = require('./server/controllers/database');
+var sequelize = myDatabase.sequelize;
+const Op = sequelize.Op;
 
 io.on('connection', function(socket) {
     chatConnections++;
@@ -126,34 +131,80 @@ io.on('connection', function(socket) {
     });
 
 })
-app.get('/messages', function (req,res) {
-    makeOffer.findAll({where: {name:req.user.username}}).then((offers) => {
-        console.log("***************************************",offers);
-        ChatMsg.findAll({where: {name:req.user.username}}).then((chatMessages) => {
-            res.render('chatMsg', {
-                url: req.protocol + "://" + req.get("host") + req.url,
-                user:req.user.username,
-                data: chatMessages,
-                offers: offers
+app.get('/messages/:id', function (req,res) {
+    var record_num = req.params.id;
+    listings.findById(record_num).then(function (listingRecord) {
+        console.log("**************************************",listingRecord)
+        makeOffer.findAll({
+            attributes: ['id','name','offerprice']
+        }).then((offers) => {
+            ChatMsg.findAll({
+                attributes: ['id','name','message','buyername','sellername'],
+                where: {
+                    [Op.or]: [{buyername: req.user.username}, {sellername: req.user.username}]
+                }
+            
+            }).then((chatMessages) => {
+                console.log("**************************req.body.sellername:",req.body.sellername)
+                res.render('chatMsg', {
+                    url: req.protocol + "://" + req.get("host") + req.url,
+                    user:req.user.username,
+                    data: chatMessages,
+                    offers: offers,
+                    listings: listingRecord
+                });
             });
+        })
+    }).catch((err) => {
+        return res.status(400).send({
+            message: err
         });
     });
 });
-app.post('/messages', function (req,res) {
-    var chatData = {
-        name: req.body.name,
-        message: req.body.message
-    }
-    //Save into database
-    ChatMsg.create(chatData).then((newMessage) => {
-        if(!newMessage) {
-            sendStatus(500);
-        }
-        io.emit('message', req.body)
-        res.sendStatus(200)
-    })
+app.post('/messages/:id', function (req,res) {
+    var record_num = req.params.id;
+    listings.findById(record_num).then(function (listingRecord) {
+        var lastUser = '';
+        ChatMsg.findAll().then(function(chatdata){
+            var jsonString = JSON.stringify(chatdata);
+            var obj = JSON.parse(jsonString);
+            for (item in obj) {
+                lastUser = obj[item].buyername
+                console.log("......",obj[item].buyername)
+            }
+        }).then(function(chatdata){
+            console.log("******************lastUser",lastUser)
+            console.log("******************listingRecord.by",listingRecord.by)
+            if (req.user.username == listingRecord.by){
+                var chatData = {
+                    name: req.body.name,
+                    message: req.body.message,
+                    buyername: lastUser,
+                    sellername: listingRecord.by 
+                }
+           } else{
+               var chatData = {
+                   name: req.body.name,
+                   message: req.body.message,
+                   buyername: req.user.username,
+                   sellername:listingRecord.by,
+               }
+           }
+           //Save into database
+           ChatMsg.create(chatData).then((newMessage) => {
+               if(!newMessage) {
+                   sendStatus(500);
+               }
+               io.emit('message', req.body)
+               res.sendStatus(200)
+           })
+        })
+    }).catch((err) => {
+        return res.status(400).send({
+            message: err
+        });
+    });
 });
-
 //Post offer price into database
 var OfferPrice = require('./server/models/makeOffer');
 app.post('/makeOffer', function (req,res) {
@@ -200,11 +251,16 @@ var server = httpServer.listen(app.get('port'), function () {
     console.log('========================================================')
 });
 
-//upload image to db
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
+        if (file.fieldname == "BundlePic") {
+            cb(null, 'public/uploads/bundleCover')
+        }
+        else if (file.fieldname == "itemImage"){
             cb(null, 'public/uploads/itemImage')
+        }
+
     },
     filename: (req, file, cb) => {
       cb(null,  Date.now() + '-' + file.originalname)

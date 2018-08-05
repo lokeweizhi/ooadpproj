@@ -72,51 +72,65 @@ module.exports = function (passport) {
                     // **** validate username and email: doesn't work
                     //User.findOne({ or: [{ username: req.param('email')}, {email:req.param('username')}] }).then((user) => {    
                         // check email
-                        if (user) {
-                            return done(null, false, req.flash('signupMessage', 'Woops! The username` is already taken.'));
-                        } else {
-                            // create the user
-                            var userData = {                          
-                                accountType: 'User', // hard-coded
-                                firstName: req.body.firstName,
-                                lastName: req.body.lastName,
-                                username: username,
-                                email: req.body.email,
-                                phoneNumber: req.body.phoneNumber,
-                                password: password,
-                                imageName: "default-avatar.png"
-                            }
-                            var reviewsData = {
-                                username: username,
-                                imageName: "default-avatar.png",
-                                averageSellerRating: 0,
-                                totalServiceRatings: 0,
-                                totalPriceRatings: 0,
-                                averageBuyerRating: 0,
-                                sellerCount: 0,
-                                sellerCount5: 0,
-                                buyerCount: 0,
-                                verificationStatus: 'nope'
-                            }
+                        User.findOne({where: {email: req.body.email} }).then((email) =>{
+                            console.log("**************************",email);
+                            console.log("**************************",user);
+                            console.log("======================================")
+                            User.findOne({where: {phoneNumber: req.body.phoneNumber} }).then((phoneNumber) => {
+                                if (user) {
+                                    return done(null, false, req.flash('signupMessage', 'Woops! The username is already taken.'));
+                                }
+                                else if(email) {
+                                    return done(null, false, req.flash('signupMessage', 'Woops! The email is already taken.'));
+                                } 
+                                else if(phoneNumber){
+                                    return done(null, false, req.flash('signupMessage', 'Woops! The number is already taken.'));
+                                }
+                                else {
+                                    // create the user
+                                    var userData = {                          
+                                        accountType: 'User', // hard-coded
+                                        firstName: req.body.firstName,
+                                        lastName: req.body.lastName,
+                                        username: username,
+                                        email: req.body.email,
+                                        phoneNumber: req.body.phoneNumber,
+                                        password: password,
+                                        imageName: "default-avatar.png"
+                                    }
+                                    var reviewsData = {
+                                        username: username,
+                                        imageName: "default-avatar.png",
+                                        averageSellerRating: 0,
+                                        totalServiceRatings: 0,
+                                        totalPriceRatings: 0,
+                                        averageBuyerRating: 0,
+                                        sellerCount: 0,
+                                        sellerCount5: 0,
+                                        buyerCount: 0,
+                                        verificationStatus: 'nope'
+                                    }
 
-                            // save data
-                            User.create(userData).then((newUser, created) => {
-                                if (!newUser) {
-                                    return done(null, false);
-                                }
-                                if (newUser) {
-                                    return done(null, newUser);
+                                    // save data
+                                    User.create(userData).then((newUser, created) => {
+                                        if (!newUser) {
+                                            return done(null, false);
+                                        }
+                                        if (newUser) {
+                                            return done(null, newUser);
+                                        }
+                                    })
+                                    Reviews.create(reviewsData).then((newReviews, created) => {
+                                        if (!newReviews) {
+                                            return done(null, false);
+                                        }
+                                        if (newReviews) {
+                                            return done(null, newUser);
+                                        }
+                                    })
                                 }
                             })
-                            Reviews.create(reviewsData).then((newReviews, created) => {
-                                if (!newReviews) {
-                                    return done(null, false);
-                                }
-                                if (newReviews) {
-                                    return done(null, newUser);
-                                }
-                            })
-                        }
+                    })    
                     }).catch((err) => {
                         console.log("Error:", err);
                         return done(err, false, req.flash('signupMessage', 'Error!'))

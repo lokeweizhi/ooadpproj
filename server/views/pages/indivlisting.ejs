@@ -11,55 +11,92 @@
 <body>
     <% include ../partials/header2 %>
     <!--I included it outside bc the table doesnt seem to work-->
-      <h4><%=itemList.img%></h4>
+    <br>
+    <div class="container data">
+    <div class="col-sm-6">
+      <img src="<%=hostPath%>/uploads/itemImage/<%= itemList.itemImage %>" alt="" height="500" width="500" style="align-content: center">
+    </div>
+    <div class="col-sm-6">
       <div>
-        <p>Name:</p>
-        <p><%=itemList.name%></p>
+        <p style="font-size: 30px;"><%=itemList.name%></p>
+      </div>
+      <hr>
+      <div>
+        <p style="font-size: 20px;"><i class="fa fa-tag"></i> S$<%=itemList.group%></p>
       </div>
       <div>
-        <img src="<%=hostPath%>/uploads/itemImage/<%=itemList.itemImage %>"
+        <p style="font-size: 20px;"><i class="fa fa-balance-scale"></i> <%=itemList.hobby%></p>
+      </div>
+      <div>
+        <p style="font-size: 20px;"><i class="fa fa-list-ul"></i> <%=itemList.category%></p>
       </div>
         <div>
-          <p>Price:</p>
-          <p><%=itemList.group%></p>
+          <p style="font-size: 20px;"><i class="fa fa-address-card-o"></i> <a href="http://localhost:3000/profile/<%=itemList.by%>"> <%=itemList.by%></a></p>
         </div>
-      <div>
-        <p>Condition:</p>
-        <h4><%=itemList.hobby%></h4>
-      </div>
-      <div>
-        <p>Category:</p>
-        <h4><%=itemList.category%></h4>
-      </div>
         <div>
-          <p>By:</p>
-          <p><%=itemList.by%></p>
+          <p style="display:none">Id</p>
+          <p><%itemList.id%></p>
         </div>
-      <input type="button" class="editBtn" value="Edit">
-      <input type="button" class="deleteBtn"  value="Delete">
-
-      <button type="button" onclick="location.href='/messages';">Chat to Buy</button>
-      <button type="submit" onclick="location.href='';">Make an offer</button>
+          <% if (currentUser == itemList.by) { %>
+            <br><br>
+            <div data-id="<%= itemList.id %>">
+              <input type="button" style="font-size: 20px; background-color: #bbb;" class="editBtn" value="Edit">
+              <input type="button" style="font-size: 20px; background-color: rgb(212, 23, 16)" class="deleteBtn" value="Delete / Sold out">
+            </div>
+          <% } else { %>
+            <br><br>
+            <button type="button" class="editChat" style="font-size: 20px; background-color: #bbb;" onclick="location.href='/messages/<%= itemList.id %>'">Chat</button>
+            <button type="submit" style="font-size: 20px; background-color: springgreen;" onclick="location.href='';">Make Offer</button>
+          <% } %>
+      </div>
+    </div>
     <!--//end-->
-<<<<<<< HEAD
-
-=======
     
->>>>>>> ccc1319a61d071f65ed4c2cde3543d5462944e0d
   <script>
+       $('.editBtn').click(function () {
+      var record_num = $(this).closest("div").data("id"); 
+      location.href = "<%-hostPath %>/listingedit/"+record_num;
+    });
+
+    $('.deleteBtn').click(function () {
+      var record_num = '<%= itemList.id %>';
+      $.ajax({
+        url: "<%-hostPath %>/listing/"+record_num,
+        type: 'DELETE',
+        success: function (result) {
+          console.log(result.message);
+          var itemToRemove = '#data';
+          $(itemToRemove).remove();
+          location.href = "/profile"
+        },
+        error: function (result) {
+          alert("Unable to delete listing record.");
+          console.log(result.message);
+        }
+      });
+    });
+    // $('.deleteBtn').click(function () {
+    //   var record_num = $(this).closest("div").data('id');
+    //   alert(record_num);
+    //   $.ajax({
+    //     url: '<%-hostPath%>/' + record_num,
+    //     type: 'DELETE',
+    //     success: function (result) {
+    //       console.log(result.message);
+    //       var itemToRemove = '.rowRecord[data-id=' + record_num + ']';
+		// 			$(itemToRemove).remove();
+		// 			location.href = "/listing"
+    //     },
+    //     error: function (result) {
+    //       alert("Unable to delete listing.");
+    //       console.log(result.message);
+    //     }
+    //   });
+		// });
 
   </script>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br>
 <% include ../partials/footer %>
 <% include ../partials/javascript %>
 </body>
-<script>
-</script>
 </html>

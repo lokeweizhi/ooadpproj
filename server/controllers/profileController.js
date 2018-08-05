@@ -32,8 +32,8 @@ exports.list = function(req, res){
             }).then(function (totalReviews) {
                 //console.log("***********************totalReview",totalReviews)
                 ListingModel.findAll({
-                    attributes: ['id', 'name', 'group', 'hobby'],
-                    where:{by: req.user.username}
+                    attributes: ['id', 'name','itemImage', 'group', 'hobby','category', 'by'],
+                    where: {by: req.user.username}
                 }).then(function (listings) {
                     res.render("profile", {
                         title: 'Adamire - @'+ req.user.username,
@@ -150,7 +150,7 @@ exports.browseProfiles = function (req, res) {
                         where:{targetUsername: username}
                     }).then(function(profile){
                         ListingModel.findAll({
-                            attributes: ['id', 'name', 'group', 'hobby'],
+                            attributes: ['id', 'name','itemImage', 'group', 'hobby', 'category', 'by'],
                             where:{by: record_username}
                         }).then(function (listings) {
                             res.render('browseProfiles', {
@@ -191,6 +191,19 @@ exports.create = function (req, res) {
         }
         res.redirect('/profile');
     })
+}
+
+exports.delete =  function (req, res) {
+    var record_num = req.params.id;
+    console.log("*******************************deleting "+ record_num);
+    ListingModel.destroy({ where: { id: record_num } }).then((deletedRecord) => {
+        if (!deletedRecord) {
+            return res.send(400, {
+                message: "error"
+            });
+        }
+        res.status(200).send({ message: "Deleted student record:" + record_num});
+    });
 }
 
 // Profile authorization middleware

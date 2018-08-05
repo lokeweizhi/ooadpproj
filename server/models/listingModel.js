@@ -36,33 +36,41 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
     ListingModel.upsert({
         id:1,
         name: "2017 N Level Math",
-        itemImage: "/uploads/itemImage/o level book.jpg",
+        // itemImage: "/uploads/itemImage/o level book.jpg",
+        itemImage: "o level book.jpg",
         group: 100,
         hobby: "Used",
-        category: "Mathematics",
-        by: "benjaminloke"
+        category: "Art & Design",
+        by: "benjaminloke",
+        itemImage:"013440_131775336_thumbnail.jpg"
     });
     ListingModel.upsert({
         id:2,
         name: "Engineering Mathematics",
-        itemImage: "/uploads/itemImage/165811_55859657_thumbnail.jpg",
+        // itemImage: "/uploads/itemImage/165811_55859657_thumbnail.jpg",
+        itemImage: "165811_55859657_thumbnail.jpg",
         group: 32,
         hobby: "New",
-        category: "Mathematics",
-        by: "benjaminloke"
+        category: "Humanities",
+        by: "benjaminloke",
+        itemImage:"132433_152214455_thumbnail.jpg"
+        
     });
     ListingModel.upsert({
         id:3,
         name: "2018 A Level Exercise Books",
-        itemImage: "/uploads/itemImage/secondary_1_topical_science_practice_book_1462534369_6010a887.jpg",
+        //itemImage: "/uploads/itemImage/secondary_1_topical_science_practice_book_1462534369_6010a887.jpg",
+        itemImage: "secondary_1_topical_science_practice_book_1462534369_6010a887.jpg",
         group: 12,
         hobby: "New",
-        category: "Science",
-        by: "benjaminloke"
+        category: "Mathematics",
+        by: "benjaminloke",
+        itemImage:"135020_148470207_thumbnail.jpg"
     });
     ListingModel.upsert({
         id:4,
         name: "Social Studies Textbook",
+        itemImage: "secondary_1_topical_science_practice_book_1462534369_6010a887.jpg",
         group: 4,
         hobby: "New",
         by: "johannajimeno"

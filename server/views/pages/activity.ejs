@@ -145,7 +145,7 @@
                             </fieldset>
                             <fieldset class="form-group">
                                 <label for="inputContent">Give feedback</label>
-                                <textarea id="Content" name="content" rows="8" cols="40" class="form-control" placeholder="Feedback Description" required></textarea>
+                                <textarea id="Content" name="content" rows="6" cols="5" class="form-control" placeholder="Feedback Description" required></textarea>
                             </fieldset>
                             <fieldset class="form-group">
                                 <% if (transaction.contactName == currentUser) { %>
@@ -227,7 +227,7 @@
                         </div>
                         <div class="modal-footer">
                             <center>
-                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                                <button type="submit" id="check1" class="btn btn-primary">Submit Review</button>
                             </center>
                         </div>
                     </form>
@@ -241,8 +241,9 @@
     <% include ../partials/footer %>
 
     <script type="text/javascript">
-        $('.btn-primary').on('click', function (e) {
-            e.preventDefault();
+    $("#check1").click(function (event) {                   
+        if ($("#title").val() && $("#Content").val()) {
+            event.preventDefault();
             var form = $(this).parents('form');
             swal({
             title: "Are you sure?",
@@ -263,7 +264,17 @@
                 swal("Cancelled", "Your form has not been submitted :)", "error");
             }
             });
-        })           
+        }
+        else {
+            swal({
+            title: "Please input the selected field(s).",
+            text: "Sorry, unable to make a review due to selected field(s) not inputted.",
+            type: "warning", 
+            allowOutsideClick: false,
+            timer:5000,
+            });
+        }
+    });   
     </script>
 </body>
 
