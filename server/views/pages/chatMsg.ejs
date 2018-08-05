@@ -11,13 +11,7 @@
 <body>
     <style>
         textarea{
-
             resize: none;
-            resize:none;
-
-
-            resize:none;
-
         }
         #Seller{
             text-align: center;
@@ -51,7 +45,7 @@
     </style>
 <% include ../partials/header %>
 <div class="container">  
-        <p id ="Seller">Name of Seller</p>
+        <p id ="Seller">Name of Seller<%=by%></p>
         <div class="row" id="chicken">
             <div class="myborder">
                 <div class="col-sm-3" style="text-align: center;">
@@ -61,29 +55,20 @@
                 <div class="col-sm-5">
                     <br>
                     <!-- Update product name here -->
-                    <p>Product Name</p>
+                    <p>Product Name<%=name%></p>
                     <br>
                     <!-- Update price here -->
-                    <p>Product Price</p>
+                    <p>Product Price<%=group%></p>
                 </div>
                 <div class="col-sm-4">
                     <br>
                     <br>
-
-                    <form action="/makeOffer" method="POST">
-                        <div class="input-group" style="width: 60%">
-                            <span class="input-group-text">S$</span>
-                            <input type="number" class="form-control" step="0.10" name="offerprice">
-                            <span class="input-group-btn">
-                                <button type="submit" id="MakeOffer" class="btn btn-success">Make Offer</button>
-
-                    <form method="POST" action="#">
+                    <form method="POST" s>
                         <div class="input-group" style="width: 60%">
                             <span class="input-group-text">S$</span>
                             <input type="number" class="form-control" step="0.10">
                             <span class="input-group-btn">
                                 <button id="MakeOffer" class="btn btn-success">Make Offer</button>
-
                             </span>
                         </div>
                     </form>
@@ -107,20 +92,7 @@
                 <button id="upload" class="btn btn-success">Upload Image</button>
             </div>    
         </div>
-
-                <button id="send" class="btn btn-success">Send</button>
-                <button id="upload" class="btn btn-success">Upload Image</button>
-            </div>    
-        </div>
-
-        <!-- footer -->
-        <div style="height: 1000px; width: 100%">
-            <br><br><br>
-            <p style="font-size:200px;">Where my footer</p>
-        </div>
-
 </div>
-
 
 <script>
     var socket = io()
@@ -134,8 +106,6 @@
 
     socket.on('message', addMessage)
 
-
-
     function addMessage(msg){
         $("#messages").append(`<h4> ${msg.name} </h4> <p> ${msg.message} </p>`);
         //window.location.reload();
@@ -144,7 +114,6 @@
     function postMessage(message) {
         $.post('<%-url%>', message)
     }
-    
     
 
 </script>    
