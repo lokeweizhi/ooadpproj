@@ -47,7 +47,6 @@ exports.create = function (req, res) {
             where:{targetUsername: req.body.username}
         }).then(function(profile){
             var jsonString = JSON.stringify(profile);
-            //console.log(jsonString);
             var obj = JSON.parse(jsonString);
 
             totalSellerRatings = 0; // Sellers: Total
@@ -101,7 +100,7 @@ exports.create = function (req, res) {
             // priceRating: 50% & serviceRating: 50%
             totalSellerRatings = (totalServiceRatings*0.5) + (totalPriceRatings*0.5);
             console.log("total(include req.body.rating) = " + totalSellerRatings);
-            if(totalSellerRatings == 5) {
+            if(parseInt(req.body.serviceRating) == 5 && parseInt(req.body.priceRating) == 5) {
                 numOfSellerRatings5 += 1;
             }
 

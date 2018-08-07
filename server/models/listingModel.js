@@ -75,6 +75,14 @@ ListingModel.sync({ force: false, logging: console.log }).then(() => {
         hobby: "New",
         by: "johannajimeno"
     });
+    ListingModel.upsert({
+        id:5,
+        name: "Social Studies Textbook",
+        itemImage: "secondary_1_topical_science_practice_book_1462534369_6010a887.jpg",
+        group: 3,
+        hobby: "New",
+        by: "linpeishan"
+    });
 })
 
 module.exports = sequelize.model('Listings', ListingModel);

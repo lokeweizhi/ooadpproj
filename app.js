@@ -224,7 +224,7 @@ app.post('/makeOffer', function (req,res) {
 //Inbox
 app.get('/inboxMessage', function(req, res) {
     res.render("inboxMessage", {
-        title: "Report a Product"
+        title: "Inbox"
     })
 }) 
 

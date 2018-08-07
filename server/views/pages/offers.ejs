@@ -40,23 +40,23 @@
                             <td><%= moment(offerList[i].createdAt).format('DD-MMM-YYYY') %></td>
                             <td><button type="button" class="btn btn-basic accept">Accept</button></td>
                             <td><button type="button" class="btn btn-basic reject">Reject</button></td>
+                            <form action="/newNotification" method="post">
+                                <fieldset class="form-group hiddenForm">
+                                    <label for="message"></label>
+                                    <input type="text" id="message" name="msg" class="form-control" value="">
+                                </fieldset>
+                                <fieldset class="form-group hiddenForm">
+                                    <label for="buyerUsername"></label>
+                                    <input type="text" id="buyerUsername" name="buyerUsername" class="form-control" value="">
+                                </fieldset>
+                                <button type="submit" class="btn btn-basic submit">Send</button>
+                            </form>
                         </tr>
                     <% } %>
                 </tbody>
             </table>
             <div class="col-lg-1"></div>
         </div>
-        <form action="/newNotification" method="post">
-            <fieldset class="form-group hiddenForm">
-                <label for="message"></label>
-                <input type="text" id="message" name="msg" class="form-control" value="">
-            </fieldset>
-            <fieldset class="form-group hiddenForm">
-                <label for="buyerUsername"></label>
-                <input type="text" id="buyerUsername" name="buyerUsername" class="form-control" value="">
-            </fieldset>
-            <button type="submit" class="btn btn-basic submit">Send</button>
-        </form>
         <% include ../partials/javascript %>
         <script>
         $(document).ready(function(){

@@ -98,7 +98,7 @@
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <!--Personal-->
-                    <form method="post">
+                    <!-- <form method="post"> -->
                         <div class="container">
                             <div class="form-row">
                                 <div class="form-group col-md-5">
@@ -141,37 +141,39 @@
                                 <div class="form-group col-md-5">
                                 <!--Modal-->
                                 <a data-toggle="modal" data-target="#sendDeactivationRequest" style="text-decoration: underline;cursor: pointer;">Deactivate Account
-                                </a>
-                                 <!--Modal-->
-                                <div class="modal fade" id="sendDeactivationRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <form action="/newDeactivationRequest" method="post">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                    <h4>Send deactivation request to admin</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <fieldset class="form-group">
-                                                        <textarea id="deactivationRequest" name="reasons" rows="5" cols="40" class="form-control" placeholder="Feedback Description" required=""></textarea>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary" id="deactivationSubmit">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                    <!--//Modal-->   
+                                </a> 
                                 </div>
                                 <!--//modal-->                        
                             </div>
                             <br>
-                            <input type="submit" id="check2" value="save changes">   
+                            <input type="submit" id="check2" value="save changes"> 
+                            <!--Deactivation Request-->
+                            <!--Modal-->
+                            <div class="modal fade" id="sendDeactivationRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form action="/newDeactivationRequest" method="post">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h4>Send deactivation request to admin</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <fieldset class="form-group">
+                                                    <textarea id="deactivationRequest" name="reasons" rows="5" cols="40" class="form-control" placeholder="Feedback Description" required=""></textarea>
+                                                </fieldset>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary" id="deactivationSubmit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                                <!--//Modal-->  
+                            <!--//deactivation request-->
                             <script>
                             // $("#deactivationSubmit").click(function (event) {                   
                             //     if ($("#deactivationRequest").val()) {
@@ -334,12 +336,12 @@
                     //location.href = "<%=hostPath%>/settings";
                     
                 },
-                error: function(result){
-                    swal("Whoops!", "Error updating settings!", "error");
-                    //alert("Error updating settings:"+result);
-                    discardChanges();
+                // error: function(result){
+                //     swal("Whoops!", "Error updating settings!", "error");
+                //     //alert("Error updating settings:"+result);
+                //     discardChanges();
                     
-                }
+                // }
             })
         }
         function discardChanges() {

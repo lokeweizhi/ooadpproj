@@ -201,7 +201,7 @@
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <% for(var i=0; i < itemList.length; i++){ %>
-                                                <div class="col-md-4" data-id="<%= itemList[i].id %>">
+                                                <div class="col-md-4">
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <h5 class="card-title" >
@@ -281,9 +281,9 @@
                                             <% i=0 %>
                                                 <% profile.forEach(function(review){ %>
                                                     <% if (review.buyerOrSeller == "Seller") { %>                                                    
-                                                    <li class="list--list-item list-group-item"  data-gender="<%= review.buyerOrSeller %>" id='sth<%=review.id%>' data-id="<%=review.id%>" data-user="<%=review.targetUsername%>" data-transactionId="<%=review.transactionId%>">
+                                                    <li class="list--list-item list-group-item"  data-gender="<%= review.buyerOrSeller %>" id='sth<%=review.id%>' data-id="<%=review.id%>">
                                                     <% } else if(review.buyerOrSeller == "Buyer") {%>
-                                                    <li class="list--list-item list-group-item" data-gender="<%= review.buyerOrSeller %>" id='sth<%=review.id%>' data-id="<%=review.id%>" data-user="<%=review.targetUsername%>" data-transactionId="<%=review.transactionId%>">
+                                                    <li class="list--list-item list-group-item" data-gender="<%= review.buyerOrSeller %>" id='sth<%=review.id%>' data-id="<%=review.id%>">
                                                     <% } %>
                                                         <!--User's dp-->
                                                         <% totalReviews.forEach(function(imageName){ %>
@@ -298,11 +298,11 @@
                                                         <% }); %>
                                                         <!--//User's dp-->
                                                         <!--User's rating-->
-                                                        <h4 style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;text-decoration: underline;">
+                                                        <h4 style="font-size: 0.875em;font-weight: 700;font-size: 1em;padding-bottom: 0.5em;text-decoration: underline;" >
                                                                 <%= review.title %>
                                                                 <div class="float-right">
                                                                     <% if (currentUser == review.by) { %>
-                                                                        <button type="button" class="btn btn-warning editBtn">Edit Review</button>
+                                                                        <button type="button" class="btn btn-warning editBtn" >Edit Review</button>
                                                                         <!-- <button type="button" class="btn btn-danger deleteBtn">Delete</button> -->
                                                                         
                                                                         
@@ -674,31 +674,31 @@
         verified();
         </script> 
         <script>
-        $('.deleteBtn').click(function() {
-            // var profile_id = $(this).data('id'); 
-            var profile_id = $(this).closest('.list-group-item').data('id')  
-            var username =   $(this).closest('.list-group-item').data('user')
-            // $(this).closest('.list-group-item').find('.by').text()
-            // alert(profile_id)
-            // alert(username)
-            // alert('<%-urlPath%>'+'/'+ username +'/'+profile_id)
-            $.ajax({
-                    url: '<%-urlPath%>'+'/'+ username +'/'+profile_id,
-                    type: 'DELETE',
-                    success: function(result) {
-                        console.log(result.message);
-                        var itemToRemove = '#sth'+ profile_id;
-                        $(itemToRemove).remove();
-                    },
-                    error: function(result){
-                        alert("Unable to delete review.");
-                        console.log("********************help",result.message);
-                    } 
-                });  
-            });
+        // $('.deleteBtn').click(function() {
+        //     // var profile_id = $(this).data('id'); 
+        //     var profile_id = $(this).closest('.list-group-item').data('id')  
+        //     var username =   $(this).closest('.list-group-item').data('user')
+        //     // $(this).closest('.list-group-item').find('.by').text()
+        //     // alert(profile_id)
+        //     // alert(username)
+        //     // alert('<%-urlPath%>'+'/'+ username +'/'+profile_id)
+        //     $.ajax({
+        //             url: '<%-urlPath%>'+'/'+ username +'/'+profile_id,
+        //             type: 'DELETE',
+        //             success: function(result) {
+        //                 console.log(result.message);
+        //                 var itemToRemove = '#sth'+ profile_id;
+        //                 $(itemToRemove).remove();
+        //             },
+        //             error: function(result){
+        //                 alert("Unable to delete review.");
+        //                 console.log("********************help",result.message);
+        //             } 
+        //         });  
+        //     });
             $('.editBtn').click(function () {
-                var username =  $(this).closest('.list-group-item').data('transactionid');
-                alert(username)
+                var username =  $(this).closest('.list-group-item').data('id');
+                //alert(username)
                 location.href = "http://localhost:3000/editReview/"+username;
             });
         </script>

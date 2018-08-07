@@ -114,21 +114,21 @@ exports.uploadImage = function(req,res){
 
 
 // delete reviews
-exports.delete = function (req, res) {
-    var username = req.params.username;
-    console.log("*********************************sjcwc",username);
-    var record_num = req.params.profile_id;
-    console.log("deleting reviews " + record_num);
-    Profile.destroy({where: {id: record_num}}).then((deletedReview)=> {
-        if (!deletedReview) {
-            return res.send(400, {
-                message: "error"
-            });
-        }
+// exports.delete = function (req, res) {
+//     var username = req.params.username;
+//     console.log("*********************************sjcwc",username);
+//     var record_num = req.params.profile_id;
+//     console.log("deleting reviews " + record_num);
+//     Profile.destroy({where: {id: record_num}}).then((deletedReview)=> {
+//         if (!deletedReview) {
+//             return res.send(400, {
+//                 message: "error"
+//             });
+//         }
 
-        res.status(200).send({ message: "Deleted reviews :" + record_num});
-    })
-}
+//         res.status(200).send({ message: "Deleted reviews :" + record_num});
+//     })
+// }
 
 
 // redirects to another profile page
@@ -155,6 +155,7 @@ exports.browseProfiles = function (req, res) {
                         Profile.findAll({
                             where:{targetUsername: username}
                         }).then(function(profile){
+                            profile = profile.sort(sortBy('-created'))
                             ListingModel.findAll({
                                 attributes: ['id', 'name','itemImage', 'group', 'hobby', 'category', 'by'],
                                 where:{by: record_username}
@@ -217,8 +218,8 @@ exports.delete =  function (req, res) {
 
 exports.editRecord = function (req, res) {
     var record_num = req.params.id;
-    transaction.findById(record_num).then(function (transaction) {
-        Profile.find({where:{transactionId: record_num}}).then(function(profile){
+    Profile.findById(record_num).then(function(profile){
+        transaction.findById(profile.transactionId).then(function (transaction) {
             console.log("*****************************profile",profile);
             res.render('editActivity', {
                 title: "Adamire - Review",

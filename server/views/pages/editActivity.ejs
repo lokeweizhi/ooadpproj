@@ -89,6 +89,7 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
                         <div class="modal-header">
+                            
                             <% if (transaction.contactName == currentUser) { %>
                                 <h2 style="font-weight: bold;"><%=webTitle%> on @<%=transaction.username%></h2>   
                             <% } else if(transaction.username == currentUser) { %>

@@ -28,7 +28,7 @@
                 <% if (login) { %>
                     <ul>
                         <li style="margin-right: 30px;"><a href="/notifications"><i class="fa fa-bell-o fa-lg" aria-hidden="true" style="color:white;"></i></a></li>
-                        <li style="margin-right: 15px;"><a href="/messages"><i class="fa fa-comment-o fa-lg" aria-hidden="true" style="color:white;"></i></a></li>
+                        <li style="margin-right: 15px;"><a href="/inboxMessage"><i class="fa fa-comment-o fa-lg" aria-hidden="true" style="color:white;"></i></a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-list fa-lg" aria-hidden="true" style="color:white;"></i>
@@ -36,7 +36,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" style="color:black;" href="/listing"><i class="fa fa-dollar"></i>&nbsp&nbspSell item</a>
                                 <a class="dropdown-item" style="color:black;" href="/offers"><i class="fa fa-tags"></i>&nbsp&nbspView Offers</a>
-                                <a class="dropdown-item" style="color:black;" href="#"><i class="fa fa-bookmark"></i>&nbsp&nbspBookmarks</a>
+                                <a class="dropdown-item" style="color:black;" href="/transactions"><i class="fa fa-book"></i>&nbsp&nbspTransactions</a>
                                 <a class="dropdown-item" style="color:black;" href="/ewallet"><i class="fa fa-credit-card"></i>&nbsp&nbspE-wallet</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" style="color:black;" href="/settings"><i class="fa fa-cog"></i>&nbsp&nbspSettings</a>
@@ -70,9 +70,6 @@
                 <div class="clear"></div>
             </div>
             <div class="mid-grid-right">
-                <form>
-                    <input type="text" placeholder="What Are You Looking for?" style = "margin-left: -3.5em" />
-                </form>
             </div> 
         </div>
     </div>
